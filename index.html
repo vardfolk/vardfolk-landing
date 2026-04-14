@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vardfolk — Care, together</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ochre: #C4956A;
+    --ochre-light: rgba(196,149,106,0.12);
+    --ochre-border: rgba(196,149,106,0.25);
+    --terracotta: #D4785A;
+    --bark: #1E1916;
+    --bark-soft: #3A2E28;
+    --linen: #F5F0EB;
+    --linen-deep: #EDE4D8;
+    --linen-deeper: #E4D9CC;
+    --sand: #E8BC92;
+    --text: #1E1916;
+    --text-secondary: #6B5A4E;
+    --text-muted: #A89278;
+    --white: #FFFFFF;
+    --card-shadow: 0 2px 24px rgba(30,25,22,0.08), 0 1px 4px rgba(30,25,22,0.04);
+    --card-shadow-hover: 0 8px 40px rgba(30,25,22,0.12), 0 2px 8px rgba(30,25,22,0.06);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--linen);
+    color: var(--text);
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245,240,235,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ochre-border);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0px;
+  }
+
+  .nav-logo span { color: var(--ochre); }
+
+  .nav-logo svg { flex-shrink: 0; margin-right: 2px; }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--bark); }
+
+  .btn-nav {
+    background: #B8865E;
+    color: #fff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+
+  .btn-nav:hover {
+    background: #A67550;
+    transform: translateY(-1px);
+    color: #fff !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 140px 4rem 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .hero-text {
+    max-width: 560px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--ochre-light);
+    border: 1px solid var(--ochre-border);
+    border-radius: 100px;
+    padding: 0.3rem 0.85rem;
+    font-size: 0.775rem;
+    font-weight: 500;
+    color: var(--ochre);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--ochre);
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(3rem, 5vw, 4.25rem);
+    font-weight: 600;
+    line-height: 1.05;
+    color: var(--bark);
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--ochre);
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 2.25rem;
+    font-weight: 300;
+    max-width: 420px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--ochre);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    display: inline-block;
+    box-shadow: 0 2px 12px rgba(196,149,106,0.35);
+  }
+
+  .btn-primary:hover {
+    background: #B8865E;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(196,149,106,0.4);
+  }
+
+  .hero-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+
+  /* ── HERO VISUAL ── */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    width: 100%;
+    justify-self: end;
+  }
+
+  .app-mockup {
+    width: 100%;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--card-shadow-hover);
+    overflow: hidden;
+    border: 1px solid var(--linen-deeper);
+    transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
+    transition: transform 0.4s ease;
+  }
+
+  .app-mockup:hover {
+    transform: perspective(1000px) rotateY(-1deg) rotateX(0deg);
+  }
+
+  .mockup-bar {
+    background: var(--linen);
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mockup-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+  }
+
+  .mockup-dot:nth-child(1) { background: #FF5F57; }
+  .mockup-dot:nth-child(2) { background: #FEBC2E; }
+  .mockup-dot:nth-child(3) { background: #28C840; }
+
+  .mockup-url {
+    width: 270px;
+    flex-shrink: 0;
+    background: var(--linen-deeper);
+    border-radius: 4px;
+    height: 14px;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 6px;
+  }
+
+  .mockup-url-text {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .mockup-nav {
+    background: var(--white);
+    padding: 4px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mockup-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--bark);
+  }
+
+  .mockup-logo span { color: var(--ochre); }
+
+  .mockup-pill {
+    background: var(--linen);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 9px;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    margin: 0 auto;
+  }
+
+  .mockup-bar {
+    background: var(--linen);
+    padding: 3px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .mockup-bar-icons {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: auto;
+  }
+
+  .mockup-bar-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: var(--linen-deeper);
+    opacity: 0.7;
+  }
+
+  .mockup-tabs {
+    display: flex;
+    gap: 0;
+    padding: 0 16px;
+    background: var(--white);
+    overflow: hidden;
+    align-items: center;
+  }
+
+  .mockup-tab {
+    font-size: 8.5px;
+    padding: 6px 9px;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+  }
+
+  .mockup-tab.active {
+    color: var(--bark);
+    font-weight: 600;
+    background: var(--linen);
+    border-radius: 20px;
+    padding: 3px 8px;
+  }
+
+  .mockup-body {
+    padding: 14px;
+    background: var(--linen);
+  }
+
+  .mockup-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .mockup-card {
+    background: var(--white);
+    border-radius: 10px;
+    padding: 10px;
+    border-top: 2px solid var(--linen-deeper);
+  }
+
+  .mockup-card.accent { border-top-color: rgba(196,149,106,0.4); }
+  .mockup-card.full { grid-column: 1 / -1; }
+
+  .mockup-card-label {
+    font-size: 7.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .mockup-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 5px;
+  }
+
+  .mockup-dot-sm {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--ochre);
+    flex-shrink: 0;
+  }
+
+  .mockup-dot-sm.green { background: #5CB85C; }
+  .mockup-dot-sm.muted { background: var(--linen-deeper); }
+
+  .mockup-item-text {
+    font-size: 8px;
+    color: var(--text-secondary);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .mockup-badge {
+    background: var(--ochre-light);
+    border-radius: 4px;
+    padding: 2px 5px;
+    font-size: 7px;
+    color: var(--ochre);
+    font-weight: 600;
+    margin-left: auto;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .mockup-avatar-row {
+    display: flex;
+    gap: 4px;
+    margin-top: 6px;
+  }
+
+  .mockup-avatar {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    font-weight: 700;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* floating decoration */
+  .hero-visual::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(196,149,106,0.15) 0%, transparent 70%);
+    top: -60px; right: -60px;
+    pointer-events: none;
+  }
+
+  .hero-visual::after {
+    content: '';
+    position: absolute;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212,120,90,0.1) 0%, transparent 70%);
+    bottom: -40px; left: -40px;
+    pointer-events: none;
+  }
+
+  /* ── HERO STATS ── */
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    width: fit-content;
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 0 1.75rem 0 0;
+  }
+
+  .hero-stat:first-child { padding-left: 0; }
+  .hero-stat:last-child { padding-right: 0; }
+
+  .hero-stat-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+  }
+
+  .hero-stat-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 300;
+    white-space: nowrap;
+  }
+
+  .hero-stat-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--linen-deeper);
+    margin: 0 1.75rem 0 0;
+    flex-shrink: 0;
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    padding: 40px 2rem 100px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .features-wrap {
+    background: var(--linen);
+    position: relative;
+    z-index: 0;
+  }
+
+  .section-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 0.75rem;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 600;
+    color: var(--bark);
+    text-align: center;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.15;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-sub {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    text-align: center;
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  .bento-card {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 1.75rem;
+    border: 1px solid var(--linen-deeper);
+    border-top: 3px solid var(--linen-deeper);
+    box-shadow: var(--card-shadow);
+    transition: transform 0.25s, box-shadow 0.25s, border-top-color 0.25s;
+    position: relative;
+    z-index: 1;
+  }
+
+  .bento-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--card-shadow-hover);
+    border-top-color: rgba(196,149,106,0.4);
+  }
+
+  .bento-card.wide { grid-column: span 2; }
+  .bento-card.tall { grid-row: span 2; }
+
+  .bento-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--ochre-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .bento-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .bento-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.01em;
+  }
+
+  .bento-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 100px 2rem;
+    background: var(--linen-deep);
+    border-top: 1px solid var(--linen-deeper);
+    border-bottom: 1px solid var(--linen-deeper);
+  }
+
+  .how-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3.5rem;
+    position: relative;
+  }
+
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: calc(16.67% + 28px);
+    right: calc(16.67% + 28px);
+    height: 1px;
+    background: linear-gradient(to right, var(--ochre-border), var(--ochre), var(--ochre-border));
+  }
+
+  .step { text-align: center; }
+
+  .step-number {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    background: var(--ochre);
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+    box-shadow: 0 4px 16px rgba(196,149,106,0.35);
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bark);
+    margin-bottom: 0.5rem;
+  }
+
+  .step-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* ── PRICING ── */
+  .pricing {
+    padding: 100px 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .pricing-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid var(--linen-deeper);
+    box-shadow: var(--card-shadow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pricing-card.featured {
+    border: 2px solid var(--ochre);
+    box-shadow: 0 8px 40px rgba(196,149,106,0.2);
+  }
+
+  .pricing-badge {
+    position: absolute;
+    top: -1px; right: 1.5rem;
+    background: var(--ochre);
+    color: var(--white);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 0 0 8px 8px;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .pricing-tier {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .pricing-price {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--bark);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .pricing-price span {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0;
+  }
+
+  .pricing-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  .pricing-features {
+    list-style: none;
+    margin-bottom: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pricing-features li {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 300;
+  }
+
+  .pricing-features li::before {
+    content: '✓';
+    color: var(--ochre);
+    font-weight: 700;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .btn-pricing {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+  }
+
+  .btn-pricing-outline {
+    background: none;
+    border: 1.5px solid var(--ochre-border);
+    color: var(--bark);
+  }
+
+  .btn-pricing-outline:hover {
+    border-color: var(--ochre);
+    background: var(--ochre-light);
+  }
+
+  .btn-pricing-solid {
+    background: var(--ochre);
+    border: none;
+    color: var(--white);
+    box-shadow: 0 2px 12px rgba(196,149,106,0.35);
+  }
+
+  .btn-pricing-solid:hover {
+    background: #B8865E;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(196,149,106,0.4);
+  }
+
+  .pricing-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 1.25rem;
+    font-weight: 300;
+  }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    padding: 100px 2rem;
+    text-align: center;
+    background: var(--bark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(196,149,106,0.2) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .final-cta-petal {
+    position: absolute;
+    bottom: -40px;
+    right: -40px;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .final-cta-inner { position: relative; z-index: 1; }
+
+  .final-cta h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+    line-height: 1.15;
+  }
+
+  .final-cta h2 em {
+    font-style: normal;
+    color: var(--sand);
+  }
+
+  .final-cta p {
+    font-size: 1rem;
+    color: rgba(245,240,235,0.6);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+  }
+
+  .btn-final {
+    background: var(--ochre);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    padding: 0.9rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+    display: inline-block;
+    box-shadow: 0 4px 20px rgba(196,149,106,0.4);
+  }
+
+  .btn-final:hover {
+    background: #D4A070;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(196,149,106,0.5);
+  }
+
+  .final-note {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: rgba(245,240,235,0.4);
+    font-weight: 300;
+  }
+
+  /* ── FOOTER ── */
+  .pricing-badge { display: none; }
+
+  .pricing-card.featured {
+    border: 2px solid var(--ochre);
+    box-shadow: 0 8px 40px rgba(196,149,106,0.2);
+    background: #FBF5EF;
+  }
+
+  footer {
+    background: var(--bark);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(245,240,235,0.7);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer-logo span { color: var(--ochre); }
+
+  .footer-links {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    color: rgba(245,240,235,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: rgba(245,240,235,0.8); }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: rgba(245,240,235,0.3);
+    font-weight: 300;
+    white-space: nowrap;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+  .reveal-delay-5 { transition-delay: 0.5s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 120px 1.25rem 60px;
+      gap: 2.5rem;
+      text-align: center;
+    }
+
+    .hero-text {
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-sub {
+      max-width: 100%;
+      text-align: center;
+    }
+
+    .hero-actions {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .btn-primary {
+      width: auto;
+      padding: 0.8rem 1.5rem;
+    }
+
+    .hero-note {
+      text-align: center;
+    }
+
+    .hero-stats {
+      justify-content: center;
+    }
+
+    .hero-stat-divider {
+      background: rgba(228,217,204,0.5);
+    }
+
+    .hero-eyebrow {
+      display: none;
+    }
+
+    .hero-visual {
+      max-width: 480px;
+      width: 100%;
+      justify-self: center;
+      margin: 1rem auto 0;
+    }
+
+    nav {
+      border-bottom: none;
+    }
+
+    .bento-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .bento-card {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background: transparent;
+      border-top: none !important;
+    }
+
+    .bento-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .bento-card.wide {
+      display: none;
+    }
+
+    /* Show shared task board as regular card on mobile */
+    .bento-card:first-child {
+      display: block;
+      grid-column: span 1;
+    }
+
+    .bento-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+    }
+
+    .bento-header {
+      margin-bottom: 0.3rem;
+      gap: 0.5rem;
+    }
+
+    .bento-title {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .bento-desc {
+      font-size: 0.775rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    .features {
+      padding-bottom: 2rem;
+    }
+
+    .btn-pricing-outline {
+      border: 1.5px solid var(--ochre-border);
+      background: var(--linen);
+      color: var(--bark);
+      font-weight: 600;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+    }
+
+    .nav-logo svg {
+      width: 34px;
+      height: 34px;
+    }
+
+    .steps {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .steps::before { display: none; }
+
+    .pricing-grid { grid-template-columns: 1fr; }
+
+    .nav-links a { display: none; }
+
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (min-width: 769px) and (max-width: 1100px) {
+    .hero {
+      gap: 1.5rem;
+      padding: 140px 2rem 60px;
+    }
+
+    .app-mockup {
+      max-width: 380px;
+    }
+  }
+
+  @media (min-width: 900px) and (max-width: 1399px) {
+    .hero {
+      gap: 2rem;
+      padding: 140px 3rem 60px;
+    }
+
+    .hero-text {
+      max-width: 100%;
+    }
+
+    .hero-sub {
+      max-width: 100%;
+    }
+
+    .hero-visual {
+      justify-self: center;
+    }
+  }
+
+  @media (min-width: 1400px) {
+    .hero {
+      padding: 160px 5rem 80px;
+      gap: 4rem;
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    h1 {
+      font-size: 5rem;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+    }
+
+    .hero-visual {
+      justify-self: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+      <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+    </svg>
+    Vard<span>folk</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="https://app.vardfolk.com" class="btn-nav">Create your care circle</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="position: relative;">
+
+  <div class="hero-text">
+    <div class="hero-eyebrow reveal">Care coordination</div>
+    <h1 class="reveal reveal-delay-1">Care,<br><em>together.</em></h1>
+    <p class="hero-sub reveal reveal-delay-2">One shared space for tasks, appointments, medications, and updates.</p>
+    <div class="hero-actions reveal reveal-delay-3">
+      <a href="https://app.vardfolk.com" class="btn-primary">Start your care circle →</a>    </div>
+    <p class="hero-note reveal reveal-delay-4" style="margin-top: 0.75rem;">No credit card required · Free forever for up to 5 members</p>
+
+    <!-- Stat row -->
+    <div class="hero-stats reveal reveal-delay-5">
+      <div class="hero-stat">
+        <span class="hero-stat-value">Free</span>
+        <span class="hero-stat-label">to start</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">5 min</span>
+        <span class="hero-stat-label">setup time</span>
+      </div>
+      <div class="hero-stat-divider"></div>
+      <div class="hero-stat">
+        <span class="hero-stat-value">Any device</span>
+        <span class="hero-stat-label">web, iOS & Android</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal reveal-delay-2">
+    <div class="app-mockup">
+      <div class="mockup-bar">
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+        <div class="mockup-dot"></div>
+        <div class="mockup-url">
+          <span class="mockup-url-text">app.vardfolk.com</span>
+        </div>
+        <div class="mockup-bar-icons">
+          <div class="mockup-bar-icon" style="border-radius:50%;"></div>
+        </div>
+      </div>
+      <div class="mockup-nav">
+        <span class="mockup-logo">Vard<span>folk</span></span>
+        <div class="mockup-pill" style="margin: 0 auto;">Care Circle for Margaret ↓</div>
+        <div style="width: 40px;"></div>
+      </div>
+      <div class="mockup-tabs">
+        <div class="mockup-tab active">Home</div>
+        <div class="mockup-tab">Updates</div>
+        <div class="mockup-tab">Tasks</div>
+        <div class="mockup-tab">Medications</div>
+        <div class="mockup-tab">Messages</div>
+        <div class="mockup-tab">Vault</div>
+        <div class="mockup-tab">Members</div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-grid">
+          <div class="mockup-card accent">
+            <div class="mockup-card-label">Upcoming Appointments</div>
+            <div class="mockup-item">
+              <div class="mockup-dot-sm"></div>
+              <span class="mockup-item-text">Dr. Nguyen · Cardiology</span>
+              <div class="mockup-badge">Thu</div>
+            </div>
+            <div class="mockup-item">
+              <div class="mockup-dot-sm muted"></div>
+              <span class="mockup-item-text">Physical therapy</span>
+              <div class="mockup-badge">Fri</div>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-label">Pending Tasks</div>
+            <div class="mockup-item">
+              <div class="mockup-dot-sm"></div>
+              <span class="mockup-item-text">Pick up prescription</span>
+            </div>
+            <div class="mockup-item">
+              <div class="mockup-dot-sm muted"></div>
+              <span class="mockup-item-text">Call insurance</span>
+            </div>
+            <div class="mockup-item">
+              <div class="mockup-dot-sm green"></div>
+              <span class="mockup-item-text" style="text-decoration:line-through;opacity:0.5;">Grocery run</span>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-label">Medications</div>
+            <div class="mockup-item">
+              <div class="mockup-dot-sm green"></div>
+              <span class="mockup-item-text">Lisinopril 10mg</span>
+              <div class="mockup-badge" style="background:rgba(92,184,92,0.12);color:#3a7a3a;">Taken</div>
+            </div>
+            <div class="mockup-item">
+              <div class="mockup-dot-sm muted"></div>
+              <span class="mockup-item-text">Metformin 500mg</span>
+              <div class="mockup-badge">8pm</div>
+            </div>
+          </div>
+          <div class="mockup-card">
+            <div class="mockup-card-label">Circle Members</div>
+            <div class="mockup-avatar-row">
+              <div class="mockup-avatar" style="background:#C4956A;">S</div>
+              <div class="mockup-avatar" style="background:#D4785A;">J</div>
+              <div class="mockup-avatar" style="background:#7B9E87;">M</div>
+              <div class="mockup-avatar" style="background:#8B7BA8;">R</div>
+              <div class="mockup-avatar" style="background:#A89278;">+2</div>
+            </div>
+            <div class="mockup-item" style="margin-top:6px;">
+              <div class="mockup-dot-sm green"></div>
+              <span class="mockup-item-text">Sarah posted an update</span>
+            </div>
+          </div>
+          <div class="mockup-card full" style="padding: 8px 10px;">
+            <div class="mockup-card-label">Recent Messages</div>
+            <div class="mockup-item" style="justify-content: space-between;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div class="mockup-dot-sm"></div>
+                <span class="mockup-item-text" style="font-weight:500;">Sarah</span>
+              </div>
+              <span class="mockup-item-text" style="opacity:0.7;flex:1;margin-left:6px;">She had a good morning today</span>
+              <span class="mockup-item-text" style="opacity:0.4;flex-shrink:0;margin-left:4px;">2m</span>
+            </div>
+            <div class="mockup-item" style="justify-content: space-between;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div class="mockup-dot-sm muted"></div>
+                <span class="mockup-item-text" style="font-weight:500;">James</span>
+              </div>
+              <span class="mockup-item-text" style="opacity:0.7;flex:1;margin-left:6px;">I can take her to PT on Friday</span>
+              <span class="mockup-item-text" style="opacity:0.4;flex-shrink:0;margin-left:4px;">1h</span>
+            </div>
+            <div class="mockup-item" style="justify-content: space-between;">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <div class="mockup-dot-sm muted"></div>
+                <span class="mockup-item-text" style="font-weight:500;">Mom</span>
+              </div>
+              <span class="mockup-item-text" style="opacity:0.7;flex:1;margin-left:6px;">Thank you all so much 🙏</span>
+              <span class="mockup-item-text" style="opacity:0.4;flex-shrink:0;margin-left:4px;">3h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="features-wrap" style="position: relative; overflow: visible;">
+  <svg style="position: absolute; right: -180px; top: -260px; width: 520px; height: 520px; opacity: 0.13; pointer-events: none; z-index: 0;" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+    <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+    <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+  </svg>
+  <svg style="position: absolute; left: -120px; top: -40px; width: 320px; height: 320px; opacity: 0.11; pointer-events: none; z-index: 0;" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+    <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+    <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+  </svg>
+<section class="features" id="features">
+  <p class="section-label reveal">Everything you need</p>
+  <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 3rem; font-size: clamp(2rem, 3.5vw, 3rem);">One place for your whole circle</h2>
+
+  <div class="bento-grid">
+    <div class="bento-card wide reveal reveal-delay-1">
+      <div class="bento-header">
+        <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><path d="M4 5h2v14h12V5h2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg></div>
+        <div class="bento-title">Shared task board</div>
+      </div>
+      <div class="bento-desc">Assign tasks, set due dates, and track what's done — everyone sees the same list. Add notes, attach files, and mark items complete so nothing slips through. No more wondering who's handling what.</div>
+    </div>
+    <div class="bento-card reveal reveal-delay-2">
+      <div class="bento-header">
+        <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18"/></svg></div>
+        <div class="bento-title">Medications & allergies</div>
+      </div>
+      <div class="bento-desc">Track medications, doses, and schedules so the whole circle stays informed.</div>
+    </div>
+    <div class="bento-card reveal reveal-delay-1">
+      <div class="bento-header">
+        <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="bento-title">Appointment calendar</div>
+      </div>
+      <div class="bento-desc">Log appointments with notes and assignees so everyone knows who's going.</div>
+    </div>
+    <div class="bento-card reveal reveal-delay-2">
+      <div class="bento-header">
+        <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="bento-title">Family messaging</div>
+      </div>
+      <div class="bento-desc">One dedicated thread for your circle — no more scattered texts.</div>
+    </div>
+    <div class="bento-card reveal reveal-delay-3">
+      <div class="bento-header">
+        <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+        <div class="bento-title">Care updates</div>
+      </div>
+      <div class="bento-desc">Post daily updates with mood tags and photos so everyone stays connected.</div>
+    </div>
+    <div class="bento-card reveal reveal-delay-1">
+      <div class="bento-header">
+        <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="bento-title">Document vault</div>
+      </div>
+      <div class="bento-desc">Store insurance cards, advance directives, and discharge summaries — always findable.</div>
+    </div>
+    <div class="bento-card wide reveal reveal-delay-2">
+      <div class="bento-header">
+        <div class="bento-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <div class="bento-title">Role-based access</div>
+      </div>
+      <div class="bento-desc">Invite family, friends, and caregivers with the right level of access — admins, contributors, or viewers. Admins manage the circle and its members, contributors can add and update content, and viewers stay informed without making changes. Everyone sees exactly what they need to, nothing more.</div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="how-inner">
+    <p class="section-label reveal">Simple by design</p>
+    <h2 class="section-title reveal reveal-delay-1">Up and running in minutes</h2>
+    <p class="section-sub reveal reveal-delay-2">No training required. Just create your circle, invite your people, and start coordinating.</p>
+
+    <div class="steps">
+      <div class="step reveal reveal-delay-1">
+        <div class="step-number">1</div>
+        <div class="step-title">Create your circle</div>
+        <div class="step-desc">Sign up and create a care circle for your loved one. Add their name and a few details to get started.</div>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-number">2</div>
+        <div class="step-title">Invite your people</div>
+        <div class="step-desc">Invite family members, friends, or caregivers by email. Set roles so everyone has the right level of access.</div>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-number">3</div>
+        <div class="step-title">Coordinate together</div>
+        <div class="step-desc">Share tasks, track medications, log appointments, and stay connected — all in one shared space.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <p class="section-label reveal">Simple pricing</p>
+  <h2 class="section-title reveal reveal-delay-1">Free to start, Pro when you need more</h2>
+  <p class="section-sub reveal reveal-delay-2">No surprise charges. No hidden fees. Just honest pricing for families.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card reveal reveal-delay-1">
+      <div class="pricing-tier">Free</div>
+      <div class="pricing-price">$0</div>
+      <div class="pricing-desc">Everything you need to get started. No credit card required.</div>
+      <ul class="pricing-features">
+        <li>1 care circle</li>
+        <li>Up to 5 circle members</li>
+        <li>Tasks, appointments & medications</li>
+        <li>Family messaging</li>
+        <li>Care updates & journal</li>
+        <li>Document vault (200MB)</li>
+      </ul>
+      <a href="https://app.vardfolk.com" class="btn-pricing btn-pricing-outline">Create your free circle</a>
+    </div>
+    <div class="pricing-card featured reveal reveal-delay-2">
+      <div class="pricing-badge">Most popular</div>
+      <div class="pricing-tier">Pro</div>
+      <div class="pricing-price">$9 <span>/ month</span></div>
+      <div class="pricing-desc">For families managing complex care across multiple circles. Includes a 14-day free trial.</div>
+      <ul class="pricing-features">
+        <li>Unlimited care circles</li>
+        <li>Unlimited circle members</li>
+        <li>Everything in Free</li>
+        <li>1GB document storage</li>
+        <li>Priority support</li>
+        <li>Or $79 / year — save 27%</li>
+      </ul>
+      <a href="https://app.vardfolk.com" class="btn-pricing btn-pricing-solid">Start free trial</a>
+    </div>
+  </div>
+  <p class="pricing-note reveal">14-day free trial · No credit card required · Cancel anytime</p>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <svg class="final-cta-petal" width="320" height="320" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+    <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
+    <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.3"/>
+  </svg>
+  <div class="final-cta-inner">
+    <h2 class="reveal">Your whole circle.<br><em>One shared space.</em></h2>
+    <p class="reveal reveal-delay-1">Start your care circle today — it takes less than two minutes.</p>
+    <a href="https://app.vardfolk.com" class="btn-final reveal reveal-delay-2">Start your care circle →</a>
+    <p class="final-note reveal reveal-delay-3">No credit card required</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
+      <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.55"/>
+    </svg><span style="margin-left:3px;">Vard</span><span style="color:#C4956A;">folk</span>
+  </a>
+  <div class="footer-links">
+    <a href="#features">Features</a>
+    <a href="#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <span class="footer-copy">© 2026 Vardfolk</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Trigger hero reveals immediately
+  setTimeout(() => {
+    document.querySelectorAll('.hero .reveal').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 100);
+</script>
+
+</body>
+</html>
