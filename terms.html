@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Vardfolk</title>
+<meta name="description" content="The terms that govern your use of Vardfolk.">
+<meta name="theme-color" content="#F5F0EB">
+<meta name="robots" content="index, follow">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ochre: #C4956A; --ochre-light: rgba(196,149,106,0.12); --ochre-border: rgba(196,149,106,0.25);
+    --terracotta: #D4785A; --bark: #1E1916; --linen: #F5F0EB; --linen-deep: #EDE4D8; --linen-deeper: #E4D9CC;
+    --sand: #E8BC92; --text: #1E1916; --text-secondary: #6B5A4E; --text-muted: #A89278; --white: #FFFFFF;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.65; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 2rem; height: 64px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(245,240,235,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ochre-border);
+  }
+  .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 500; color: var(--bark); text-decoration: none; letter-spacing: 0.01em; display: flex; align-items: center; }
+  .nav-logo span { color: var(--ochre); }
+  .nav-logo svg { flex-shrink: 0; margin-right: 4px; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a { font-size: 0.875rem; color: var(--text-secondary); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--bark); }
+  .btn-nav { background: #B8865E; color: #fff !important; border: none; border-radius: 8px; padding: 0.5rem 1.1rem; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .btn-nav:hover { background: #A67550; transform: translateY(-1px); }
+
+  .doc-wrap { max-width: 760px; margin: 0 auto; padding: 130px 1.5rem 80px; }
+  .doc-header { margin-bottom: 2.5rem; }
+  .doc-eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ochre); margin-bottom: 0.75rem; }
+  .doc-wrap h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 600; color: var(--bark); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
+  .doc-updated { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; }
+  .doc-wrap h2 { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 600; color: var(--bark); letter-spacing: -0.01em; margin: 2.75rem 0 0.85rem; padding-top: 1.5rem; border-top: 1px solid var(--linen-deeper); }
+  .doc-wrap h2:first-of-type { border-top: none; padding-top: 0; }
+  .doc-wrap p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1rem; font-weight: 300; }
+  .doc-wrap strong { color: var(--bark); font-weight: 500; }
+  .doc-wrap ul { margin: 0 0 1.25rem 1.25rem; }
+  .doc-wrap li { font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 300; padding-left: 0.35rem; }
+  .doc-wrap li::marker { color: var(--ochre); }
+  .doc-wrap a { color: var(--ochre); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-wrap a:hover { color: var(--terracotta); }
+  .doc-intro { background: var(--white); border-radius: 14px; border-top: 3px solid var(--ochre); padding: 1.5rem 1.75rem; margin-bottom: 2rem; box-shadow: 0 2px 24px rgba(30,25,22,0.06); }
+  .doc-intro p:last-child { margin-bottom: 0; }
+
+  footer { background: var(--bark); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+  .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: rgba(245,240,235,0.7); text-decoration: none; display: flex; align-items: center; }
+  .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
+  .footer-links a { font-size: 0.8rem; color: rgba(245,240,235,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: rgba(245,240,235,0.8); }
+  .footer-copy { font-size: 0.8rem; color: rgba(245,240,235,0.3); font-weight: 300; white-space: nowrap; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links a:not(.btn-nav) { display: none; }
+    .doc-wrap { padding: 110px 1.25rem 60px; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+      <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+    </svg>
+    Vard<span>folk</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="https://app.vardfolk.com" class="btn-nav">Create your care circle</a>
+  </div>
+</nav>
+
+<main class="doc-wrap">
+  <div class="doc-header">
+    <div class="doc-eyebrow">Legal</div>
+    <h1>Terms of Service</h1>
+    <p class="doc-updated">Last updated: June 18, 2026</p>
+  </div>
+
+  <div class="doc-intro">
+    <p>These Terms of Service (“Terms”) are a binding agreement between you and <strong>Vardfolk</strong> — operated by Vardfolk, a sole proprietorship, located in California, United States (“Vardfolk,” “we,” “us,” or “our”). They govern your use of our website at <a href="https://vardfolk.com">vardfolk.com</a>, our applications at app.vardfolk.com and on iOS and Android, and related services (together, the “Services”).</p>
+    <p>By creating an account or using the Services, you agree to these Terms and to our <a href="/privacy">Privacy Policy</a>. <strong>If you do not agree, do not use the Services.</strong> The Services are intended for users who are at least 18 years old. For questions, contact us at <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>.</p>
+  </div>
+
+  <h2>1. What Vardfolk is — and what it is not</h2>
+  <p>Vardfolk is a <strong>care coordination platform</strong> that helps families and care teams organize and communicate around the care of an aging or ill loved one — tasks, appointments, medications, documents, messages, and updates, shared within a “care circle.”</p>
+  <p><strong>Vardfolk is a coordination and organization tool only. It is not a medical provider, does not provide medical, clinical, pharmacological, or professional advice, and is not a substitute for the judgment of qualified healthcare professionals.</strong> Medications, allergies, appointments, and other health-related information are stored for coordination purposes only. Vardfolk does not provide drug-interaction checking, dosing guidance, or clinical decision support. Always rely on your healthcare providers and original documents for medical decisions.</p>
+  <p>Some Vardfolk features use artificial intelligence (described in our Privacy Policy). <strong>AI-assisted output can be inaccurate or incomplete and must not be relied upon for medical decisions.</strong> Always verify important information — especially dates, dosages, and medical details — against your original documents.</p>
+  <p>The Services are not tailored to comply with industry-specific regulations such as HIPAA or GLBA. If your use would be subject to such laws, you may not use the Services for that purpose.</p>
+
+  <h2>2. Your account</h2>
+  <p>You must provide accurate information when you register and keep it up to date. You are responsible for maintaining the confidentiality of your account credentials and for all activity under your account. Notify us promptly of any unauthorized use. We may reclaim usernames or remove accounts in appropriate circumstances.</p>
+
+  <h2>3. Care circles, members, and your content</h2>
+  <p>Vardfolk lets you create care circles and invite others to join with a role (administrator, contributor, or viewer). You control whom you invite.</p>
+  <p><strong>Your content.</strong> You retain ownership of the information and files you add to Vardfolk (“Your Content”). You grant Vardfolk a limited license to host, store, process, display, and transmit Your Content <strong>solely to operate and provide the Services to you and the members of your care circle</strong> — including processing through the service providers described in our Privacy Policy.</p>
+  <p><strong>Visibility.</strong> Your Content is shared with the members of your care circle according to their roles. It is <strong>not made public</strong> by Vardfolk and is not posted to any public area or third-party site. You are responsible for whom you invite into a circle and what you choose to share there.</p>
+  <p><strong>Responsibility for content.</strong> You represent that you have the right to add Your Content, including any information about a care recipient or third parties, and that doing so does not violate the law or the rights of others. Do not upload content that is unlawful, infringing, or that you do not have permission to share.</p>
+
+  <h2>4. Acceptable use</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>Use the Services for any unlawful purpose or in violation of these Terms;</li>
+    <li>Access or attempt to access another user’s account or a care circle you have not been invited to;</li>
+    <li>Interfere with, disrupt, or compromise the security or integrity of the Services;</li>
+    <li>Scrape, data-mine, reverse engineer, or copy the Services except as permitted by law;</li>
+    <li>Impersonate another person or misrepresent your affiliation;</li>
+    <li>Upload malicious code or use the Services to harass, abuse, or harm others.</li>
+  </ul>
+  <p>We may suspend or terminate access for violations.</p>
+
+  <h2>5. Subscriptions and payments</h2>
+  <p>Vardfolk offers a free tier and paid “Plus” subscriptions. Paid subscriptions are billed in advance on a recurring basis (monthly or annually) through our payment processor, Stripe, and <strong>renew automatically</strong> until canceled. Prices are in U.S. dollars and may change with notice.</p>
+  <p>You can cancel at any time from your account settings or by contacting us; cancellation takes effect at the end of your current paid period. Except where required by law, payments are non-refundable. Paid plans may include a free trial as described at sign-up; if you do not cancel before the trial ends, the subscription begins and you will be charged.</p>
+
+  <h2>6. Intellectual property</h2>
+  <p>The Services — including the Vardfolk name, logo, software, design, and content we provide — are owned by Vardfolk and protected by intellectual property laws. We grant you a limited, non-exclusive, non-transferable, revocable license to use the Services for their intended purpose. This license does not include any right to copy, modify, distribute, or create derivative works from the Services except as permitted by law. If you send us feedback or suggestions, you grant us the right to use them without obligation to you.</p>
+
+  <h2>7. Privacy</h2>
+  <p>Your use of the Services is also governed by our <a href="/privacy">Privacy Policy</a>, which is incorporated into these Terms. It describes how we collect, use, and share information, including our use of AI providers and other subprocessors.</p>
+
+  <h2>8. Termination</h2>
+  <p>You may stop using the Services and delete your account at any time. We may suspend or terminate your access if you violate these Terms, if required by law, or to protect the Services or other users. What happens to care-circle data when you delete your account is described in our Privacy Policy. Provisions that by their nature should survive termination (including ownership, disclaimers, limitation of liability, and dispute resolution) will survive.</p>
+
+  <h2>9. Disclaimers</h2>
+  <p>THE SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, OR THAT ANY INFORMATION (INCLUDING AI-ASSISTED OUTPUT) WILL BE ACCURATE OR COMPLETE. YOU USE THE SERVICES AT YOUR OWN RISK. <strong>Vardfolk does not provide medical advice and is not responsible for medical decisions made using the Services.</strong></p>
+
+  <h2>10. Limitation of liability</h2>
+  <p>TO THE FULLEST EXTENT PERMITTED BY LAW, VARDFOLK WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, ARISING FROM OR RELATED TO YOUR USE OF THE SERVICES. OUR TOTAL LIABILITY FOR ANY CLAIM RELATED TO THE SERVICES WILL NOT EXCEED THE GREATER OF THE AMOUNT YOU PAID US IN THE SIX (6) MONTHS BEFORE THE CLAIM, OR USD $100. Some jurisdictions do not allow certain limitations, so some of these may not apply to you.</p>
+
+  <h2>11. Indemnification</h2>
+  <p>You agree to indemnify and hold Vardfolk harmless from claims, damages, and expenses (including reasonable legal fees) arising from your misuse of the Services, your violation of these Terms, or your violation of the rights of others, including in connection with content you add to a care circle.</p>
+
+  <h2>12. Governing law and dispute resolution</h2>
+  <p>These Terms are governed by the laws of the State of California, without regard to its conflict-of-law principles.</p>
+  <p><strong>Informal resolution first.</strong> If you have a dispute, contact us at <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a> and we will try in good faith to resolve it informally within 30 days.</p>
+  <p><strong>Arbitration.</strong> If we cannot resolve a dispute informally, it will be resolved by binding arbitration administered by the American Arbitration Association under its Commercial Arbitration Rules, on an individual basis, in San Diego, California. <strong>You and Vardfolk waive the right to a jury trial and to participate in a class action.</strong> Either party may bring an individual claim in small-claims court, and either party may seek injunctive relief for intellectual-property or unauthorized-access matters. Any claim must be brought within one (1) year.</p>
+
+  <h2>13. Changes to the Services and these Terms</h2>
+  <p>We may modify, suspend, or discontinue any part of the Services at any time. We may also update these Terms; when we do, we will revise the “Last updated” date and, for material changes, provide notice (such as by email to the address associated with your account, or in the app). Your continued use after an update means you accept the revised Terms.</p>
+
+  <h2>14. Miscellaneous</h2>
+  <p>These Terms, together with the Privacy Policy, are the entire agreement between you and Vardfolk regarding the Services. If any provision is found unenforceable, the rest remains in effect. Our failure to enforce a provision is not a waiver. You may not assign these Terms without our consent; we may assign them in connection with a merger, acquisition, or sale of assets.</p>
+
+  <h2>15. Contact</h2>
+  <p>Vardfolk — <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a> — California, United States.</p>
+</main>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:3px;">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
+      <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.55"/>
+    </svg><span>Vard</span><span style="color:#C4956A;">folk</span>
+  </a>
+  <div class="footer-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <span class="footer-copy">© 2026 Vardfolk</span>
+  </div>
+</footer>
+
+</body>
+</html>

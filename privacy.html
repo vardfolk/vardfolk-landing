@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Vardfolk</title>
+<meta name="description" content="How Vardfolk collects, uses, shares, and protects your information.">
+<meta name="theme-color" content="#F5F0EB">
+<meta name="robots" content="index, follow">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ochre: #C4956A;
+    --ochre-light: rgba(196,149,106,0.12);
+    --ochre-border: rgba(196,149,106,0.25);
+    --terracotta: #D4785A;
+    --bark: #1E1916;
+    --linen: #F5F0EB;
+    --linen-deep: #EDE4D8;
+    --linen-deeper: #E4D9CC;
+    --sand: #E8BC92;
+    --text: #1E1916;
+    --text-secondary: #6B5A4E;
+    --text-muted: #A89278;
+    --white: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--linen);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+  }
+
+  /* NAV (matches landing) */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245,240,235,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ochre-border);
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo span { color: var(--ochre); }
+  .nav-logo svg { flex-shrink: 0; margin-right: 4px; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--bark); }
+  .btn-nav {
+    background: #B8865E;
+    color: #fff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-nav:hover { background: #A67550; transform: translateY(-1px); }
+
+  /* DOC */
+  .doc-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 130px 1.5rem 80px;
+  }
+  .doc-header { margin-bottom: 2.5rem; }
+  .doc-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ochre);
+    margin-bottom: 0.75rem;
+  }
+  .doc-wrap h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .doc-updated {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+  .doc-wrap h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.01em;
+    margin: 2.75rem 0 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linen-deeper);
+  }
+  .doc-wrap h2:first-of-type { border-top: none; padding-top: 0; }
+  .doc-wrap h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bark);
+    margin: 1.75rem 0 0.6rem;
+  }
+  .doc-wrap p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+  .doc-wrap strong { color: var(--bark); font-weight: 500; }
+  .doc-wrap ul { margin: 0 0 1.25rem 1.25rem; }
+  .doc-wrap li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    padding-left: 0.35rem;
+  }
+  .doc-wrap li::marker { color: var(--ochre); }
+  .doc-wrap a { color: var(--ochre); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-wrap a:hover { color: var(--terracotta); }
+
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .doc-table th, .doc-table td {
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--linen-deeper);
+    color: var(--text-secondary);
+    font-weight: 300;
+  }
+  .doc-table th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: var(--bark);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .doc-table td:first-child { color: var(--bark); font-weight: 500; white-space: nowrap; }
+
+  .doc-intro {
+    background: var(--white);
+    border-radius: 14px;
+    border-top: 3px solid var(--ochre);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 24px rgba(30,25,22,0.06);
+  }
+  .doc-intro p:last-child { margin-bottom: 0; }
+
+  /* FOOTER (matches landing) */
+  footer {
+    background: var(--bark);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(245,240,235,0.7);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .footer-logo span { color: var(--ochre); }
+  .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: rgba(245,240,235,0.4);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: rgba(245,240,235,0.8); }
+  .footer-copy { font-size: 0.8rem; color: rgba(245,240,235,0.3); font-weight: 300; white-space: nowrap; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links a:not(.btn-nav) { display: none; }
+    .doc-wrap { padding: 110px 1.25rem 60px; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .doc-table { font-size: 0.85rem; }
+    .doc-table th, .doc-table td { padding: 0.55rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+      <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+    </svg>
+    Vard<span>folk</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="https://app.vardfolk.com" class="btn-nav">Create your care circle</a>
+  </div>
+</nav>
+
+<main class="doc-wrap">
+  <div class="doc-header">
+    <div class="doc-eyebrow">Legal</div>
+    <h1>Privacy Policy</h1>
+    <p class="doc-updated">Last updated: June 18, 2026</p>
+  </div>
+
+  <div class="doc-intro">
+    <p>This Privacy Policy describes how Vardfolk (“Vardfolk,” “we,” “us,” or “our”) collects, uses, shares, and protects your information when you use our website at <a href="https://vardfolk.com">vardfolk.com</a>, our applications at app.vardfolk.com and on iOS and Android, and related services (together, the “Services”).</p>
+    <p>Vardfolk is a <strong>care coordination platform</strong>. Families and care teams use it to organize and communicate around the care of an aging or ill loved one — tracking tasks, appointments, medications, documents, messages, and updates in a shared “care circle.” Vardfolk is a coordination tool. <strong>It is not a medical provider, is not a substitute for professional medical advice, and is not intended for clinical decision-making.</strong></p>
+    <p>Vardfolk is operated by Vardfolk, a sole proprietorship, located in California, United States. If you have questions about this policy or your information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>.</p>
+  </div>
+
+  <h2>Summary of key points</h2>
+  <ul>
+    <li><strong>What we collect.</strong> Account and profile information; the care information you and your circle members enter (care-recipient details, medications, allergies, appointments, tasks, journal entries, messages, contacts, wellbeing check-ins); documents you upload (which may include health-related files); billing information; and technical/device information for notifications and security.</li>
+    <li><strong>Sensitive information.</strong> Because Vardfolk is used to coordinate care, the information you provide may include health-related details about a care recipient. You provide this voluntarily to coordinate care.</li>
+    <li><strong>How we use AI.</strong> Vardfolk uses artificial intelligence to power features such as document scanning, summaries, and suggestions. To do this, relevant content — which may include health information — is sent to our AI provider, Anthropic, to generate the result. Anthropic does not use this content to train its AI models.</li>
+    <li><strong>Who we share with.</strong> We share information with the service providers that operate Vardfolk. Within the app, your care-circle information is visible to the members of that circle according to their role. We do not sell your personal information.</li>
+    <li><strong>Your choices.</strong> You can review, update, export, or delete your information, and delete your account, at any time.</li>
+  </ul>
+
+  <h2>1. Information we collect</h2>
+  <h3>Information you provide directly</h3>
+  <ul>
+    <li><strong>Account and profile information</strong> — your name, email address, and a password, or authentication through Apple or Google sign-in. Optionally, a profile photo.</li>
+    <li><strong>Care-circle and care-recipient information</strong> — the name and details of the person being cared for, and the members you invite to the circle.</li>
+    <li><strong>Health-related care information</strong> — medications, dosages and schedules, allergies, appointments, and the contents of documents you upload (such as discharge summaries, after-visit summaries, insurance cards, and other health-related files).</li>
+    <li><strong>Coordination content</strong> — tasks, journal entries and care updates, messages you send within a circle, important contacts, and wellbeing check-ins.</li>
+    <li><strong>Billing information</strong> — when you subscribe to a paid plan, your payment details are collected and processed by Stripe. Vardfolk does not store your full card number.</li>
+  </ul>
+  <h3>Information collected automatically</h3>
+  <ul>
+    <li><strong>Device and technical information</strong> — including push-notification tokens (for Apple and web push), and basic information needed to operate and secure the Services.</li>
+  </ul>
+  <p><strong>Sensitive information.</strong> The care information you enter may be considered sensitive in some jurisdictions because it relates to health. You provide this information voluntarily in order to coordinate care. Vardfolk is not a HIPAA-covered entity, and the Services are not designed to comply with HIPAA, and should not be used in any way that would require HIPAA compliance.</p>
+
+  <h2>2. How we use your information</h2>
+  <p>We use your information to:</p>
+  <ul>
+    <li>Create and maintain your account and authenticate you.</li>
+    <li>Provide the Services — store and display your care circle’s tasks, appointments, medications, documents, messages, and updates to the members of that circle.</li>
+    <li>Provide AI-assisted features (see Section 3).</li>
+    <li>Send notifications and service-related communications.</li>
+    <li>Process payments and manage subscriptions.</li>
+    <li>Maintain the security and integrity of the Services and prevent fraud or abuse.</li>
+    <li>Comply with legal obligations.</li>
+  </ul>
+
+  <h2>3. How we use artificial intelligence</h2>
+  <p>Vardfolk uses artificial intelligence to make care coordination easier. AI-assisted features include scanning and reading uploaded documents to extract medications, appointments, and tasks; generating summaries and briefings; suggesting tasks from journal entries; suggesting document tags and contacts; and helping draft notes and messages.</p>
+  <p><strong>To provide these features, relevant content is sent to our AI provider, Anthropic (the maker of Claude).</strong> Depending on the feature, this content may include text extracted from documents you upload (which may contain health information), journal entries, messages, appointment and medication details, and other care information.</p>
+  <p><strong>Anthropic processes this content to generate the feature’s output and, under its commercial API terms, does not use it to train its AI models.</strong></p>
+  <p>How we handle the results:</p>
+  <ul>
+    <li><strong>Document scanning and extraction.</strong> The text read from your uploaded document and the structured information extracted from it (such as medications, appointments, and tasks) are saved in your care circle’s records, so you can review and use them. They are deleted when you delete the document or the care circle.</li>
+    <li><strong>Other AI features</strong> (summaries, suggestions, drafting help) process your information to generate a response in real time. The response is shown to you and is only saved if you choose to keep it (for example, by accepting a suggested task).</li>
+    <li><strong>We do not keep separate logs of the content sent to, or received from, the AI provider.</strong></li>
+  </ul>
+  <p>AI-generated output can contain mistakes. Vardfolk does not provide medical advice, and AI-assisted features are aids to coordination, not clinical guidance. Always verify important details — especially dates, dosages, and medical information — against your original documents and your healthcare providers.</p>
+
+  <h2>4. How your information is shared</h2>
+  <p><strong>Within your care circle.</strong> Information you add to a care circle is visible to the other members of that circle, according to each member’s role (administrator, contributor, or viewer). This sharing is how Vardfolk works — it lets your family and care team stay coordinated. Your care-circle information is <strong>not public</strong> and is not shared outside your circle except as described below.</p>
+  <p><strong>With service providers (subprocessors).</strong> We share information with the third-party providers that operate Vardfolk on our behalf. They are permitted to use the information only to provide their services to us:</p>
+  <table class="doc-table">
+    <thead><tr><th>Provider</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Supabase</td><td>Database, authentication, and file storage</td></tr>
+      <tr><td>Anthropic</td><td>AI-assisted features (see Section 3)</td></tr>
+      <tr><td>Stripe</td><td>Payment processing</td></tr>
+      <tr><td>Resend</td><td>Sending email (such as invitations and notifications)</td></tr>
+      <tr><td>Apple</td><td>Sign-in and push notifications (iOS)</td></tr>
+      <tr><td>Google</td><td>Sign-in</td></tr>
+      <tr><td>Vercel</td><td>Website and application hosting</td></tr>
+      <tr><td>Railway</td><td>Backend / server hosting</td></tr>
+    </tbody>
+  </table>
+  <p><strong>For legal reasons.</strong> We may disclose information if required by law, to respond to lawful requests, or to protect the rights, safety, and security of our users, the public, or Vardfolk.</p>
+  <p><strong>Business transfers.</strong> If Vardfolk is involved in a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you of any such change.</p>
+  <p><strong>We do not sell your personal information,</strong> and we do not share it for cross-context behavioral advertising.</p>
+
+  <h2>5. Where your information is stored</h2>
+  <p>Vardfolk is operated in the United States, and your information is stored and processed in the United States. If you access the Services from outside the United States, you understand that your information will be transferred to and processed in the United States.</p>
+
+  <h2>6. How long we keep your information</h2>
+  <p>We keep your information for as long as your account is active or as needed to provide the Services. When information is deleted (see Section 7), it is removed from our active systems. Residual copies may persist temporarily in routine backups before being overwritten, and we may retain limited information where required to comply with legal obligations, resolve disputes, or enforce our agreements.</p>
+
+  <h2>7. Deleting your information and your account</h2>
+  <p>You can delete your account at any time from the app’s account settings, or by contacting us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Here is what happens when you delete your account:</p>
+  <ul>
+    <li><strong>If you are the only member of a care circle,</strong> that circle and all of its data are permanently deleted — including tasks, appointments, medications, journal entries, messages, contacts, and the <strong>uploaded files stored for that circle</strong>.</li>
+    <li><strong>If a care circle has other members,</strong> the circle and its shared records remain so the other members can continue using them. Your membership is removed, and your personal connection to content you created is removed (your authorship is cleared). Comments you posted on tasks and appointments, your wellbeing check-ins, your notifications, and your notification settings are deleted.</li>
+    <li><strong>If you are the only administrator of a circle that still has other members,</strong> you will be asked to make another member an administrator, or to remove the other members, before you can delete your account — so the circle is not left without an owner.</li>
+    <li>Your profile, your authentication account, and your device/push tokens are deleted.</li>
+  </ul>
+  <p>You may also delete individual documents, messages, and other items at any time, and delete an entire care circle you administer.</p>
+
+  <h2>8. How we protect your information</h2>
+  <p>We use technical and organizational measures designed to protect your information, including encryption in transit, access controls, and authentication. No method of transmission or storage is completely secure, so we cannot guarantee absolute security. You are responsible for keeping your account credentials confidential.</p>
+
+  <h2>9. Children’s privacy</h2>
+  <p>The Services are intended for adults (18 and older) coordinating care. We do not knowingly collect personal information from children under 18. A care recipient’s information is entered by the adult members of a care circle. If you believe a child under 18 has provided us with personal information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> and we will delete it.</p>
+
+  <h2>10. Your privacy rights</h2>
+  <p>Depending on where you live, you may have the right to:</p>
+  <ul>
+    <li>Access the personal information we hold about you;</li>
+    <li>Correct inaccurate information;</li>
+    <li>Delete your information;</li>
+    <li>Receive a copy of your information in a portable format;</li>
+    <li>Withdraw consent where processing is based on consent;</li>
+    <li>Opt out of the sale or sharing of personal information (note: we do not sell or share personal information for advertising); and</li>
+    <li>Appeal a decision we make about a privacy request.</li>
+  </ul>
+  <p>To exercise any of these rights, email <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. We will respond as required by applicable law. We will not discriminate against you for exercising your rights.</p>
+  <p><strong>United States — state privacy rights.</strong> Residents of states with comprehensive privacy laws (including California, Colorado, Connecticut, Virginia, and others) have the rights described above. We do not sell personal information or share it for cross-context behavioral advertising, and we do not use or disclose sensitive personal information for purposes other than providing the Services. California residents may designate an authorized agent to make requests on their behalf.</p>
+  <p><strong>Do Not Track.</strong> Our Services do not currently respond to “Do Not Track” browser signals.</p>
+
+  <h2>11. Changes to this policy</h2>
+  <p>We may update this Privacy Policy from time to time. When we do, we will revise the “Last updated” date above, and for material changes we will provide additional notice (such as by email or in the app). Your continued use of the Services after an update means you accept the revised policy.</p>
+
+  <h2>12. Contact us</h2>
+  <p>If you have questions or requests regarding this Privacy Policy or your information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> — Vardfolk, California, United States.</p>
+</main>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:3px;">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
+      <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.55"/>
+    </svg><span>Vard</span><span style="color:#C4956A;">folk</span>
+  </a>
+  <div class="footer-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <span class="footer-copy">© 2026 Vardfolk</span>
+  </div>
+</footer>
+
+</body>
+</html>
