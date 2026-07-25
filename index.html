@@ -1195,6 +1195,77 @@
       justify-self: center;
     }
   }
+
+  /* ── PAIN (spliced) ── */
+  .pain-band { background: var(--linen-deep); padding: 5.5rem 2rem; }
+  .pain-inner { max-width: 1100px; margin: 0 auto; }
+  .shards { margin-top: 2.6rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; }
+  .shard {
+    background: var(--white); border-radius: 12px; padding: 1.1rem 1.15rem 1rem;
+    box-shadow: var(--card-shadow); font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5;
+  }
+  .shard-who { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.45rem; }
+  .shard:nth-child(1) { transform: rotate(-1.6deg); }
+  .shard:nth-child(2) { transform: rotate(1.1deg) translateY(10px); }
+  .shard:nth-child(3) { transform: rotate(-0.8deg) translateY(-6px); }
+  .shard:nth-child(4) { transform: rotate(1.8deg) translateY(6px); }
+  .pivot-line {
+    margin-top: 3rem; max-width: 34em; font-family: 'Outfit', sans-serif; font-weight: 300;
+    font-size: clamp(1.25rem, 2.4vw, 1.6rem); line-height: 1.45; color: var(--text);
+  }
+  .pivot-line em { color: var(--terracotta); font-style: normal; }
+
+  /* ── IS / ISN'T (spliced) ── */
+  .isnt { padding: 5.5rem 2rem; max-width: 1100px; margin: 0 auto; }
+  .isnt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 2.4rem; }
+  .isnt-card {
+    border: 1px solid var(--ochre-border); border-radius: 12px; padding: 1.4rem;
+    background: rgba(255,255,255,0.55);
+  }
+  .isnt-card h3 { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--text); }
+  .isnt-card p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.55; }
+
+  /* ── LANGUAGE BEAT (spliced) ── */
+  .lang-beat { margin-top: 3.4rem; text-align: center; }
+  .lang-beat .lb-line { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--text); margin-top: 1.1rem; }
+  .lang-beat .lb-line small { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
+  .lang-beat .lb-why { margin: 1.8rem auto 0; max-width: 38em; color: var(--text-secondary); font-size: 0.95rem; }
+
+  /* ── PETAL ASSEMBLY at final CTA (spliced; upgrades the static mark) ── */
+  .petal-stage { position: relative; width: 100%; height: 100%; }
+  .petal-stage .pa {
+    position: absolute; left: 50%; top: 50%; width: 15%; height: 29%;
+    border-radius: 50%; transform-origin: 50% 124%; opacity: 0;
+  }
+  .petal-stage .pa-c {
+    position: absolute; left: 50%; top: 50%; width: 15%; aspect-ratio: 1; border-radius: 50%;
+    background: rgba(196,149,106,0.3); transform: translate(-50%,-50%) scale(0.4); opacity: 0;
+  }
+  .final-cta-petal.visible .pa { animation: paGather 1.4s cubic-bezier(.25,.8,.25,1) forwards; }
+  .final-cta-petal.visible .pa-c { animation: paCenter 1s cubic-bezier(.2,.7,.2,1) 1.9s forwards; }
+  .pa1 { background:#C4956A; --pao:.95; animation-delay:.15s !important; --rot:0deg;   --sx:-165%; --sy:-210%; --sr:-88deg; }
+  .pa2 { background:#C4956A; --pao:.82; animation-delay:.32s !important; --rot:60deg;  --sx:220%;  --sy:-140%; --sr:71deg; }
+  .pa3 { background:#D4785A; --pao:.78; animation-delay:.49s !important; --rot:120deg; --sx:245%;  --sy:150%;  --sr:160deg; }
+  .pa4 { background:#C4956A; --pao:.95; animation-delay:.66s !important; --rot:180deg; --sx:-30%;  --sy:265%;  --sr:236deg; }
+  .pa5 { background:#D4785A; --pao:.78; animation-delay:.83s !important; --rot:240deg; --sx:-250%; --sy:135%;  --sr:181deg; }
+  .pa6 { background:#C4956A; --pao:.82; animation-delay:1s  !important;  --rot:300deg; --sx:-230%; --sy:-60%;  --sr:338deg; }
+  @keyframes paGather {
+    0% { opacity: 0; transform: translate(calc(-50% + var(--sx)), calc(-124% + var(--sy))) rotate(var(--sr)); }
+    18% { opacity: var(--pao); }
+    100% { opacity: var(--pao); transform: translate(-50%,-124%) rotate(var(--rot)); }
+  }
+  @keyframes paCenter { to { opacity: 1; transform: translate(-50%,-50%) scale(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .petal-stage .pa { animation: none !important; opacity: var(--pao); transform: translate(-50%,-124%) rotate(var(--rot)); }
+    .petal-stage .pa-c { animation: none !important; opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  }
+
+  @media (max-width: 768px) {
+    .pain-band, .isnt { padding: 3.5rem 1.25rem; }
+    .shards { grid-template-columns: repeat(2, 1fr); }
+    .isnt-grid { grid-template-columns: 1fr; }
+  }
+
 </style>
 </head>
 <body>
@@ -1371,6 +1442,22 @@
   </div>
 </section>
 
+
+<!-- PAIN (spliced) -->
+<section class="pain-band" id="why">
+  <div class="pain-inner">
+    <p class="section-label reveal">The part nobody warns you about</p>
+    <h2 class="section-title reveal reveal-delay-1" style="text-align:left; margin-left:0; max-width:22em;">The care is a full-time job. Keeping everyone on the same page is a second one.</h2>
+    <div class="shards">
+      <div class="shard reveal reveal-delay-1"><div class="shard-who">Text · 9:41 PM</div>"did mom take her evening pills? I thought you had today"</div>
+      <div class="shard reveal reveal-delay-2"><div class="shard-who">Sticky note · kitchen</div>Call pharmacy re: refill?? Dr. Rao follow-up — when??</div>
+      <div class="shard reveal reveal-delay-2"><div class="shard-who">Paper · somewhere</div>Discharge instructions, page 3 of 11 — last seen on the passenger seat</div>
+      <div class="shard reveal reveal-delay-3"><div class="shard-who">Missed call · your sister</div>"Who's driving him Thursday? Also what did the doctor say?"</div>
+    </div>
+    <p class="pivot-line reveal">Group texts, sticky notes, and a folder of papers weren't built for this. That's how things fall through the cracks — <em>and with care, the cracks matter.</em></p>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <div class="features-wrap" style="position: relative; overflow: visible;">
   <svg style="position: absolute; right: -180px; top: -260px; width: 520px; height: 520px; opacity: 0.13; pointer-events: none; z-index: 0;" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1529,7 +1616,25 @@
       </div>
     </div>
 
-    <p class="lang-line reveal">Available in <strong>English</strong>, <strong>Spanish</strong>, and <strong>Filipino</strong> — because most care circles speak more than one language.</p>
+    <div class="lang-beat">
+      <p class="section-label reveal">Three languages, one circle</p>
+      <p class="lb-line reveal reveal-delay-1">Care, together.<small>English</small></p>
+      <p class="lb-line reveal reveal-delay-2">Cuidar, juntos.<small>Español</small></p>
+      <p class="lb-line reveal reveal-delay-3">Pag-aalaga, sama-sama.<small>Filipino</small></p>
+      <p class="lb-why reveal reveal-delay-3">Caregiving is a family affair, and families don't always share one language. Every member of a circle uses Vardfolk in their own — same tasks, same calendar, each person in the words they think in.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- IS / ISN'T (spliced) -->
+<section class="isnt" id="trust">
+  <p class="section-label reveal">What Vardfolk is — and isn't</p>
+  <h2 class="section-title reveal reveal-delay-1">Built for coordination. Deliberately not a medical app.</h2>
+  <div class="isnt-grid">
+    <div class="isnt-card reveal reveal-delay-1"><h3>Your family's space</h3><p>A circle is private to the people invited into it. Roles decide who can add and edit, and everything each person shares stays inside the circle.</p></div>
+    <div class="isnt-card reveal reveal-delay-2"><h3>Coordination, not clinical advice</h3><p>Vardfolk keeps your family organized — it doesn't diagnose, dose, or replace anyone's doctor. The medical decisions stay where they belong.</p></div>
+    <div class="isnt-card reveal reveal-delay-3"><h3>Made for real families</h3><p>Solo caregivers, five siblings across three time zones, a hired aide in the mix — circles bend to how your family actually works.</p></div>
   </div>
 </section>
 
@@ -1578,16 +1683,13 @@
 
 <!-- FINAL CTA -->
 <section class="final-cta">
-  <svg class="final-cta-petal" width="320" height="320" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
-    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
-    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
-    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
-    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
-    <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
-    <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
-    <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.3"/>
-  </svg>
+  <div class="final-cta-petal reveal petal-stage-wrap" aria-hidden="true" style="pointer-events:none;">
+    <div class="petal-stage">
+      <span class="pa pa1"></span><span class="pa pa2"></span><span class="pa pa3"></span>
+      <span class="pa pa4"></span><span class="pa pa5"></span><span class="pa pa6"></span>
+      <span class="pa-c"></span>
+    </div>
+  </div>
   <div class="final-cta-inner">
     <h2 class="reveal">Other tools store information.<br>Vardfolk helps your family act on it — <em>together.</em></h2>
     <p class="reveal reveal-delay-1">Start your care circle today — you'll be set up in minutes.</p>
