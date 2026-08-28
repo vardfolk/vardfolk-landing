@@ -33,7 +33,10 @@
     --card-shadow-hover: 0 8px 40px rgba(30,25,22,0.12), 0 2px 8px rgba(30,25,22,0.06);
   }
 
-  html { scroll-behavior: smooth; }
+  /* overflow-x here as well as on body: Safari does not reliably propagate
+     `clip` from body to the viewport, so a body-only rule silently fails on
+     iOS and the page scrolls sideways. */
+  html { scroll-behavior: smooth; overflow-x: clip; }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -1459,7 +1462,7 @@
 </section>
 
 <!-- FEATURES -->
-<div class="features-wrap" style="position: relative; overflow: visible;">
+<div class="features-wrap" style="position: relative; overflow: hidden;">
   <svg style="position: absolute; right: -180px; top: -260px; width: 520px; height: 520px; opacity: 0.13; pointer-events: none; z-index: 0;" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
     <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
