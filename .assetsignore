@@ -11,6 +11,14 @@
 wrangler.toml
 vercel.json
 
+# Wrangler's local state/cache directory. Created by `wrangler dev`, and NOT
+# excluded automatically — before this line it was being uploaded, and
+# https://vardfolk.com/.wrangler/cache/wrangler-account.json answered 200 with
+# the Cloudflare account id and name in it. Nothing in here is a credential
+# (the OAuth token lives in ~/.config/.wrangler), but none of it belongs on the
+# public site either.
+.wrangler
+
 # The numbered-stray class from this machine's file duplicator. Both shapes:
 # with an extension ("index 2.html") and without ("LICENSE 2"). The `*` after
 # [0-9] is load-bearing — a single-character class stops at 9.

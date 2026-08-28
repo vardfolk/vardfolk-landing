@@ -2,7 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- viewport-fit=cover (VAR-347): without it the layout viewport stops short of
+     the notch/Dynamic Island and the home-indicator strip, env(safe-area-inset-*)
+     all resolve to 0px, and iOS paints those two bands itself. That is what put an
+     unblurred strip above the fixed nav and a cream band below the dark footer.
+     Deliberately WITHOUT the app's maximum-scale=1.0 — pinch-zoom stays available
+     on a public marketing page. -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Vardfolk — Care, together</title>
 <meta name="description" content="Built for the reality of caregiving — where plans change, people are scattered, and details matter. Vardfolk gives your family one shared space for tasks, medications, appointments, and updates. Available in English, Spanish, and Filipino.">
 <meta property="og:title" content="Vardfolk — Care, together">
@@ -36,7 +42,11 @@
   /* overflow-x here as well as on body: Safari does not reliably propagate
      `clip` from body to the viewport, so a body-only rule silently fails on
      iOS and the page scrolls sideways. */
-  html { scroll-behavior: smooth; overflow-x: clip; }
+  /* background-color here, not only on body: the document canvas takes its
+     colour from <html> when <html> has one, and from <body> only by propagation.
+     Naming it makes the overscroll/chrome bands a decision rather than a
+     side effect (same reasoning as the app's index.css). */
+  html { scroll-behavior: smooth; overflow-x: clip; background-color: var(--linen); }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -47,12 +57,21 @@
   }
 
   /* ── NAV ── */
+  /* The bar is 64px of CONTENT plus the top inset, and it pads by that inset —
+     so the frosted surface starts at the true top of the display and the content
+     still sits in a 64px band below the status bar. This is the shape the app's
+     TopBar settled on (height: calc(44px + env), padding-top: env).
+     Longhand padding on purpose: the media query below overrides only the
+     horizontal pair, and a shorthand there would silently reset the env terms. */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    padding: 0 2rem;
-    height: 64px;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    padding-bottom: 0;
+    padding-left: max(2rem, env(safe-area-inset-left, 0px));
+    height: calc(64px + env(safe-area-inset-top, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -95,7 +114,12 @@
 
   .nav-links a:hover { color: var(--bark); }
 
-  .btn-nav {
+  /* `.nav-links a` (0,1,1) outranks a bare `.btn-nav` (0,1,0), so this rule's
+     font-weight: 700 and its background/transform transition have never
+     applied — the button has been rendering at weight 400 with an instant
+     hover snap. Qualifying the selector makes it mean what it says. */
+  .btn-nav,
+  .nav-links a.btn-nav {
     background: #B8865E;
     color: #fff !important;
     border: none;
@@ -108,9 +132,16 @@
     font-family: 'DM Sans', sans-serif;
     transition: background 0.2s, transform 0.15s;
     display: inline-block;
+    white-space: nowrap;
   }
 
-  .btn-nav:hover {
+  /* Two labels, one button. The long one is the desktop conversion copy; the
+     short one is what fits beside the logo at 360px. Swapped by the mobile
+     media query, so there is no JS and no layout thrash. */
+  .btn-nav-short { display: none; }
+
+  .btn-nav:hover,
+  .nav-links a.btn-nav:hover {
     background: #A67550;
     transform: translateY(-1px);
     color: #fff !important;
@@ -118,7 +149,7 @@
 
   /* ── HERO ── */
   .hero {
-    padding: 140px 4rem 60px;
+    padding: calc(140px + env(safe-area-inset-top, 0px)) 4rem 60px;
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
@@ -933,9 +964,16 @@
   }
 
   /* ── FOOTER ── */
+  /* The footer is the last element in the document, so with viewport-fit=cover
+     its box is what paints the home-indicator strip — but only if it pads into
+     it. Without this the strip is the canvas colour (cream) under a bark footer,
+     which is the empty band that was showing below the footer on device. */
   footer {
     background: var(--bark);
-    padding: 1.5rem 2rem;
+    padding-top: 1.5rem;
+    padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    padding-left: max(2rem, env(safe-area-inset-left, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1000,7 +1038,7 @@
   @media (max-width: 768px) {
     .hero {
       grid-template-columns: 1fr;
-      padding: 120px 1.25rem 60px;
+      padding: calc(120px + env(safe-area-inset-top, 0px)) 1.25rem 60px;
       gap: 2.5rem;
       text-align: center;
     }
@@ -1050,8 +1088,15 @@
       margin: 1rem auto 0;
     }
 
+    /* The border-bottom is BACK on mobile (it was `none`). With the bar now
+       running to the true top of the display it is ~123px of 85%-opaque cream
+       glass over a cream page — a surface with no luminance difference from the
+       content it floats over, so without a hairline it has no edge at all.
+       Gutters drop 2rem -> 1.25rem to match the hero's mobile padding and to
+       buy the CTA the width it needs beside the logo at 360px. */
     nav {
-      border-bottom: none;
+      padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+      padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
     }
 
     .bento-grid {
@@ -1133,7 +1178,17 @@
 
     .pricing-grid { grid-template-columns: 1fr; }
 
-    .nav-links a { display: none; }
+    /* The nav links go, the CTA stays — it is the page's primary conversion
+       path and `.nav-links a { display: none }` was taking it with them. */
+    .nav-links a:not(.btn-nav) { display: none; }
+
+    .btn-nav-long { display: none; }
+    .btn-nav-short { display: inline; }
+
+    .btn-nav,
+    .nav-links a.btn-nav {
+      padding: 0.5rem 0.9rem;
+    }
 
     footer {
       flex-direction: column;
@@ -1145,7 +1200,7 @@
   @media (min-width: 769px) and (max-width: 1100px) {
     .hero {
       gap: 1.5rem;
-      padding: 140px 2rem 60px;
+      padding: calc(140px + env(safe-area-inset-top, 0px)) 2rem 60px;
     }
 
     .app-mockup {
@@ -1163,7 +1218,7 @@
   @media (min-width: 900px) and (max-width: 1399px) {
     .hero {
       gap: 2rem;
-      padding: 140px 3rem 60px;
+      padding: calc(140px + env(safe-area-inset-top, 0px)) 3rem 60px;
     }
 
     .hero-text {
@@ -1181,7 +1236,7 @@
 
   @media (min-width: 1400px) {
     .hero {
-      padding: 160px 5rem 80px;
+      padding: calc(160px + env(safe-area-inset-top, 0px)) 5rem 80px;
       gap: 4rem;
       grid-template-columns: 1fr 1.15fr;
     }
@@ -1293,7 +1348,7 @@
     <a href="#how">How it works</a>
     <a href="#pricing">Pricing</a>
     <a href="https://app.vardfolk.com">Sign in</a>
-    <a href="https://app.vardfolk.com" class="btn-nav">Create your care circle</a>
+    <a href="https://app.vardfolk.com" class="btn-nav"><span class="btn-nav-long">Create your care circle</span><span class="btn-nav-short">Create circle</span></a>
   </div>
 </nav>
 
