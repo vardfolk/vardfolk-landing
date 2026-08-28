@@ -1,0 +1,19 @@
+# Excludes files from static-asset UPLOAD. gitignore syntax.
+#
+# This matters MORE here than in the app repo: there is no build step, so the
+# assets directory IS the repo root. Anything not listed here gets uploaded and
+# served publicly. Workers excludes nothing automatically.
+#
+# _headers, _redirects and .assetsignore itself are excluded by Workers and do
+# not need listing — everything else does.
+.git
+.gitignore
+wrangler.toml
+vercel.json
+
+# The numbered-stray class from this machine's file duplicator. Both shapes:
+# with an extension ("index 2.html") and without ("LICENSE 2"). The `*` after
+# [0-9] is load-bearing — a single-character class stops at 9.
+** [0-9]*
+** [0-9]*.*
+**/.DS_Store

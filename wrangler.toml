@@ -1,0 +1,29 @@
+# Cloudflare Workers configuration for the Vardfolk marketing site (VAR-333).
+#
+# This repo has NO build step — index.html, privacy.html and terms.html are
+# served exactly as they sit in the repo root. So the assets directory is "."
+# and .assetsignore does the work of keeping non-content files out of the
+# upload.
+#
+# Replaces vercel.json, whose entire content was { "cleanUrls": true }.
+
+name = "vardfolk-landing"
+compatibility_date = "2026-08-27"
+
+[assets]
+directory = "."
+
+# EXPLICIT ON PURPOSE — this is the cleanUrls replacement.
+#
+# The footer of index.html links to /privacy and /terms with no .html
+# extension. Vercel's cleanUrls made that work; on Workers it is html_handling.
+# "auto-trailing-slash" serves privacy.html for a request to /privacy without
+# redirecting. If this is wrong, both legal pages 404 — and they are linked
+# from the App Store listing and the privacy policy is a document users are
+# entitled to reach.
+html_handling = "auto-trailing-slash"
+
+# Static marketing site: an unknown path should 404, NOT fall back to
+# index.html. This is the opposite of the app Worker, which is a SPA and needs
+# single-page-application fallback. Do not copy that setting here.
+not_found_handling = "none"
