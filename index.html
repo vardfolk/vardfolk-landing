@@ -16,9 +16,10 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vardfolk.com">
 <!-- Driven at runtime by the theme-color script at the end of <body> (VAR-347).
-     This authored value is the no-JS fallback and the value at scroll 0 — it must
-     stay the colour of the TOP of the page (--linen). Do not add a `media`
-     attribute here; the script's comment explains why. -->
+     Affects ANDROID CHROME's address bar only — iOS 26 Safari ignores this tag
+     entirely (verified with a #FF0000 test deploy). This authored value is the
+     no-JS fallback and the value at scroll 0; it must stay the colour of the TOP
+     of the page (--linen). Do not add a `media` attribute; see the script. -->
 <meta name="theme-color" content="#F5F0EB">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
@@ -46,11 +47,42 @@
   /* overflow-x here as well as on body: Safari does not reliably propagate
      `clip` from body to the viewport, so a body-only rule silently fails on
      iOS and the page scrolls sideways. */
-  /* background-color here, not only on body: the document canvas takes its
-     colour from <html> when <html> has one, and from <body> only by propagation.
-     Naming it makes the overscroll/chrome bands a decision rather than a
-     side effect (same reasoning as the app's index.css). */
-  html { scroll-behavior: smooth; overflow-x: clip; background-color: var(--linen); }
+  /* ── The canvas below the document's end (VAR-347) ──────────────────────
+     iOS Safari's toolbar SHRINKS as you scroll down, which GROWS the visual
+     viewport mid-scroll. The document's height is already fixed, so at max
+     scroll the viewport reaches past the document's last pixel and the canvas
+     shows through underneath the footer. That gap is real page area, not
+     browser chrome: it appears only at max scroll and closes again the moment
+     you scroll up and the toolbar re-expands.
+
+     Nothing an ELEMENT paints reaches into it. A `box-shadow: 0 100vh 0` on the
+     footer was measured and does NOT show there — with or without the
+     overflow-x: clip below, so `clip` is not the reason. Element painting
+     simply stops at the document's end; that region is the canvas, and the
+     canvas takes its colour from <html>. Fixing it anywhere else is fixing it
+     at the wrong layer.
+
+     So: background-COLOR is bark, which fills the entire canvas including that
+     gap. The background-IMAGE then puts the cream back everywhere it belongs.
+     Canvas images are sized and positioned against the root element's own box,
+     so bottom-aligned and 200vh taller than the document, this one covers the
+     document and all the overscroll room above it, and stops dead at the
+     document's end. Top of the page: unchanged, still cream. Below the footer:
+     bark. No height added, no element added, nothing to composite per frame.
+
+     Do NOT collapse this to a plain `background-color: var(--bark)`. That fixes
+     the bottom and breaks the top — pulling down at the hero would reveal dark
+     above a cream page. Both halves were measured; see
+     .cc-reports/var-347-canvas.md. */
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+    background-color: var(--bark);
+    background-image: linear-gradient(var(--linen), var(--linen));
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100% calc(100% + 200vh);
+  }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -1807,12 +1839,26 @@
 </script>
 
 <script>
-  // ── theme-color follows the surface under Safari's chrome (VAR-347) ────────
+  // ── theme-color follows the section under the top chrome (VAR-347) ─────────
   //
-  // Safari tints its OWN status-bar and toolbar bands from <meta theme-color>.
-  // No page CSS can reach them, which is why a single flat #F5F0EB left a cream
-  // strip above the nav and a cream band below the bark footer once
-  // viewport-fit=cover let the page run edge to edge.
+  // READ THIS FIRST: on iOS Safari this script does NOTHING, and it never did.
+  // iOS 26 Safari does not tint its status-bar or toolbar bands from
+  // <meta theme-color> at all. Proven, not assumed: the tag was set to #FF0000,
+  // deployed, and loaded on device — no red appeared anywhere. So this script is
+  // INERT on iPhone, and the cream strip it was written to fix was never a
+  // theme-color problem. That strip is the canvas showing through below the
+  // document's end when Safari's toolbar shrinks, and it is fixed in CSS on the
+  // `html` rule near the top of this file.
+  //
+  // It is kept because it is NOT inert everywhere. Android Chrome does still
+  // tint its address bar from the tag, and there this script does exactly what
+  // it says: the bar tracks the section under it instead of sitting on one
+  // hardcoded cream. Desktop Chrome reads the tag harmlessly. It costs one
+  // passive rAF-throttled scroll listener and writes the attribute only when the
+  // colour actually changes — a handful of times per full-page scroll.
+  //
+  // If Safari ever restores theme-color support, this starts working there again
+  // with no changes.
   //
   // THE RULE — one probe point, one colour:
   //
@@ -1827,16 +1873,15 @@
   // final-cta that is #D5D0CB, not #1E1916. Setting the raw section colour there
   // would trade one mismatch for a worse one.
   //
-  // There is ONE tag and Safari tints BOTH bands from it, so at the very end of
-  // the document the two bands genuinely want different colours and the bottom
-  // wins. That trade-off is deliberate and measured — see
-  // .cc-reports/var-347-themecolor.md. Set BOTTOM_PROBE's switch off (make
-  // `atBottom` always false) to flip the priority back to the top band.
+  // There is ONE tag and a browser that honours it tints BOTH bands from it, so
+  // at the very end of the document the two bands can want different colours and
+  // the bottom wins. Measured in .cc-reports/var-347-themecolor.md. Make
+  // `atBottom` always false to flip the priority back to the top band.
   //
   // No `media` variant on the tag, deliberately. The app carries two tags
   // because the APP has a dark theme; this page renders identically under both
   // colour schemes, so its chrome should match the PAGE, not the OS. A
-  // dark-scheme tag here would tint the chrome dark over a cream page.
+  // dark-scheme tag here would tint Android's bar dark over a cream page.
   //
   // The tag's authored value stays #F5F0EB, which is correct for the top of the
   // page — so with JS off the page is exactly as it was, never worse.
