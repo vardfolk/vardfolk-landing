@@ -1073,7 +1073,14 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     .hero {
-      grid-template-columns: 1fr;
+      /* VAR-352: `1fr` is `minmax(auto, 1fr)`, and that `auto` minimum is the
+         largest min-content contribution among the grid items — so the track
+         grew to fit `.mockup-tabs` (376) / `.hero-stats` (372) instead of the
+         items shrinking to fit the track. At 390 that resolved the track to
+         380px inside a 350px content box and silently clipped the body copy
+         (VAR-346's `overflow-x: clip` turned the old sideways scroll into a
+         clip). `minmax(0, 1fr)` lets the track shrink to its container. */
+      grid-template-columns: minmax(0, 1fr);
       padding: calc(120px + env(safe-area-inset-top, 0px)) 1.25rem 60px;
       gap: 2.5rem;
       text-align: center;
@@ -1230,6 +1237,38 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 0.75rem;
+    }
+  }
+
+  /* VAR-352: the stat row is the second thing that forced the hero's grid
+     track wider than the phone. Measured at 390: min-content 371.92px, of
+     which only 259.92 is text and dividers — the other 112 is gutter
+     (1.75rem x 4: a padding-right on the first two stats and a margin-right
+     on each divider). So the gutters are the whole overflow, and shrinking
+     them is the change that costs the least.
+
+     0.75rem brings the row to 307.92, which fits the 320px content box of a
+     360px phone with 12px to spare. It still will not fit the 280px box of a
+     320px phone, so `white-space: normal` lets "Web, iOS & Android" break --
+     but only when it must: `width: fit-content` keeps the row on one line
+     wherever one line fits, so the wrap appears at ~348px and below and
+     nowhere else.
+
+     Scoped to 480 rather than the 768 mobile breakpoint on purpose. The row
+     technically fits above 420, but only just -- at 412 (Pixel) the margin is
+     0.08px, which is luck, not fit. Every phone gets the robust row; tablets
+     481-768 have room to spare and keep the airier one unchanged. */
+  @media (max-width: 480px) {
+    .hero-stat {
+      padding-right: 0.75rem;
+    }
+
+    .hero-stat-divider {
+      margin-right: 0.75rem;
+    }
+
+    .hero-stat-value {
+      white-space: normal;
     }
   }
 
