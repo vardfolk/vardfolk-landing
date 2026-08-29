@@ -301,6 +301,16 @@
     background: var(--white);
     border-radius: 16px;
     box-shadow: var(--card-shadow-hover);
+    /* LOAD-BEARING for VAR-352, not just decoration. A flex item's automatic
+       minimum size is content-based ONLY while its overflow is `visible`, so
+       this one line is what lets the frame shrink below the 376px min-content
+       of `.mockup-tabs` and clip the tab strip at its own right edge instead
+       of pushing the whole hero wider than the phone. The mockup is a picture
+       of a browser window, so a nav strip running off its edge reads as real;
+       the tabs stay full size and legible, which is the point of the mockup.
+       Remove this and the hero silently clips its body copy again below 420px
+       -- with no error and no scrollbar, because VAR-346's page-level
+       `overflow-x: clip` hides the symptom. */
     overflow: hidden;
     border: 1px solid var(--linen-deeper);
     transform: perspective(1000px) rotateY(-4deg) rotateX(2deg);
