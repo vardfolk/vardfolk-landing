@@ -1300,6 +1300,49 @@
     }
   }
 
+  /* ── VAR-353: the hero's second min-content overflow, at 769-811 ────────────
+     VAR-352 fixed this shape at 390 and var-352.md §4 measured it here without
+     fixing it, because that ticket's contract was "desktop >= 768 pixel-identical".
+
+     Both hero tracks are `1fr`, which is `minmax(auto, 1fr)` — and that `auto`
+     floor is the item's MIN-CONTENT, not zero. So the tracks resolved to
+     `371.938px 380px`: the left one floored by `.hero-stats` (372, a nowrap flex
+     row) and the right one by `.app-mockup`'s own `max-width: 380px`. With the
+     24px gap they want 775.94px inside a 690px content box, so `.app-mockup` ran
+     41.79px PAST THE VIEWPORT at 769 — clipped by VAR-346's `overflow-x: clip`,
+     which is why it read as a crop rather than a scrollbar. It clears by 812.
+
+     The fix is VAR-352's, applied to the one track that is the problem. Only the
+     RIGHT track becomes `minmax(0, 1fr)`: the mockup is decorative and already
+     clips its own tab strip by design (`.app-mockup { overflow: hidden }`, see
+     the note on that rule), so it can take the squeeze — exactly the outcome the
+     phone layout chose deliberately. The LEFT track stays `1fr` on purpose, so
+     its `auto` floor keeps holding the body copy and the stats row at their
+     min-content and nothing readable is squeezed; measured, `.hero-stats` sits
+     flush at its parent's right edge at every width in the band, overflowing by 0.
+
+     `max-width: 100%` is what lets the mockup use the track it is given instead
+     of staying pinned at 380: it grows 295.21 -> 337.36 across 769-811 rather
+     than snapping to one small number, then returns to 380 at 812 where there is
+     room for it again.
+
+     Scoped to 811 and not to 1100 because >= 812 has to stay byte-identical —
+     at 900 the tracks are 377/380 with the mockup fully inside the viewport, and
+     `minmax(0, 1fr)` there would re-split them 394.5/394.5 and move the mockup
+     for no reason. Measured after: 0px past the viewport at 769/780/790/800/811,
+     against 41.79/30.79/20.79/10.79/0 before. The 1.66-2.2px still past the
+     hero's PADDING box is the mockup's own shadow spill, the same kind the
+     shipped 390 layout has at 2.4px. */
+  @media (min-width: 769px) and (max-width: 811px) {
+    .hero {
+      grid-template-columns: 1fr minmax(0, 1fr);
+    }
+
+    .app-mockup {
+      max-width: 100%;
+    }
+  }
+
   @media (min-width: 900px) and (max-width: 1399px) {
     .hero {
       gap: 2rem;
