@@ -92,6 +92,53 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  /* ── The overscroll backdrops (VAR-347) ────────────────────────────────
+     The canvas rule above is the right layer for the TOOLBAR-COLLAPSE gap —
+     the viewport growing mid-scroll past a document whose height is already
+     fixed. It is NOT the layer for the RUBBER-BAND, which is what the device
+     screenshot actually shows: pull past the end of the page and a cream band
+     opens below a dark footer.
+
+     During a rubber-band Safari translates the whole page, FIXED ELEMENTS
+     INCLUDED — that is the one moment a fixed element leaves the viewport and
+     becomes visible. So the band is paintable after all, by something parked
+     just outside each edge waiting to be dragged in.
+
+     Two of them, each a viewport tall, each out of frame at rest:
+     ::before sits one viewport ABOVE the top edge painted the hero's cream,
+     ::after one viewport BELOW the bottom edge painted the footer's bark.
+     Pull down at the hero and the cream one slides in; pull up at the footer
+     and the bark one does. Neither is ever on screen otherwise.
+
+     `z-index: -1` keeps them behind every element including body's own opaque
+     background, so inside the document they are invisible by construction and
+     nothing needed a stacking-context change to accommodate them.
+     `pointer-events: none` keeps them out of hit-testing entirely.
+
+     Deliberately NOT overscroll-behavior: that suppresses the bounce rather
+     than colouring it, and takes pull-to-refresh with it on a public page.
+     The bounce is correct iOS behaviour; only its colour was wrong. */
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  body::before {
+    top: -100vh;
+    background-color: var(--linen);
+  }
+
+  body::after {
+    bottom: -100vh;
+    background-color: var(--bark);
+  }
+
   /* ── NAV ── */
   /* The bar is 64px of CONTENT plus the top inset, and it pads by that inset —
      so the frosted surface starts at the true top of the display and the content
