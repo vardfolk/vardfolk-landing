@@ -27,7 +27,16 @@
     --white: #FFFFFF;
   }
 
-  html { scroll-behavior: smooth; }
+  /* ── The canvas below the document's end ──────────────────────────────
+     Cream, because both ends of this page are cream — index.html carries the
+     same declaration for the same reason (42ae20d). It was UNSET here, which
+     happened to render right: with no background on <html> the body's
+     propagates to the canvas. Stating it removes the dependence on that.
+
+     No `overscroll-behavior-y` here, and none on index either: with linen at
+     both ends there is no colour for the rubber-band to reveal, so the bounce
+     is restored rather than suppressed. */
+  html { scroll-behavior: smooth; background-color: var(--linen); }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -185,10 +194,27 @@
   }
   .doc-intro p:last-child { margin-bottom: 0; }
 
-  /* FOOTER (matches landing) */
+  /* FOOTER — the landing's, copied from index.html value for value.
+     The comment above has said "matches landing" since this page was written and
+     stopped being true when 42ae20d moved the footer to the light palette: this
+     page kept a BARK slab under cream prose, so the two legal pages and the page
+     that links to them ended differently.
+
+     This repo has no shared stylesheet — each page inlines its own <style> — so
+     "shared" here means copied verbatim, which is what index.html and this file
+     have always done with the nav.
+
+     The safe-area padding comes with it, and it is the half that is not
+     cosmetic: the footer is the last element in the document, so with
+     viewport-fit=cover its box is what paints the home-indicator strip — but
+     only if it pads into it. Without that, the strip is the canvas colour under
+     the footer, which is the empty band index.html's note describes. */
   footer {
-    background: var(--bark);
-    padding: 1.5rem 2rem;
+    background: var(--linen);
+    padding-top: 1.5rem;
+    padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    padding-left: max(2rem, env(safe-area-inset-left, 0px));
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -199,7 +225,7 @@
     font-family: 'Outfit', sans-serif;
     font-size: 1rem;
     font-weight: 500;
-    color: rgba(245,240,235,0.7);
+    color: var(--bark);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -208,12 +234,12 @@
   .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
   .footer-links a {
     font-size: 0.8rem;
-    color: rgba(245,240,235,0.4);
+    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.2s;
   }
-  .footer-links a:hover { color: rgba(245,240,235,0.8); }
-  .footer-copy { font-size: 0.8rem; color: rgba(245,240,235,0.3); font-weight: 300; white-space: nowrap; }
+  .footer-links a:hover { color: var(--bark); }
+  .footer-copy { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; white-space: nowrap; }
 
   @media (max-width: 768px) {
     nav { padding: 0 1.25rem; }

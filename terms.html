@@ -15,7 +15,13 @@
     --terracotta: #D4785A; --bark: #1E1916; --linen: #F5F0EB; --linen-deep: #EDE4D8; --linen-deeper: #E4D9CC;
     --sand: #E8BC92; --text: #1E1916; --text-secondary: #6B5A4E; --text-muted: #A89278; --white: #FFFFFF;
   }
-  html { scroll-behavior: smooth; }
+  /* The canvas below the document's end is cream, because both ends of this page
+     are cream — index.html and privacy.html carry the same declaration for the
+     same reason (42ae20d). It was UNSET here and happened to render right, via
+     the body background propagating to the canvas; stating it removes the
+     dependence on that. No overscroll-behavior rule on any of the three: with
+     linen at both ends there is nothing for the rubber-band to reveal. */
+  html { scroll-behavior: smooth; background-color: var(--linen); }
   body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.65; }
 
   nav {
@@ -50,12 +56,29 @@
   .doc-intro { background: var(--white); border-radius: 14px; border-top: 3px solid var(--ochre); padding: 1.5rem 1.75rem; margin-bottom: 2rem; box-shadow: 0 2px 24px rgba(30,25,22,0.06); }
   .doc-intro p:last-child { margin-bottom: 0; }
 
-  footer { background: var(--bark); padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
-  .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: rgba(245,240,235,0.7); text-decoration: none; display: flex; align-items: center; }
+  /* FOOTER — the landing's, copied from index.html value for value. This page
+     kept a BARK slab under cream prose after 42ae20d moved the landing's footer
+     to the light palette, so the two legal pages and the page linking to them
+     ended differently. This repo has no shared stylesheet — each page inlines
+     its own <style> — so "shared" here means copied verbatim, as the nav
+     already is.
+
+     The safe-area padding comes with it and is the half that is not cosmetic:
+     the footer is the last element in the document, so with viewport-fit=cover
+     its box is what paints the home-indicator strip — but only if it pads into
+     it. index.html's note carries the full reasoning.
+
+     `.footer-logo span` is NEW here and is not new styling: index.html and
+     privacy.html both carry it, and without it this page's wordmark read "Vard"
+     in the logo colour and "folk" in ochre from its inline style, which on a
+     light footer would have left "Vard" in bark against two ochre siblings. */
+  footer { background: var(--linen); padding-top: 1.5rem; padding-right: max(2rem, env(safe-area-inset-right, 0px)); padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); padding-left: max(2rem, env(safe-area-inset-left, 0px)); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
+  .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: var(--bark); text-decoration: none; display: flex; align-items: center; }
+  .footer-logo span { color: var(--ochre); }
   .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
-  .footer-links a { font-size: 0.8rem; color: rgba(245,240,235,0.4); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: rgba(245,240,235,0.8); }
-  .footer-copy { font-size: 0.8rem; color: rgba(245,240,235,0.3); font-weight: 300; white-space: nowrap; }
+  .footer-links a { font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--bark); }
+  .footer-copy { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; white-space: nowrap; }
 
   @media (max-width: 768px) {
     nav { padding: 0 1.25rem; }
