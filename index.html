@@ -167,6 +167,31 @@
     );
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
+    /* The bar's bottom edge dissolves instead of ending. The gradient fill
+       above eases the COLOUR to its 0.60 floor, but the floor is still a step:
+       at the bar's last row there is 0.60 cream and 16px of blur, and at the
+       next row there is neither, so crossing a dark section the edge reads as
+       a soft rule. A mask fades the element's whole rendering — fill AND
+       backdrop blur together — to nothing over the last 14px, so the painted
+       column runs linen, translucent band, then the page's own pixels with
+       nothing in between.
+
+       The depth is a LENGTH, not a percentage. The bar is
+       calc(64px + env(safe-area-inset-top)), so a `black 78%` stop is 14px on
+       a browser with no inset and 24px on an iPhone — and the bar's children
+       sit in the 64px band regardless of the inset, so a percentage deepens
+       the fade into the logo and the button exactly where the inset is
+       largest. calc(100% - 14px) is the same 14px everywhere.
+
+       14px is what the children allow. Measured at 390 and 1280: the lowest
+       painted child edge (.btn-nav, .nav-logo) is 15px above the bar's bottom
+       at both, so the fade starts 1px below everything the bar draws and no
+       child is touched. Deepening it past 15px starts eating the button.
+
+       -webkit- first and unprefixed second: Safari supports both and the
+       unprefixed one wins where it is understood. */
+    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 calc(100% - 14px), transparent 100%);
     /* No border-bottom. The gradient above IS the boundary: it eases from
        opaque cream to the 0.60 floor, so the bar's bottom edge is a fade and a
        hairline across it reads as a line drawn on nothing — over the dark
