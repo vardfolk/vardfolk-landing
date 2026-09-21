@@ -47,33 +47,13 @@
   /* overflow-x here as well as on body: Safari does not reliably propagate
      `clip` from body to the viewport, so a body-only rule silently fails on
      iOS and the page scrolls sideways. */
-  /* ── The canvas below the document's end (VAR-347) ────────────────────
-     The TOOLBAR-COLLAPSE gap. iOS Safari's toolbar shrinks as you scroll
-     down, which GROWS the visual viewport mid-scroll. The document's height
-     is already fixed, so at max scroll the viewport reaches past the
-     document's last pixel and the canvas shows through under the footer.
-     Nothing an ELEMENT paints reaches there — `box-shadow: 0 100vh 0` on the
-     footer was measured and does not, and `overflow-x: clip` is not the
-     reason. That region is the canvas, and the canvas takes its colour from
-     <html>. So the canvas is bark, and the gap reads as bark at rest.
-
-     The cream half of this rule is GONE. It existed only to keep the
-     rubber-band at the TOP from revealing bark, and there is no such bounce
-     any more: `overscroll-behavior-y: none` (c764280) stops the rubber-band
-     at both ends outright, so the top never shows canvas at all. A
-     bottom-aligned cream background-image with nothing left to cover is not
-     neutral either — WebKit anchors it to the canvas bottom rather than the
-     document's, which is what put cream back into the gap it was supposed to
-     stay out of. Colour only; no image, no size, no position.
-
-     Measured; see .cc-reports/var-347-canvas.md. */
+  /* ── The canvas below the document's end ──────────────────────────────
+     The canvas is cream because both ends of the page are cream. */
   html {
     scroll-behavior: smooth;
     overflow-x: clip;
-    background-color: var(--bark);
+    background-color: var(--linen);
   }
-
-  html, body { overscroll-behavior-y: none; }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -1074,7 +1054,7 @@
      it. Without this the strip is the canvas colour (cream) under a bark footer,
      which is the empty band that was showing below the footer on device. */
   footer {
-    background: var(--bark);
+    background: var(--linen);
     padding-top: 1.5rem;
     padding-right: max(2rem, env(safe-area-inset-right, 0px));
     padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
@@ -1090,7 +1070,7 @@
     font-family: 'Outfit', sans-serif;
     font-size: 1rem;
     font-weight: 500;
-    color: rgba(245,240,235,0.7);
+    color: var(--bark);
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -1107,16 +1087,16 @@
 
   .footer-links a {
     font-size: 0.8rem;
-    color: rgba(245,240,235,0.4);
+    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.2s;
   }
 
-  .footer-links a:hover { color: rgba(245,240,235,0.8); }
+  .footer-links a:hover { color: var(--bark); }
 
   .footer-copy {
     font-size: 0.8rem;
-    color: rgba(245,240,235,0.3);
+    color: var(--text-secondary);
     font-weight: 300;
     white-space: nowrap;
   }
