@@ -47,55 +47,30 @@
   /* overflow-x here as well as on body: Safari does not reliably propagate
      `clip` from body to the viewport, so a body-only rule silently fails on
      iOS and the page scrolls sideways. */
-  /* ── The canvas below the document's end, and the bounce (VAR-347) ────
-     Two mechanisms put real page area OUTSIDE the document.
+  /* ── The canvas below the document's end (VAR-347) ────────────────────
+     The TOOLBAR-COLLAPSE gap. iOS Safari's toolbar shrinks as you scroll
+     down, which GROWS the visual viewport mid-scroll. The document's height
+     is already fixed, so at max scroll the viewport reaches past the
+     document's last pixel and the canvas shows through under the footer.
+     Nothing an ELEMENT paints reaches there — `box-shadow: 0 100vh 0` on the
+     footer was measured and does not, and `overflow-x: clip` is not the
+     reason. That region is the canvas, and the canvas takes its colour from
+     <html>. So the canvas is bark, and the gap reads as bark at rest.
 
-     (a) The TOOLBAR-COLLAPSE gap. iOS Safari's toolbar shrinks as you scroll
-         down, which GROWS the visual viewport mid-scroll. The document's
-         height is already fixed, so at max scroll the viewport reaches past
-         the document's last pixel and the canvas shows through under the
-         footer. Nothing an ELEMENT paints reaches there — `box-shadow: 0 100vh
-         0` on the footer was measured and does not, and `overflow-x: clip` is
-         not the reason. That region is the canvas, and the canvas takes its
-         colour from <html>. So: background-COLOR is bark, which fills the
-         whole canvas including that gap, and the background-IMAGE puts the
-         cream back everywhere it belongs — bottom-aligned and 200vh taller
-         than the document, it covers the document and all the room above it
-         and stops dead at the document's end.
+     The cream half of this rule is GONE. It existed only to keep the
+     rubber-band at the TOP from revealing bark, and there is no such bounce
+     any more: `overscroll-behavior-y: none` (c764280) stops the rubber-band
+     at both ends outright, so the top never shows canvas at all. A
+     bottom-aligned cream background-image with nothing left to cover is not
+     neutral either — WebKit anchors it to the canvas bottom rather than the
+     document's, which is what put cream back into the gap it was supposed to
+     stay out of. Colour only; no image, no size, no position.
 
-     (b) The RUBBER-BAND. Pull past either end and a band opens in the wrong
-         colour. This is NOT solvable in CSS here and five passes went looking.
-         A fixed pseudo-element parked one viewport outside an edge does not
-         ride the bounce in (pass 5, on device: the bottom band was still
-         cream) — on current iOS only scrolled content translates. And the
-         two-colour viewport-attached canvas of pass 6 cannot work either,
-         because iOS Safari IGNORES background-attachment: fixed on the root:
-         it resolves it to `scroll`, so the gradient lands on the document, its
-         bottom half paints bark across the middle of the page, and the
-         overscroll regions get whatever the document's ends happen to be. The
-         two-colour canvas is therefore reverted to (a)'s single-colour rule.
-
-     The bounce is instead REMOVED rather than coloured, by overscroll-behavior-y
-     on html and body. That stops the rubber-band at both ends outright, so
-     there is no band to get wrong — and it costs nothing else here: this page
-     has no pull-to-refresh of its own, no nested scroller, and momentum
-     scrolling inside the document is untouched. Both elements, because the
-     viewport takes its overscroll behaviour from html and, when html's is the
-     initial `auto`, propagates body's instead — setting one and not the other
-     depends on which browser you ask.
-
-     Do NOT collapse (a) to a plain `background-color: var(--bark)`. That fixes
-     the bottom and breaks the top. Longhands throughout: a `background`
-     shorthand would reset the position and size that carry the whole idea.
-     Both halves were measured; see .cc-reports/var-347-canvas.md. */
+     Measured; see .cc-reports/var-347-canvas.md. */
   html {
     scroll-behavior: smooth;
     overflow-x: clip;
     background-color: var(--bark);
-    background-image: linear-gradient(var(--linen), var(--linen));
-    background-repeat: no-repeat;
-    background-position: left bottom;
-    background-size: 100% calc(100% + 200vh);
   }
 
   html, body { overscroll-behavior-y: none; }
