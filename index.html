@@ -47,71 +47,58 @@
   /* overflow-x here as well as on body: Safari does not reliably propagate
      `clip` from body to the viewport, so a body-only rule silently fails on
      iOS and the page scrolls sideways. */
-  /* ── The two regions outside the document (VAR-347, pass 6) ───────────
-     Two separate mechanisms put real page area OUTSIDE the document, both at
-     the same two edges, and this one rule answers both.
+  /* ── The canvas below the document's end, and the bounce (VAR-347) ────
+     Two mechanisms put real page area OUTSIDE the document.
 
      (a) The TOOLBAR-COLLAPSE gap. iOS Safari's toolbar shrinks as you scroll
          down, which GROWS the visual viewport mid-scroll. The document's
          height is already fixed, so at max scroll the viewport reaches past
-         the document's last pixel.
-     (b) The RUBBER-BAND. Pull past either end and Safari translates the page,
-         opening a band at that edge.
+         the document's last pixel and the canvas shows through under the
+         footer. Nothing an ELEMENT paints reaches there — `box-shadow: 0 100vh
+         0` on the footer was measured and does not, and `overflow-x: clip` is
+         not the reason. That region is the canvas, and the canvas takes its
+         colour from <html>. So: background-COLOR is bark, which fills the
+         whole canvas including that gap, and the background-IMAGE puts the
+         cream back everywhere it belongs — bottom-aligned and 200vh taller
+         than the document, it covers the document and all the room above it
+         and stops dead at the document's end.
 
-     Nothing an ELEMENT paints reaches either region. `box-shadow: 0 100vh 0`
-     on the footer does not (measured, pass 3), and `overflow-x: clip` is not
-     the reason — element painting simply stops at the document's end. Nor does
-     a `position: fixed` element parked one viewport outside an edge ride the
-     bounce into view: that was pass 5's theory, it shipped as body::before /
-     body::after in fea54f1, and on the phone the bottom band was STILL cream.
-     On current iOS only scrolled CONTENT translates, not the fixed layer. Both
-     pseudo-elements are therefore gone; they had no in-document paint, so
-     removing them changes nothing that was ever on screen.
+     (b) The RUBBER-BAND. Pull past either end and a band opens in the wrong
+         colour. This is NOT solvable in CSS here and five passes went looking.
+         A fixed pseudo-element parked one viewport outside an edge does not
+         ride the bounce in (pass 5, on device: the bottom band was still
+         cream) — on current iOS only scrolled content translates. And the
+         two-colour viewport-attached canvas of pass 6 cannot work either,
+         because iOS Safari IGNORES background-attachment: fixed on the root:
+         it resolves it to `scroll`, so the gradient lands on the document, its
+         bottom half paints bark across the middle of the page, and the
+         overscroll regions get whatever the document's ends happen to be. The
+         two-colour canvas is therefore reverted to (a)'s single-colour rule.
 
-     What is left is the canvas, which takes its colour from <html> — and the
-     canvas is the only thing that paints beyond the document in either region.
-     So: ONE gradient, cream in its top half and bark in its bottom half, sized
-     to exactly one viewport and ATTACHED TO THE VIEWPORT rather than to the
-     document. The band that opens at the TOP of the display shows the top
-     half's cream; the band at the BOTTOM shows the bottom half's bark. Neither
-     half is ever visible inside the document, because body paints its own
-     opaque linen over every pixel of it.
+     The bounce is instead REMOVED rather than coloured, by overscroll-behavior-y
+     on html and body. That stops the rubber-band at both ends outright, so
+     there is no band to get wrong — and it costs nothing else here: this page
+     has no pull-to-refresh of its own, no nested scroller, and momentum
+     scrolling inside the document is untouched. Both elements, because the
+     viewport takes its overscroll behaviour from html and, when html's is the
+     initial `auto`, propagates body's instead — setting one and not the other
+     depends on which browser you ask.
 
-     background-color is --linen on purpose, and it is the FALLBACK rather than
-     the fill: a browser that declines to paint a viewport-attached root
-     background into the overscroll region lands on cream at both ends, which
-     is exactly today's behaviour. The failure mode here is the status quo, and
-     never a dark band above the hero.
-
-     Do NOT collapse this to a plain `background-color: var(--bark)`. That fixes
-     the bottom and breaks the top — pulling down at the hero would reveal dark
-     above a cream page. Both halves were measured; see
-     .cc-reports/var-347-canvas.md. Longhands throughout, including the two that
-     carry the whole idea: a `background` shorthand would reset the attachment
-     and the size back to `scroll` and `auto`.
-
-     This SUPERSEDES pass 4's rule (bark colour under a document-sized cream
-     image, `background-size: 100% calc(100% + 200vh)`) — replaced, not joined,
-     because the two would disagree about the bottom band.
-
-     This is the SIXTH theory and the last CSS one. If the phone still shows
-     cream below the footer, the next step is the instrumentation build in
-     .cc-reports/VAR-347-pass5.md, not a seventh rule. */
+     Do NOT collapse (a) to a plain `background-color: var(--bark)`. That fixes
+     the bottom and breaks the top. Longhands throughout: a `background`
+     shorthand would reset the position and size that carry the whole idea.
+     Both halves were measured; see .cc-reports/var-347-canvas.md. */
   html {
     scroll-behavior: smooth;
     overflow-x: clip;
-    background-color: var(--linen);
-    background-image: linear-gradient(
-      to bottom,
-      var(--linen) 0%,
-      var(--linen) 50%,
-      var(--bark) 50%,
-      var(--bark) 100%
-    );
+    background-color: var(--bark);
+    background-image: linear-gradient(var(--linen), var(--linen));
     background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% 100%;
+    background-position: left bottom;
+    background-size: 100% calc(100% + 200vh);
   }
+
+  html, body { overscroll-behavior-y: none; }
 
   body {
     font-family: 'DM Sans', sans-serif;
@@ -180,7 +167,13 @@
     );
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--ochre-border);
+    /* No border-bottom. The gradient above IS the boundary: it eases from
+       opaque cream to the 0.60 floor, so the bar's bottom edge is a fade and a
+       hairline across it reads as a line drawn on nothing — over the dark
+       sections it is a white rule floating on the bark. The theme-color script
+       never read it (it reads backgroundColor only), and the bar's height is a
+       fixed calc() under border-box, so dropping it changes no layout but the
+       1px of content box it was taking. */
     transition: background 0.3s;
   }
 
@@ -1207,12 +1200,12 @@
       margin: 1rem auto 0;
     }
 
-    /* The border-bottom is BACK on mobile (it was `none`). With the bar now
-       running to the true top of the display it is ~123px of 85%-opaque cream
-       glass over a cream page — a surface with no luminance difference from the
-       content it floats over, so without a hairline it has no edge at all.
-       Gutters drop 2rem -> 1.25rem to match the hero's mobile padding and to
-       buy the CTA the width it needs beside the logo at 360px. */
+    /* Gutters drop 2rem -> 1.25rem to match the hero's mobile padding and to
+       buy the CTA the width it needs beside the logo at 360px. (This block used
+       to re-assert a border-bottom on mobile, on the argument that cream glass
+       over a cream page has no edge without a hairline. The fill is no longer
+       flat 0.85 cream — it is the opaque-to-0.60 gradient — and that fade is
+       the edge; the hairline is gone everywhere now.) */
     nav {
       padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
       padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
