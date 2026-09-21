@@ -140,29 +140,42 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* Opaque at the top edge, translucent at the bottom (VAR-347 pass 6).
-       A flat 0.85 fill lets a dark section show through right up to y=0, where
+    /* Opaque at the status bar, visibly translucent at the bottom edge.
+       A flat fill lets a dark section show through right up to y=0, where
        Safari's opaque status bar cuts it off — a hard horizontal seam across
-       the top of the display. The gradient rides ON TOP of that same 0.85
-       colour, so the composite is fully opaque cream for the first 35% of the
-       bar and eases back to exactly 0.85 at the bottom edge: content now
-       appears to fade in under the bar instead of hitting a line at its top.
+       the top of the display. The gradient rides ON TOP of the same colour, so
+       the composite is fully opaque cream down to 25% of the bar and eases
+       back to exactly the floor alpha at the bottom edge: content fades in
+       under the bar instead of hitting a line at its top.
 
-       background-COLOR stays the literal rgba on purpose. The theme-color
-       script reads getComputedStyle(nav).backgroundColor to blend the glass
-       over the band beneath it; moving the fill wholesale into a gradient
-       would report rgba(0,0,0,0) there and silently drop that blend on
-       Android Chrome. Longhands for the same reason the padding above uses
-       them — a `background` shorthand here would reset the other half.
+       The two numbers are a pair and they were re-tuned once on device. The
+       first curve (1f0f61f) opened opaque to 35% and eased back to 0.85, and
+       0.85 cream over anything is so nearly solid that the whole bar read as
+       OPAQUE on the phone — the seam was gone but so was the glass. The floor
+       is now 0.60, which is where the translucency becomes visible, and the
+       opaque run shortens to 25% to leave the longer ramp the deeper fade
+       needs. Raising the floor back toward 0.85 makes the bar look flat again;
+       dropping it further starts to cost the logo and the button their
+       contrast. Both halves are measured in
+       .cc-reports/landing-2026-09-20b.md.
+
+       background-COLOR stays the literal rgba on purpose, and it is what
+       carries the 0.60 floor — the gradient's last stop is `transparent`, so
+       the colour underneath is the bottom edge. The theme-color script reads
+       getComputedStyle(nav).backgroundColor to blend the glass over the band
+       beneath it; moving the fill wholesale into a gradient would report
+       rgba(0,0,0,0) there and silently drop that blend on Android Chrome.
+       Longhands for the same reason the padding above uses them — a
+       `background` shorthand here would reset the other half.
 
        `transparent` rather than an alpha-0 rgba: gradients interpolate in
        premultiplied space, so there is no grey fringe, and the stop needs no
        second copy of the colour. */
-    background-color: rgba(245,240,235,0.85);
+    background-color: rgba(245,240,235,0.60);
     background-image: linear-gradient(
       to bottom,
       var(--linen) 0%,
-      var(--linen) 35%,
+      var(--linen) 25%,
       transparent 100%
     );
     backdrop-filter: blur(16px);
@@ -2012,11 +2025,19 @@
   //   EXCEPT once the FOOTER has reached the bottom chrome, when it becomes the
   //   footer's own colour.
   //
-  // The nav composite is the part that is easy to get wrong. The bar is
-  // rgba(245,240,235,0.85) and it now runs to the true top of the display, so
-  // the status-bar band shows nav-over-section, not the section: over the dark
-  // final-cta that is #D5D0CB, not #1E1916. Setting the raw section colour there
-  // would trade one mismatch for a worse one.
+  // The nav composite is the part that is easy to get wrong. The bar's floor
+  // colour is rgba(245,240,235,0.60) and it runs to the true top of the
+  // display, so the status-bar band shows nav-over-section, not the section:
+  // over the dark final-cta this computes #9F9A96, not #1E1916. Setting the raw
+  // section colour there would trade one mismatch for a worse one.
+  //
+  // Known approximation, and it is Android-only: since the bar became a
+  // gradient the top 25% is fully OPAQUE cream, so what the page really paints
+  // under the top chrome is #F5F0EB and this script reports the bottom-edge
+  // composite instead. It is a tint on Chrome's address bar being a shade dark
+  // over a cream page, not a visual bug on any surface iOS shows. Fixing it
+  // means probing the gradient rather than backgroundColor, which is a bigger
+  // change than the miss is worth; filed rather than done.
   //
   // There is ONE tag and a browser that honours it tints BOTH bands from it, so
   // at the very end of the document the two bands can want different colours and
