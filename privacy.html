@@ -7,6 +7,11 @@
 <meta name="description" content="How Vardfolk collects, uses, shares, and protects your information.">
 <meta name="theme-color" content="#F5F0EB">
 <meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vardfolk.com/privacy">
+<link rel="alternate" hreflang="en" href="https://vardfolk.com/privacy">
+<link rel="alternate" hreflang="es" href="https://vardfolk.com/privacy-es">
+<link rel="alternate" hreflang="fil" href="https://vardfolk.com/privacy-fil">
+<link rel="alternate" hreflang="x-default" href="https://vardfolk.com/privacy">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,6 +19,9 @@
   :root {
     --ochre: #C4956A;
     --ochre-light: rgba(196,149,106,0.12);
+    --ochre-text: #8E6039; /* ochre for TEXT on linen: 4.8:1 (plain --ochre is 2.4:1) */
+    --card: #FBF8F4;       /* the intro card: warmer than white */
+    --card-rule: #DDB892;  /* the card's top bar: a lighter ochre */
     --ochre-border: rgba(196,149,106,0.25);
     --terracotta: #D4785A;
     --bark: #1E1916;
@@ -107,7 +115,7 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ochre);
+    color: var(--ochre-text);
     margin-bottom: 0.75rem;
   }
   .doc-wrap h1 {
@@ -121,8 +129,8 @@
   }
   .doc-updated {
     font-size: 0.9rem;
-    color: var(--text-muted);
-    font-weight: 300;
+    color: var(--text-secondary);
+    font-weight: 400;
   }
   .doc-wrap h2 {
     font-family: 'Outfit', sans-serif;
@@ -146,7 +154,7 @@
     font-size: 1rem;
     color: var(--text-secondary);
     margin-bottom: 1rem;
-    font-weight: 300;
+    font-weight: 400;
   }
   .doc-wrap strong { color: var(--bark); font-weight: 500; }
   .doc-wrap ul { margin: 0 0 1.25rem 1.25rem; }
@@ -154,12 +162,23 @@
     font-size: 1rem;
     color: var(--text-secondary);
     margin-bottom: 0.5rem;
-    font-weight: 300;
+    font-weight: 400;
     padding-left: 0.35rem;
   }
   .doc-wrap li::marker { color: var(--ochre); }
-  .doc-wrap a { color: var(--ochre); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-wrap a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
   .doc-wrap a:hover { color: var(--terracotta); }
+
+  /* Legal L6: a link to a section (#ai, #rights) lands below the fixed 64px nav. */
+  .doc-wrap h2[id] { scroll-margin-top: 88px; }
+  /* Legal L6 (L-11): the Privacy and health-data pages in three languages — a div,
+     never a <nav> (this page's global nav rule is the fixed header). Each
+     link is the language named in itself, 44px tall; the current page is not a
+     link. Colours are this page's own (--ochre-text links, --bark current). */
+  .doc-langs { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0 0 1.25rem; font-size: 0.9rem; }
+  .doc-langs a, .doc-langs span { display: inline-flex; align-items: center; min-height: 44px; }
+  .doc-langs a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-langs span { color: var(--bark); font-weight: 500; }
 
   .doc-table {
     width: 100%;
@@ -172,7 +191,7 @@
     padding: 0.7rem 0.9rem;
     border-bottom: 1px solid var(--linen-deeper);
     color: var(--text-secondary);
-    font-weight: 300;
+    font-weight: 400;
   }
   .doc-table th {
     font-family: 'Outfit', sans-serif;
@@ -185,9 +204,9 @@
   .doc-table td:first-child { color: var(--bark); font-weight: 500; white-space: nowrap; }
 
   .doc-intro {
-    background: var(--white);
+    background: var(--card);
     border-radius: 14px;
-    border-top: 3px solid var(--ochre);
+    border-top: 3px solid var(--card-rule);
     padding: 1.5rem 1.75rem;
     margin-bottom: 2rem;
     box-shadow: 0 2px 24px rgba(30,25,22,0.06);
@@ -276,45 +295,63 @@
 </nav>
 
 <main class="doc-wrap">
+  <div class="doc-langs" role="group" aria-label="Language of this page">
+    <span lang="en" aria-current="page">English</span>
+    <a href="/privacy-es" lang="es" hreflang="es">Español</a>
+    <a href="/privacy-fil" lang="fil" hreflang="fil">Filipino</a>
+  </div>
   <div class="doc-header">
     <div class="doc-eyebrow">Legal</div>
     <h1>Privacy Policy</h1>
-    <p class="doc-updated">Last updated: October 13, 2026</p>
+    <p class="doc-updated">Last updated: October 22, 2026</p>
   </div>
 
   <div class="doc-intro">
     <p>This Privacy Policy describes how Vardfolk (“Vardfolk,” “we,” “us,” or “our”) collects, uses, shares, and protects your information when you use our website at <a href="https://vardfolk.com">vardfolk.com</a>, our applications at app.vardfolk.com and on iOS and Android, and related services (together, the “Services”).</p>
     <p>Vardfolk is a <strong>care coordination platform</strong>. Families and care teams use it to organize and communicate around the care of an aging or ill loved one — tracking tasks, appointments, medications, documents, messages, and updates in a shared “care circle.” Vardfolk is a coordination tool. <strong>It is not a medical provider, is not a substitute for professional medical advice, and is not intended for clinical decision-making.</strong></p>
-    <p>Vardfolk is operated by Vardfolk, a sole proprietorship, located in California, United States. If you have questions about this policy or your information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>.</p>
+    <p>Vardfolk is operated by Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, United States, who is the person responsible for how Vardfolk handles your information. If you have questions about this policy or your information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Because most of what Vardfolk holds is health information, we also publish a separate <strong><a href="/health-data-privacy">Consumer Health Data Privacy Policy</a></strong>, which some states require; it is linked from the foot of every page on <a href="https://vardfolk.com">vardfolk.com</a> and from Settings → Account in the app.</p>
   </div>
 
-  <h2>Summary of key points</h2>
+  <h2 id="summary">Summary of key points</h2>
+
   <ul>
     <li><strong>What we collect.</strong> Account and profile information; the care information you and your circle members enter (care-recipient details, medications, allergies, appointments, tasks, journal entries, messages, contacts, wellbeing check-ins); documents you upload (which may include health-related files); billing information; and technical/device information for notifications and security.</li>
-    <li><strong>Sensitive information.</strong> Because Vardfolk is used to coordinate care, the information you provide may include health-related details about a care recipient. You provide this voluntarily to coordinate care.</li>
-    <li><strong>How we use AI.</strong> Vardfolk uses artificial intelligence to power features such as document scanning, summaries, and suggestions. To do this, relevant content — which may include health information — is sent to our AI provider, Anthropic, to generate the result. Anthropic does not use this content to train its AI models.</li>
+    <li><strong>Health information is treated as confidential.</strong> Because Vardfolk is used to coordinate care, the information you provide includes health information about a care recipient, who may not be a member. We treat it as confidential medical information: it is shown only to the members of its care circle, processed only by the providers that run Vardfolk under contracts that forbid any other use, never sold, never used for advertising, and never used to train AI models.</li>
+    <li><strong>How we use AI.</strong> Vardfolk uses artificial intelligence to power features such as document scanning, summaries, and suggestions. To do this, relevant content — which may include health information — is sent to our AI provider, Anthropic, to generate the result. Anthropic does not use this content to train its AI models and deletes it within 30 days. The app asks for your permission before the Updates, messages, comments and documents you add are sent, and you can change your choice at any time in Settings.</li>
     <li><strong>Who we share with.</strong> We share information with the service providers that operate Vardfolk. Within the app, your care-circle information is visible to the members of that circle according to their role. We do not sell your personal information.</li>
-    <li><strong>Your choices.</strong> You can review, update, export, or delete your information, and delete your account, at any time.</li>
+    <li><strong>Your choices.</strong> You can review, update, export, or delete your information, and delete your account, at any time. You decide whether the assistant may read the Updates, messages, comments and documents you add, and a circle’s administrator decides whether the assistant is used in that circle at all. The person being cared for has every right in this policy whether or not they use the app.</li>
   </ul>
 
-  <h2>1. Information we collect</h2>
+  <h2 id="collect">1. Information we collect</h2>
+
   <h3>Information you provide directly</h3>
-  <ul>
-    <li><strong>Account and profile information</strong> — your name, email address, and a password, or authentication through Apple or Google sign-in. Optionally, a profile photo and a phone number, which the members of your care circles can see.</li>
-    <li><strong>Care-circle and care-recipient information</strong> — the name and details of the person being cared for, and the members you invite to the circle.</li>
-    <li><strong>Health-related care information</strong> — medications, dosages and schedules, allergies, appointments, and the contents of documents you upload (such as discharge summaries, after-visit summaries, insurance cards, and other health-related files).</li>
-    <li><strong>Coordination content</strong> — tasks, journal entries and care updates, messages you send within a circle, important contacts, and wellbeing check-ins.</li>
-    <li><strong>Billing information</strong> — when you subscribe to a paid plan, your payment details are collected and processed by Stripe. Vardfolk does not store your full card number.</li>
-  </ul>
-  <h3>Information collected automatically</h3>
-  <ul>
-    <li><strong>Device and technical information</strong> — including push-notification tokens (for Apple and web push), and basic information needed to operate and secure the Services.</li>
-    <li><strong>Usage and diagnostic information</strong> — when you use the app, we and our analytics and crash-reporting providers automatically collect limited information about how the Services are used (such as which features are opened and general device and session information) and diagnostic information (such as crash reports and performance data), to help us understand usage and fix technical problems. This information is associated with a randomly generated identifier rather than your name or email address. We configure these providers so that location derived from your IP address is discarded and is not stored, and so that the care content you store in Vardfolk — documents, messages, medications, and journal entries — is excluded from what they collect. See Section 4 for the providers we use for this purpose.</li>
-  </ul>
-  <p><strong>Sensitive information.</strong> The care information you enter may be considered sensitive in some jurisdictions because it relates to health. You provide this information voluntarily in order to coordinate care. Vardfolk is not a HIPAA-covered entity, and the Services are not designed to comply with HIPAA, and should not be used in any way that would require HIPAA compliance.</p>
 
-  <h2>2. How we use your information</h2>
+  <ul>
+    <li><strong>Account and profile information</strong> — your name, email address, and a password, or authentication through Apple or Google sign-in. Optionally, a profile photo and a phone number, which the members of your care circles can see. We use your email address for account, security and legal notices.</li>
+    <li><strong>Care-circle and care-recipient information</strong> — the name and details of the person being cared for, and the members you invite to the circle.</li>
+    <li><strong>Health-related care information</strong> — medications, dosages and schedules, dose logs, allergies, conditions, appointments, care notes, health insurance details and medical record numbers, and the contents of documents you upload (such as discharge summaries, after-visit summaries, insurance cards, and other health-related files). Most of this is about the person being cared for and is entered by the members of their circle; some is about you (for example, your own wellbeing check-ins).</li>
+    <li><strong>Coordination content</strong> — tasks, journal entries and care updates, messages you send within a circle, important contacts, and wellbeing check-ins.</li>
+    <li><strong>Your settings and choices</strong> — your notification settings, including whether medicine names appear in your notifications; your choice about the assistant (Allow or Not now); the members you have chosen to hide (see Section 4); the permissions you give us for health information when you first use the app; and, where the person being cared for or their representative signs one, their authorization for the circle to hold and share their information.</li>
+    <li><strong>Billing information</strong> — when you subscribe to a paid plan on the web, your payment details are collected and processed by Stripe. When you subscribe in the iPhone or Android app, the purchase is made through Apple’s App Store or Google Play, and they handle your payment details; Vardfolk receives a record of the subscription (its status, plan and renewal date) from them through RevenueCat, never your card number or billing address. Vardfolk does not store your full card number. We keep a record of your agreement to the subscription terms for at least three years, as California law requires.</li>
+  </ul>
+
+  <h3>Information collected automatically</h3>
+
+  <ul>
+    <li><strong>Device and technical information</strong> — including push-notification tokens (Apple Push Notification service on Apple devices, Google’s Firebase Cloud Messaging on Android, and web push in a browser), and basic information needed to operate and secure the Services.</li>
+    <li><strong>Usage and diagnostic information</strong> — when you use the app, we and our analytics and crash-reporting providers automatically collect limited information about how the Services are used (such as which features are opened and general device and session information) and diagnostic information (such as crash reports and performance data), to help us understand usage and fix technical problems. This information is associated with a randomly generated identifier rather than your name or email address. We configure these providers so that location derived from your IP address is discarded and is not stored, and so that the care content you store in Vardfolk — documents, messages, medications, and journal entries — is excluded from what they collect. An error report carries no email address, none of the parameters of the web address that failed (which can include a sign-in or calendar link), and no details of a database error, and our own server logs refer to people and circles by identifier rather than by name or email address. See Section 4 for the providers we use for this purpose.</li>
+  </ul>
+
+  <h3>What we do not collect</h3>
+
+  <p>We do not read health data from your phone’s health apps (no Apple HealthKit, no Android Health Connect), we do not collect your precise location, and we do not buy information about you. If you turn on the app lock, Face ID, Touch ID or your Android biometric unlock is checked by your phone’s operating system; Vardfolk receives only a yes or no and never a fingerprint, face or other biometric template. The camera is used only while you scan a document or take a photo or video to share with your circle, and the microphone only while you record a video; neither is used in the background.</p>
+
+  <p><strong>Sensitive information.</strong> The care information you enter is health information, and in many states it is “consumer health data” or “medical information” with its own legal protections. We treat it as confidential medical information under California’s Confidentiality of Medical Information Act, which treats an app like Vardfolk as a provider of health care for that law’s purposes only. Vardfolk is not a HIPAA-covered entity or business associate, the Services are not designed to comply with HIPAA, and they must not be used by health-care providers, home-care agencies, health plans or anyone acting for them to manage patient information.</p>
+
+  <h2 id="use">2. How we use your information</h2>
+
   <p>We use your information to:</p>
+
   <ul>
     <li>Create and maintain your account and authenticate you.</li>
     <li>Provide the Services — store and display your care circle’s tasks, appointments, medications, documents, messages, and updates to the members of that circle.</li>
@@ -326,87 +363,134 @@
     <li>Understand how the Services are used, and detect and fix technical problems, so we can keep the app reliable and improve it.</li>
   </ul>
 
-  <h2>3. How we use artificial intelligence</h2>
-  <p>Vardfolk uses artificial intelligence to make care coordination easier. AI-assisted features include scanning and reading uploaded documents to extract medications, appointments, and tasks; generating summaries and briefings; suggesting tasks from journal entries; suggesting document tags and contacts; and helping draft notes and messages.</p>
+  <p>Every notification email, including the daily digest and the weekly summary, has a one-click unsubscribe that turns off that circle’s email notifications for you. An invitation email has an Unsubscribe link that stops invitations to your address; the page it opens also lets you allow them again.</p>
+
+  <p>We do not use your information, or your circle’s health information, for advertising or marketing, we do not sell it, and we do not use it to train artificial-intelligence or large language models — ours or anyone else’s. If we ever wanted to use your information for a new purpose, we would ask for your consent first.</p>
+
+  <h2 id="ai">3. How we use artificial intelligence</h2>
+
+  <p>Vardfolk uses artificial intelligence to make care coordination easier. AI-assisted features include scanning and reading uploaded documents to extract medications, appointments, and tasks; generating summaries and briefings; suggesting tasks from journal entries; suggesting document tags and contacts; and helping draft notes and messages. Anything the assistant produces is marked as such in the app, and what it extracts from a document is shown to you to review before it is added to your circle’s records.</p>
+
   <p><strong>To provide these features, relevant content is sent to our AI provider, Anthropic (the maker of Claude).</strong> Depending on the feature, this content may include text extracted from documents you upload (which may contain health information), journal entries, messages, appointment and medication details, and other care information.</p>
-  <p><strong>Anthropic processes this content to generate the feature’s output and, under its commercial API terms, does not use it to train its AI models.</strong></p>
-  <p>A care circle’s admin can turn the assistant off for that circle in the app (Manage circle → “Use the assistant in this circle”); while it is off, no content from the circle is sent to Anthropic except the text-reading step for uploaded documents, which is what keeps them searchable.</p>
+
+  <p><strong>Anthropic processes this content only to generate the feature’s output. Under its commercial terms it may not use it to train its AI models, and it deletes what we send within 30 days,</strong> except where it must keep something longer to enforce its usage policy or to comply with the law.</p>
+
+  <p><strong>Your permission comes first.</strong> The first time you use Vardfolk, the app asks whether the assistant may read what you add, and you choose Allow or Not now. If you choose Not now, the Updates, messages, comments and documents you add are never sent to Anthropic. Shared care details your circle keeps together, like medications and appointments, are used by the assistant when your circle’s admin has it on. That is the circle’s choice, made by its administrator with the permission the person being cared for (or their representative) gave when the circle was set up, and the administrator can turn it off at any time. In practice, Not now means: a document you upload is not sent to Anthropic — if it is a PDF or an image, its text is read on Vardfolk’s own servers, by a text-recognition program that runs there, only so that the document can be found in search, and nothing else is drawn from it; the assistant’s own features — summaries, briefings, drafting help, the search assistant, and suggestions — are unavailable to you until you change your choice; and the Updates, messages, comments and documents you added are left out of anything the assistant prepares for other members of your circle, such as the daily digest’s summary or a suggested contact. We do not tell other members which choice you made, and a summary prepared for them never says that something was left out. You can change your choice at any time in Settings → Account → Assistant.</p>
+
+  <p>A care circle’s administrator can also turn the assistant off for the whole circle (Manage circle → “Use the assistant in this circle”). While it is off, no content from the circle is sent to Anthropic, except that the text of uploaded documents is still read by Anthropic so the documents stay searchable; that is the one step the circle switch does not stop, because search depends on it. A document uploaded by a member who chose Not now is never sent to Anthropic, whatever the circle switch says: its text is read only on Vardfolk’s own servers, for search. While a circle is waiting for the care recipient’s permission, or that permission has ended, the assistant is off for the circle and nothing from it is sent to Anthropic, not even documents; their text is read only on Vardfolk’s own servers, for search.</p>
+
   <p>How we handle the results:</p>
+
   <ul>
     <li><strong>Document scanning and extraction.</strong> The text read from your uploaded document and the structured information extracted from it (such as medications, appointments, and tasks) are saved in your care circle’s records, so you can review and use them. They are deleted when you delete the document or the care circle.</li>
-    <li><strong>Other AI features</strong> (summaries, briefings, suggestions, drafting help) process your information to generate a response. Most of these are shown to you in the moment and are not stored — a briefing or a drafted note is kept only if you choose to keep it, for example by accepting a suggested task.</li>
-    <li><strong>Some AI-generated content is saved as part of how the feature works,</strong> so that it is there when you come back to it. Suggested contacts found in your circle’s notes are saved so they are waiting for you to review, accept, or dismiss; a document you scan may be given a name and a tag drawn from its own contents; and a preparation brief generated for an appointment is kept on that appointment, so you can read it again before the visit. Anything saved this way lives in your care circle’s records alongside the rest of your information, and is deleted when you delete that item or the care circle.</li>
-    <li><strong>We do not keep separate logs of the content sent to, or received from, the AI provider.</strong></li>
+    <li><strong>Other AI features</strong> (summaries, briefings, suggestions, drafting help) process your information to generate a response. So that the same response is not generated twice, a copy of a recent result is kept in your care circle’s records for up to 7 days, and then deleted; it is deleted sooner if you delete the care circle. A drafted note or a suggested task becomes part of your records only if you choose to keep it.</li>
+    <li><strong>Some AI-generated content is saved as part of how the feature works,</strong> so that it is there when you come back to it. A document you scan may be given a name and a tag drawn from its own contents, and they stay with the document until you change them or delete it. A preparation brief generated for an appointment is kept on that appointment, so you can read it again before the visit, and is deleted within a day of the appointment being deleted, or with the care circle. Suggested contacts found in your circle’s notes are saved so they are waiting for you to review, accept, or dismiss; a suggestion you accept is deleted 30 days later, one waiting for review after 90 days, and one you dismiss keeps only the name, so it isn’t suggested again; all of them are deleted with the care circle.</li>
+    <li><strong>We do not keep logs of the content sent to the AI provider.</strong> The only AI results we keep are the ones described above.</li>
   </ul>
-  <p>AI-generated output can contain mistakes. Vardfolk does not provide medical advice, and AI-assisted features are aids to coordination, not clinical guidance. Always verify important details — especially dates, dosages, and medical information — against your original documents and your healthcare providers.</p>
 
-  <h2>4. How your information is shared</h2>
-  <p><strong>Within your care circle.</strong> Information you add to a care circle is visible to the other members of that circle, according to each member’s role (administrator, contributor, or viewer). This sharing is how Vardfolk works — it lets your family and care team stay coordinated. Your care-circle information is <strong>not public</strong> and is not shared outside your circle except as described below.</p>
-  <p><strong>With service providers (subprocessors).</strong> We share information with the third-party providers that operate Vardfolk on our behalf. They are permitted to use the information only to provide their services to us:</p>
+  <p>AI-generated output can contain mistakes. Vardfolk does not provide medical advice, and AI-assisted features are aids to coordination, not clinical guidance: the assistant never recommends, changes or interprets a medication, a dose or a test result, and declines questions that ask it to. Always verify important details — especially dates, dosages, and medical information — against your original documents and your healthcare providers.</p>
+
+  <h2 id="sharing">4. How your information is shared</h2>
+
+  <p><strong>Within your care circle.</strong> Information you add to a care circle is visible to the other members of that circle, according to each member’s role (administrator, contributor, or viewer). This sharing is how Vardfolk works — it lets your family and care team stay coordinated. It happens with the permission of the person being cared for, or of their legal representative, recorded when the circle is created, and every member agrees not to share what they see outside the circle. If that permission is cancelled or ends, or has not been signed yet, the members other than the circle’s administrators and the person who signed it are paused — they cannot see the circle — until a new permission is signed. Your care-circle information is <strong>not public</strong> and is not shared outside your circle except as described below.</p>
+
+  <p><strong>Checked before posting, and not sent anywhere.</strong> Before a message, update, or comment is posted, the app checks it against a fixed word list (see Section 4 of our Terms of Service). That check runs on your device and in our database, uses no artificial intelligence, and records nothing: no copy of what you typed is kept or sent to anyone because of it. Reports are different: a report is read by a person (see Reports below).</p>
+
+  <p><strong>Hiding a member.</strong> When you hide a member of your circle, we keep a record of that choice so the app can fold their messages, updates, and comments away on your devices and stop notifying you about them. We do not tell the person you hide, nothing in the app shows them, and they keep every ability they had, unless the law requires us to disclose it. You can undo it at any time: tap them in Members and choose Unhide.</p>
+
+  <p><strong>Reports.</strong> When a member reports a message, update, comment, photo or file, or another member, from within the app, the reported content (for a photo or file, a reference to it rather than the file itself), who wrote it, who reported it, anything the reporter added in their own words, and the circle it came from are sent to us by email so we can review it (see Section 4 of our Terms of Service). We do not tell the person who wrote it who reported it, unless the law requires us to. We keep report emails for up to one year.</p>
+
+  <p><strong>With service providers (subprocessors).</strong> We share information with the third-party providers that operate Vardfolk on our behalf. Each is bound by a contract that permits it to use the information only to provide its service to us, requires it to protect the information at least as well as this policy says we do, and forbids any further disclosure or use of its own:</p>
+
   <table class="doc-table">
     <thead><tr><th>Provider</th><th>Purpose</th></tr></thead>
     <tbody>
       <tr><td>Supabase</td><td>Database, authentication, and file storage</td></tr>
-      <tr><td>Anthropic</td><td>AI-assisted features (see Section 3)</td></tr>
-      <tr><td>Stripe</td><td>Payment processing</td></tr>
-      <tr><td>RevenueCat</td><td>Subscription and in-app purchase management</td></tr>
+      <tr><td>Anthropic</td><td>AI-assisted features (see Section 3); deletes what we send within 30 days and may not train on it</td></tr>
+      <tr><td>Stripe</td><td>Payment processing for subscriptions bought on the web</td></tr>
+      <tr><td>RevenueCat</td><td>Subscription management: receives the status of in-app purchases from Apple and Google and tells Vardfolk which plan you are on</td></tr>
       <tr><td>Resend</td><td>Sending email (such as invitations and notifications)</td></tr>
       <tr><td>Hostinger</td><td>Email hosting for our support and privacy addresses</td></tr>
-      <tr><td>Apple</td><td>Sign-in and push notifications (iOS)</td></tr>
-      <tr><td>Google</td><td>Sign-in, and location suggestions when adding an appointment</td></tr>
-      <tr><td>Cloudflare</td><td>Website and application hosting</td></tr>
-      <tr><td>Railway</td><td>Backend / server hosting</td></tr>
+      <tr><td>Apple</td><td>Sign in with Apple; push notifications on Apple devices; in-app purchases through the App Store</td></tr>
+      <tr><td>Google</td><td>Sign in with Google; push notifications on Android (Firebase Cloud Messaging); in-app purchases through Google Play; address and place suggestions through Google Maps Platform (Places) when you type an address or place — an appointment’s location, a pharmacy or a hospital (the medicine screens load it in advance, so suggestions are ready); and the fonts the website at <a href="https://vardfolk.com">vardfolk.com</a> loads from Google Fonts when it opens</td></tr>
+      <tr><td>Cloudflare</td><td>Website and application hosting, network delivery, and encrypted off-site backups of uploaded files</td></tr>
+      <tr><td>Render</td><td>Backend / server hosting (Oregon, USA)</td></tr>
       <tr><td>Sentry</td><td>Crash and error reporting</td></tr>
       <tr><td>PostHog</td><td>Product analytics</td></tr>
     </tbody>
   </table>
-  <p><strong>For legal reasons.</strong> We may disclose information if required by law, to respond to lawful requests, or to protect the rights, safety, and security of our users, the public, or Vardfolk.</p>
+
+  <p><strong>For legal reasons.</strong> We may disclose information if required by law, to respond to lawful requests, or where the law allows it to protect the rights, safety, and security of our users, the public, or Vardfolk. We do not disclose health information for immigration enforcement unless a court or the law compels us to.</p>
+
   <p><strong>Business transfers.</strong> If Vardfolk is involved in a merger, acquisition, or sale of assets, your information may be transferred as part of that transaction. We will notify you of any such change.</p>
-  <p><strong>We do not sell your personal information,</strong> and we do not share it for cross-context behavioral advertising.</p>
 
-  <h2>5. Where your information is stored</h2>
-  <p>Vardfolk is operated in the United States, and your information is stored and processed in the United States. If you access the Services from outside the United States, you understand that your information will be transferred to and processed in the United States.</p>
-  <p><strong>An offline copy on your phone.</strong> So you can still see the essentials without a connection, the Vardfolk iPhone and Android apps keep an encrypted copy of some of your circle’s information on your device: the care recipient’s Care Sheet details (including care notes), allergies, active medications and today’s doses (with who logged them), the next 14 days of appointments, important contacts, and members’ names. The app keeps this copy for up to three circles and refreshes it while you’re online. A copy that hasn’t been updated for 7 days is never shown, and it is deleted the next time the app starts without a connection. The copy is excluded from device backups and is never sent anywhere. It is deleted when you sign out (including when you delete your account), when a different account signs in on the same device, and when you leave a circle, delete it, or are removed from it. The web app never stores this copy.</p>
+  <p><strong>We do not sell your personal information,</strong> and we do not share it for cross-context behavioral advertising. No third party collects information about your activity over time and across other websites or apps when you use Vardfolk, and we do not allow anyone to.</p>
 
-  <h2>6. How long we keep your information</h2>
-  <p>We keep your information for as long as your account is active or as needed to provide the Services. When information is deleted (see Section 7), it is removed from our active systems. Residual copies may persist temporarily in routine backups before being overwritten, and we may retain limited information where required to comply with legal obligations, resolve disputes, or enforce our agreements.</p>
+  <h2 id="storage">5. Where your information is stored</h2>
 
-  <h2>7. Deleting your information and your account</h2>
-  <p>You can delete your account at any time from the app’s account settings, or by contacting us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Here is what happens when you delete your account:</p>
+  <p>Vardfolk is operated in the United States, and your information is stored and processed in the United States. The Services are offered to people in the United States; if you use them from elsewhere, you understand that your information will be transferred to and processed in the United States.</p>
+
+  <p><strong>An offline copy on your phone.</strong> So you can still see the essentials without a connection, the Vardfolk iPhone and Android apps keep an encrypted copy of some of your circle’s information on your device: the care recipient’s Care Sheet details (including care notes), allergies, active medications and today’s doses (with who logged them), the next 14 days of appointments, important contacts, and members’ names. The app keeps this copy for up to three circles and refreshes it while you’re online. A copy that hasn’t been updated for 7 days is never shown, and it is deleted the next time the app starts without a connection. The copy is excluded from device backups and is never sent anywhere. It is deleted when you sign out (including when you delete your account) and when a different account signs in on the same device. A circle’s copy is deleted when you leave it, delete it, or are removed from it — at the latest the next time the app refreshes its copies online, or when the copy expires. When you sign out, the app also forgets the circle it last opened and any email address it remembered for a password reset, cancels the daily check-in reminder, and stops the phone receiving this account’s notifications; a Care Journey PDF you share from the app is removed from the phone once the share sheet closes. The web app never stores this copy.</p>
+
+  <p><strong>Changes on their way to us.</strong> When you make a change in the iPhone or Android app, the app keeps it, encrypted, on your phone until it reaches our servers, usually within seconds. If you are signed out without choosing to be, a change that hadn’t reached us yet is kept, encrypted, for up to 7 days so it can be sent if you sign back in, and is then deleted. Signing out yourself, deleting your account, or another account signing in on the phone deletes it at once.</p>
+
+  <h2 id="retention">6. How long we keep your information</h2>
+
+  <p>We keep your information for as long as your account is active or as needed to provide the Services. When information is deleted (see Section 7), it is removed from our active systems right away. Copies can remain for a limited time afterwards: in our database provider’s backups, which roll over within 7 days; in our encrypted file backups, for up to 90 days; and with our email provider, which keeps a record of each email it delivers for a limited period set by its plan. Our AI provider deletes what we send it within 30 days (Section 3), and our authentication provider keeps a security log of sign-ins for a limited period. A notification that another member received about something you did, and the preview it carries, is kept for at most 90 days. We keep report emails for up to one year, records of your consents and of your agreement to subscription terms for at least three years, the care recipient’s signed permission and its record for at least three years after it ends, and limited information where required to comply with legal obligations, resolve disputes, or enforce our agreements, as described in Section 7.</p>
+
+  <h2 id="deletion">7. Deleting your information and your account</h2>
+
+  <p>You can delete your account at any time from the app — Settings → Account → Danger Zone, or, if you have not joined a circle yet, the Danger Zone under Sign out on the “Create your care circle” screen — or by contacting us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. If you ask by email, we will first confirm the request came from you by sending a code to the email address on your account (for Sign in with Apple accounts, the relay address Apple gave us still forwards to you), then delete the account and confirm back by email; allow up to 7 days. Here is what happens when you delete your account:</p>
+
   <ul>
-    <li><strong>If you are the only member of a care circle,</strong> that circle and all of its data are permanently deleted — including tasks, appointments, medications, journal entries, messages, contacts, and the <strong>uploaded files stored for that circle</strong>.</li>
-    <li><strong>If a care circle has other members,</strong> the circle and its shared records remain so the other members can continue using them. Your membership is removed, and your personal connection to content you created is removed (your authorship is cleared). Comments you posted on tasks, appointments, and journal entries remain visible to the circle, but they are no longer shown under your name. Your wellbeing check-ins, your notifications, and your notification settings are deleted.</li>
+    <li><strong>If you are the only member of a care circle,</strong> that circle and all of its data are permanently deleted — including tasks, appointments, medications, journal entries, messages, contacts, and the <strong>uploaded files stored for that circle</strong> — except the permission and consent records described in Section 6.</li>
+    <li><strong>If a care circle has other members,</strong> the circle and its shared records remain so the other members can continue using them. Your membership is removed, and your personal connection to content you created is removed (your authorship is cleared). Comments you posted on tasks, appointments, and journal entries remain visible to the circle, but they are no longer shown under your name. Your wellbeing check-ins, your notifications, and your notification settings are deleted. Notifications about your activity are removed from other members’ notification lists.</li>
     <li><strong>If you are the only administrator of a circle that still has other members,</strong> you will be asked to make another member an administrator, or to remove the other members, before you can delete your account — so the circle is not left without an owner.</li>
     <li>Your profile, your authentication account, and your device/push tokens are deleted.</li>
+    <li>Some records are kept after your account is deleted: a record of the terms and permissions you agreed to, kept for three years; and the billing records our payment processors keep under their own legal obligations. We also ask our subscription provider to delete your purchase history.</li>
+    <li>If you signed in with Apple, deleting your account from the iPhone app also ends Vardfolk’s Sign in with Apple authorization, so Vardfolk no longer appears among the apps using your Apple Account; the app asks you to confirm with Apple once more before deleting. If you cancel that step, your account is still deleted, and you can remove the authorization yourself in your Apple Account settings.</li>
+    <li>If you subscribed to Plus through the App Store or Google Play, deleting your account does not cancel that subscription; cancel it with the store first (the deletion screen takes you there). A subscription billed by Stripe is cancelled when your account is deleted; if Stripe cannot be reached at that moment, the deletion waits and you can try again.</li>
   </ul>
-  <p>You may also delete individual documents, messages, and other items at any time, and delete an entire care circle you administer.</p>
 
-  <h2>8. How we protect your information</h2>
-  <p>We use technical and organizational measures designed to protect your information, including encryption in transit, access controls, and authentication. No method of transmission or storage is completely secure, so we cannot guarantee absolute security. You are responsible for keeping your account credentials confidential.</p>
+  <p>You may also delete individual documents, messages, and other items at any time, and delete an entire care circle you administer. Deleting a message, update or comment also removes its preview from members’ notification lists. A notification or email that has already reached a member’s device or inbox cannot be recalled. Files attached to a task or an appointment stay in the Vault when the task or appointment is deleted; you can delete them there. The providers that keep a copy for us delete it on their own schedule, within the periods described in Section 6, and when you delete your account we ask our payment processor and our subscription provider to delete what they hold for you. <strong>The person being cared for</strong> can ask us to delete the information a circle keeps about them, whether or not they are a member (Section 10).</p>
 
-  <h2>9. Children’s privacy</h2>
-  <p>The Services are intended for adults (18 and older) coordinating care. We do not knowingly collect personal information from children under 18. A care recipient’s information is entered by the adult members of a care circle. If you believe a child under 18 has provided us with personal information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> and we will delete it.</p>
+  <h2 id="security">8. How we protect your information</h2>
 
-  <h2>10. Your privacy rights</h2>
+  <p>We use technical and organizational measures designed to protect your information, including encryption in transit and at rest, access controls limited to what each person and provider needs, two-factor authentication, and authentication for every request. No method of transmission or storage is completely secure, so we cannot guarantee absolute security. You are responsible for keeping your account credentials confidential. <strong>If a security incident affects your information, we will tell you</strong> — by email to your account address and with a notice in the app — within the time the law requires, and we will say what happened, what information was involved, what we are doing and what you can do.</p>
+
+  <h2 id="children">9. Children’s privacy</h2>
+
+  <p>The Services are intended for adults (18 and older) coordinating care. We do not knowingly collect personal information from children under 18. A care recipient’s information is entered by the adult members of a care circle. On iPhone, where the law requires it, the app asks Apple whether you are 18 or older; the answer is never stored or sent to us. If you believe a child under 18 has provided us with personal information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> and we will delete it. If we learn that an account holder is under 13, we delete the account.</p>
+
+  <h2 id="rights">10. Your privacy rights</h2>
+
   <p>Depending on where you live, you may have the right to:</p>
+
   <ul>
-    <li>Access the personal information we hold about you;</li>
+    <li>Confirm whether we hold personal information about you, and access it, including anything we have inferred from it;</li>
     <li>Correct inaccurate information;</li>
     <li>Delete your information;</li>
     <li>Receive a copy of your information in a portable format;</li>
-    <li>Withdraw consent where processing is based on consent;</li>
+    <li>Withdraw consent where processing is based on consent, as easily as you gave it;</li>
     <li>Opt out of the sale or sharing of personal information (note: we do not sell or share personal information for advertising); and</li>
     <li>Appeal a decision we make about a privacy request.</li>
   </ul>
-  <p>To exercise any of these rights, email <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. We will respond as required by applicable law. We will not discriminate against you for exercising your rights.</p>
-  <p><strong>United States — state privacy rights.</strong> Residents of states with comprehensive privacy laws (including California, Colorado, Connecticut, Virginia, and others) have the rights described above. We do not sell personal information or share it for cross-context behavioral advertising, and we do not use or disclose sensitive personal information for purposes other than providing the Services. California residents may designate an authorized agent to make requests on their behalf.</p>
-  <p><strong>Do Not Track.</strong> Our Services do not currently respond to “Do Not Track” browser signals.</p>
 
-  <h2>11. Changes to this policy</h2>
-  <p>We may update this Privacy Policy from time to time. When we do, we will revise the “Last updated” date above, and for material changes we will provide additional notice (such as by email or in the app). Your continued use of the Services after an update means you accept the revised policy.</p>
+  <p>To exercise any of these rights, email <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. You can withdraw your consent to our collecting or sharing health information at any time in Settings → Account → Permissions. We will confirm the request comes from you (for members, through your account email; for others, through the circle’s administrator or other reasonable steps), and respond without undue delay and within 45 days; if we need longer, we may take one further 45 days and will tell you why. We will not discriminate against you for exercising your rights, and you never need to create an account to do so. If we decline a request, we will tell you why and how to appeal; send an appeal to <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> with “Appeal” in the subject, and we will answer in writing within 45 days, including, if we deny it, how to contact your state’s Attorney General. A guardian or conservator may exercise these rights for the person they are responsible for. A request for your information never includes other members’ private choices about you, such as who has hidden you.</p>
 
-  <h2>12. Contact us</h2>
-  <p>If you have questions or requests regarding this Privacy Policy or your information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> — Vardfolk, California, United States.</p>
+  <p><strong>If a circle keeps information about you and you are not a member,</strong> every right in this section is yours: write to <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> and we will confirm who you are through the circle’s administrator or other reasonable steps. Under California law you may also ask for a free copy of the health information a circle holds about you. If you signed a permission for a circle to hold and share your information, you can end it at any time — from the copy we sent you, in Settings → Account → Permissions if you signed with your Vardfolk account, or by writing to us; the members of that circle other than its administrators then lose access until a new permission is signed.</p>
+
+  <p><strong>United States — state privacy rights.</strong> Residents of states with comprehensive privacy laws (including California, Colorado, Connecticut, Virginia, and others) have the rights described above. Residents of Washington, Nevada and Connecticut also have specific rights over health data; our <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a> describes them and how to use them. We do not sell personal information or share it for cross-context behavioral advertising, we do not use or disclose sensitive personal information for purposes other than providing the Services, we do not profile anyone, and we do not use personal data to train large language models. California residents may designate an authorized agent to make requests on their behalf.</p>
+
+  <p><strong>Do Not Track.</strong> We do not track you across other websites or apps, so there is nothing for a “Do Not Track” signal to change; our Services do not respond to it.</p>
+
+  <h2 id="changes">11. Changes to this policy</h2>
+
+  <p>We may update this Privacy Policy from time to time. When we do, we will revise the “Last updated” date above, and for material changes we will provide additional notice in the app, and by email where we have your address. Where a change would use information you already gave us in a new way, we will ask for your consent first rather than rely on the notice. Your continued use of the Services after an update means you accept the revised policy.</p>
+
+  <h2 id="contact">12. Contact us</h2>
+
+  <p>If you have questions or requests regarding this Privacy Policy or your information, contact us at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> — Vardfolk, operated by Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, United States; (619) 796-2567.</p>
 </main>
 
 <footer>
@@ -426,11 +510,15 @@
     <a href="/#features">Features</a>
     <a href="/#pricing">Pricing</a>
     <a href="https://app.vardfolk.com">Sign in</a>
-    <a href="/privacy">Privacy Policy</a>
+    <a href="/privacy" aria-current="page">Privacy Policy</a>
     <a href="/terms">Terms of Service</a>
+    <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>
     <span class="footer-copy">© 2026 Vardfolk</span>
   </div>
 </footer>
 
+<script>
+  if (location.hash && document.fonts) document.fonts.ready.then(function () { var t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); });
+</script>
 </body>
 </html>

@@ -28,6 +28,7 @@
   :root {
     --ochre: #C4956A;
     --ochre-light: rgba(196,149,106,0.12);
+    --ochre-text: #8E6039; /* ochre for TEXT on linen: 4.8:1 (plain --ochre is 2.4:1) — greg-approved 10/20 09:20 */
     --ochre-border: rgba(196,149,106,0.25);
     --terracotta: #D4785A;
     --bark: #1E1916;
@@ -249,7 +250,7 @@
     padding: 0.3rem 0.85rem;
     font-size: 0.775rem;
     font-weight: 500;
-    color: var(--ochre);
+    color: var(--ochre-text);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     margin-bottom: 1.5rem;
@@ -285,7 +286,7 @@
     color: var(--text-secondary);
     line-height: 1.65;
     margin-bottom: 2.25rem;
-    font-weight: 300;
+    font-weight: 400;
     max-width: 460px;
   }
 
@@ -320,8 +321,8 @@
 
   .hero-note {
     font-size: 0.8rem;
-    color: var(--text-muted);
-    font-weight: 300;
+    color: var(--text-secondary);
+    font-weight: 400;
   }
 
   /* ── HERO VISUAL ── */
@@ -606,8 +607,8 @@
 
   .hero-stat-label {
     font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 300;
+    color: var(--text-secondary);
+    font-weight: 400;
     white-space: nowrap;
   }
 
@@ -637,7 +638,7 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ochre);
+    color: var(--ochre-text);
     margin-bottom: 0.75rem;
     text-align: center;
     position: relative;
@@ -661,7 +662,7 @@
     font-size: 1rem;
     color: var(--text-secondary);
     text-align: center;
-    font-weight: 300;
+    font-weight: 400;
     margin-bottom: 3.5rem;
     max-width: 480px;
     margin-left: auto;
@@ -727,7 +728,7 @@
     font-size: 0.875rem;
     color: var(--text-secondary);
     line-height: 1.6;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   /* ── HOW IT WORKS ── */
@@ -792,7 +793,7 @@
     font-size: 0.875rem;
     color: var(--text-secondary);
     line-height: 1.6;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .lang-line {
@@ -800,7 +801,7 @@
     text-align: center;
     font-size: 0.95rem;
     color: var(--text-secondary);
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.6;
     max-width: 520px;
     margin-left: auto;
@@ -809,7 +810,7 @@
 
   .lang-line strong {
     font-weight: 500;
-    color: var(--ochre);
+    color: var(--ochre-text);
   }
 
   /* ── PRICING ── */
@@ -861,7 +862,7 @@
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     margin-bottom: 0.75rem;
   }
 
@@ -878,7 +879,7 @@
   .pricing-price span {
     font-size: 1rem;
     font-weight: 400;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     letter-spacing: 0;
   }
 
@@ -886,7 +887,7 @@
     font-size: 0.875rem;
     color: var(--text-secondary);
     margin-bottom: 1.5rem;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.5;
   }
 
@@ -904,7 +905,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   .pricing-features li::before {
@@ -956,9 +957,9 @@
   .pricing-note {
     text-align: center;
     font-size: 0.8rem;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     margin-top: 1.25rem;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   /* ── FINAL CTA ── */
@@ -1012,7 +1013,7 @@
     font-size: 1rem;
     color: rgba(245,240,235,0.6);
     margin-bottom: 2.5rem;
-    font-weight: 300;
+    font-weight: 400;
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
@@ -1045,7 +1046,7 @@
     margin-top: 1rem;
     font-size: 0.8rem;
     color: rgba(245,240,235,0.4);
-    font-weight: 300;
+    font-weight: 400;
   }
 
   /* ── FOOTER ── */
@@ -1097,7 +1098,7 @@
   .footer-copy {
     font-size: 0.8rem;
     color: var(--text-secondary);
-    font-weight: 300;
+    font-weight: 400;
     white-space: nowrap;
   }
 
@@ -1238,7 +1239,7 @@
     .bento-desc {
       font-size: 0.775rem;
       line-height: 1.4;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     .features {
@@ -1429,7 +1430,7 @@
     background: var(--white); border-radius: 12px; padding: 1.1rem 1.15rem 1rem;
     box-shadow: var(--card-shadow); font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5;
   }
-  .shard-who { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.45rem; }
+  .shard-who { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 0.45rem; }
   .shard:nth-child(1) { transform: rotate(-1.6deg); }
   .shard:nth-child(2) { transform: rotate(1.1deg) translateY(10px); }
   .shard:nth-child(3) { transform: rotate(-0.8deg) translateY(-6px); }
@@ -1453,7 +1454,7 @@
   /* ── LANGUAGE BEAT (spliced) ── */
   .lang-beat { margin-top: 3.4rem; text-align: center; }
   .lang-beat .lb-line { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: clamp(1.4rem, 3vw, 2.1rem); color: var(--text); margin-top: 1.1rem; }
-  .lang-beat .lb-line small { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-top: 0.2rem; }
+  .lang-beat .lb-line small { display: block; font-family: 'DM Sans', sans-serif; font-size: 0.66rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-secondary); margin-top: 0.2rem; }
   .lang-beat .lb-why { margin: 1.8rem auto 0; max-width: 38em; color: var(--text-secondary); font-size: 0.95rem; }
 
   /* ── PETAL ASSEMBLY at final CTA (spliced; upgrades the static mark) ── */
@@ -1944,6 +1945,7 @@
     <a href="https://app.vardfolk.com">Sign in</a>
     <a href="/privacy">Privacy Policy</a>
     <a href="/terms">Terms of Service</a>
+    <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>
     <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>
     <span class="footer-copy">© 2026 Vardfolk</span>
   </div>

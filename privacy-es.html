@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de privacidad — Vardfolk</title>
+<meta name="description" content="Cómo Vardfolk recopila, usa, comparte y protege tu información.">
+<meta name="theme-color" content="#F5F0EB">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vardfolk.com/privacy-es">
+<link rel="alternate" hreflang="en" href="https://vardfolk.com/privacy">
+<link rel="alternate" hreflang="es" href="https://vardfolk.com/privacy-es">
+<link rel="alternate" hreflang="fil" href="https://vardfolk.com/privacy-fil">
+<link rel="alternate" hreflang="x-default" href="https://vardfolk.com/privacy">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ochre: #C4956A;
+    --ochre-light: rgba(196,149,106,0.12);
+    --ochre-text: #8E6039; /* ochre for TEXT on linen: 4.8:1 (plain --ochre is 2.4:1) */
+    --card: #FBF8F4;       /* the intro card: warmer than white */
+    --card-rule: #DDB892;  /* the card's top bar: a lighter ochre */
+    --ochre-border: rgba(196,149,106,0.25);
+    --terracotta: #D4785A;
+    --bark: #1E1916;
+    --linen: #F5F0EB;
+    --linen-deep: #EDE4D8;
+    --linen-deeper: #E4D9CC;
+    --sand: #E8BC92;
+    --text: #1E1916;
+    --text-secondary: #6B5A4E;
+    --text-muted: #A89278;
+    --white: #FFFFFF;
+  }
+
+  /* ── The canvas below the document's end ──────────────────────────────
+     Cream, because both ends of this page are cream — index.html carries the
+     same declaration for the same reason (42ae20d). It was UNSET here, which
+     happened to render right: with no background on <html> the body's
+     propagates to the canvas. Stating it removes the dependence on that.
+
+     No `overscroll-behavior-y` here, and none on index either: with linen at
+     both ends there is no colour for the rubber-band to reveal, so the bounce
+     is restored rather than suppressed. */
+  html { scroll-behavior: smooth; background-color: var(--linen); }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--linen);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+  }
+
+  /* NAV (matches landing) */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245,240,235,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ochre-border);
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo span { color: var(--ochre); }
+  .nav-logo svg { flex-shrink: 0; margin-right: 4px; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--bark); }
+  .btn-nav {
+    background: #B8865E;
+    color: #fff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-nav:hover { background: #A67550; transform: translateY(-1px); }
+
+  /* DOC */
+  .doc-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 130px 1.5rem 80px;
+  }
+  .doc-header { margin-bottom: 2.5rem; }
+  .doc-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ochre-text);
+    margin-bottom: 0.75rem;
+  }
+  .doc-wrap h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .doc-updated {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-wrap h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.01em;
+    margin: 2.75rem 0 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linen-deeper);
+  }
+  .doc-wrap h2:first-of-type { border-top: none; padding-top: 0; }
+  .doc-wrap h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bark);
+    margin: 1.75rem 0 0.6rem;
+  }
+  .doc-wrap p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .doc-wrap strong { color: var(--bark); font-weight: 500; }
+  .doc-wrap ul { margin: 0 0 1.25rem 1.25rem; }
+  .doc-wrap li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    padding-left: 0.35rem;
+  }
+  .doc-wrap li::marker { color: var(--ochre); }
+  .doc-wrap a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-wrap a:hover { color: var(--terracotta); }
+
+  /* Legal L6: a link to a section (#ai, #rights) lands below the fixed 64px nav. */
+  .doc-wrap h2[id] { scroll-margin-top: 88px; }
+  /* Legal L6 (L-11): the Privacy and health-data pages in three languages — a div,
+     never a <nav> (this page's global nav rule is the fixed header). Each
+     link is the language named in itself, 44px tall; the current page is not a
+     link. Colours are this page's own (--ochre-text links, --bark current). */
+  .doc-langs { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0 0 1.25rem; font-size: 0.9rem; }
+  .doc-langs a, .doc-langs span { display: inline-flex; align-items: center; min-height: 44px; }
+  .doc-langs a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-langs span { color: var(--bark); font-weight: 500; }
+
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .doc-table th, .doc-table td {
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--linen-deeper);
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-table th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: var(--bark);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .doc-table td:first-child { color: var(--bark); font-weight: 500; white-space: nowrap; }
+
+  .doc-intro {
+    background: var(--card);
+    border-radius: 14px;
+    border-top: 3px solid var(--card-rule);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 24px rgba(30,25,22,0.06);
+  }
+  .doc-intro p:last-child { margin-bottom: 0; }
+
+  /* FOOTER — the landing's, copied from index.html value for value.
+     The comment above has said "matches landing" since this page was written and
+     stopped being true when 42ae20d moved the footer to the light palette: this
+     page kept a BARK slab under cream prose, so the two legal pages and the page
+     that links to them ended differently.
+
+     This repo has no shared stylesheet — each page inlines its own <style> — so
+     "shared" here means copied verbatim, which is what index.html and this file
+     have always done with the nav.
+
+     The safe-area padding comes with it, and it is the half that is not
+     cosmetic: the footer is the last element in the document, so with
+     viewport-fit=cover its box is what paints the home-indicator strip — but
+     only if it pads into it. Without that, the strip is the canvas colour under
+     the footer, which is the empty band index.html's note describes. */
+  footer {
+    background: var(--linen);
+    padding-top: 1.5rem;
+    padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    padding-left: max(2rem, env(safe-area-inset-left, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .footer-logo span { color: var(--ochre); }
+  .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--bark); }
+  .footer-copy { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; white-space: nowrap; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links a:not(.btn-nav) { display: none; }
+    .doc-wrap { padding: 110px 1.25rem 60px; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .doc-table { font-size: 0.85rem; }
+    .doc-table th, .doc-table td { padding: 0.55rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+      <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+    </svg>
+    Vard<span>folk</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="https://app.vardfolk.com" class="btn-nav">Create your care circle</a>
+  </div>
+</nav>
+
+<main class="doc-wrap">
+  <div class="doc-langs" role="group" aria-label="Idioma de esta página">
+    <a href="/privacy" lang="en" hreflang="en">English</a>
+    <span lang="es" aria-current="page">Español</span>
+    <a href="/privacy-fil" lang="fil" hreflang="fil">Filipino</a>
+  </div>
+  <div class="doc-header">
+    <div class="doc-eyebrow">Legal</div>
+    <h1>Política de privacidad</h1>
+    <p class="doc-updated">Última actualización: 22 de octubre de 2026</p>
+  </div>
+
+  <div class="doc-intro">
+    <p>Esta es una traducción de cortesía. Si difiere de la versión en inglés, prevalece la versión en inglés.</p>
+    <p>Esta Política de privacidad describe cómo Vardfolk (“Vardfolk”, “nosotros” o “nuestro”) recopila, usa, comparte y protege tu información cuando usas nuestro sitio web en <a href="https://vardfolk.com">vardfolk.com</a>, nuestras aplicaciones en app.vardfolk.com y en iOS y Android, y los servicios relacionados (en conjunto, los “Servicios”).</p>
+    <p>Vardfolk es una <strong>plataforma de coordinación de cuidados</strong>. Las familias y los equipos de cuidado la usan para organizarse y comunicarse en torno al cuidado de un ser querido mayor o enfermo: tareas, citas, medicamentos, documentos, mensajes y novedades en un “círculo de cuidado” compartido. Vardfolk es una herramienta de coordinación. <strong>No es un proveedor médico, no sustituye el consejo médico profesional y no está pensada para tomar decisiones clínicas.</strong></p>
+    <p>Vardfolk es operado por Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, Estados Unidos, que es la persona responsable de cómo Vardfolk trata tu información. Si tienes preguntas sobre esta política o sobre tu información, escríbenos a <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Como la mayor parte de lo que Vardfolk guarda es información de salud, también publicamos una <strong><a href="/health-data-privacy-es">Política de privacidad de datos de salud del consumidor</a></strong> aparte, que algunos estados exigen; está enlazada al pie de cada página de <a href="https://vardfolk.com">vardfolk.com</a> y desde Configuración → Cuenta en la app.</p>
+  </div>
+
+  <h2 id="summary">Resumen de los puntos clave</h2>
+
+  <ul>
+    <li><strong>Qué recopilamos.</strong> Información de la cuenta y del perfil; la información de cuidado que tú y los miembros de tu círculo introducen (datos de la persona cuidada, medicamentos, alergias, citas, tareas, entradas del diario, mensajes, contactos, registros de bienestar); los documentos que subes (que pueden incluir archivos de salud); información de pago; e información técnica y del dispositivo para las notificaciones y la seguridad.</li>
+    <li><strong>La información de salud se trata como confidencial.</strong> Como Vardfolk se usa para coordinar cuidados, la información que proporcionas incluye información de salud de una persona cuidada, que puede no ser miembro. La tratamos como información médica confidencial: solo se muestra a los miembros de su círculo de cuidado, solo la procesan los proveedores que hacen funcionar Vardfolk bajo contratos que prohíben cualquier otro uso, nunca se vende, nunca se usa para publicidad y nunca se usa para entrenar modelos de IA.</li>
+    <li><strong>Cómo usamos la IA.</strong> Vardfolk usa inteligencia artificial para funciones como el escaneo de documentos, los resúmenes y las sugerencias. Para ello, el contenido pertinente —que puede incluir información de salud— se envía a nuestro proveedor de IA, Anthropic, para generar el resultado. Anthropic no usa este contenido para entrenar sus modelos de IA y lo elimina en un plazo de 30 días. La app te pide permiso antes de enviar las novedades, los mensajes, los comentarios y los documentos que agregas, y puedes cambiar tu elección cuando quieras en Configuración.</li>
+    <li><strong>Con quién lo compartimos.</strong> Compartimos información con los proveedores de servicios que hacen funcionar Vardfolk. Dentro de la app, la información de tu círculo de cuidado es visible para los miembros de ese círculo según su rol. No vendemos tu información personal.</li>
+    <li><strong>Tus opciones.</strong> Puedes revisar, actualizar, exportar o eliminar tu información, y eliminar tu cuenta, en cualquier momento. Tú decides si el asistente puede leer las novedades, los mensajes, los comentarios y los documentos que agregas, y el administrador de un círculo decide si el asistente se usa o no en ese círculo. La persona cuidada tiene todos los derechos de esta política, use la app o no.</li>
+  </ul>
+
+  <h2 id="collect">1. Información que recopilamos</h2>
+
+  <h3>Información que proporcionas directamente</h3>
+
+  <ul>
+    <li><strong>Información de la cuenta y del perfil</strong>: tu nombre, tu correo electrónico y una contraseña, o el inicio de sesión con Apple o Google. Opcionalmente, una foto de perfil y un número de teléfono, que los miembros de tus círculos de cuidado pueden ver. Usamos tu correo electrónico para los avisos de cuenta, de seguridad y legales.</li>
+    <li><strong>Información del círculo y de la persona cuidada</strong>: el nombre y los datos de la persona cuidada, y los miembros que invitas al círculo.</li>
+    <li><strong>Información de cuidado relacionada con la salud</strong>: medicamentos, dosis y horarios, registros de dosis, alergias, afecciones, citas, notas de cuidado, datos del seguro médico y números de historia clínica, y el contenido de los documentos que subes (como informes de alta, resúmenes de visita, tarjetas del seguro y otros archivos de salud). La mayor parte es sobre la persona cuidada y la introducen los miembros de su círculo; una parte es sobre ti (por ejemplo, tus propios registros de bienestar).</li>
+    <li><strong>Contenido de coordinación</strong>: tareas, entradas del diario y novedades de cuidado, mensajes que envías dentro de un círculo, contactos importantes y registros de bienestar.</li>
+    <li><strong>Tus ajustes y elecciones</strong>: tus ajustes de notificaciones, incluido si los nombres de los medicamentos aparecen en tus notificaciones; tu elección sobre el asistente (Permitir o Ahora no); los miembros que has decidido ocultar (ver la sección 4); los permisos que nos das para la información de salud la primera vez que usas la app; y, cuando la persona cuidada o su representante la firma, su autorización para que el círculo guarde y comparta su información.</li>
+    <li><strong>Información de pago</strong>: cuando te suscribes a un plan de pago en la web, Stripe recopila y procesa tus datos de pago. Cuando te suscribes en la app para iPhone o Android, la compra se hace a través del App Store de Apple o de Google Play, y ellos gestionan tus datos de pago; Vardfolk recibe de ellos, a través de RevenueCat, un registro de la suscripción (su estado, plan y fecha de renovación), nunca tu número de tarjeta ni tu dirección de facturación. Vardfolk no guarda tu número de tarjeta completo. Conservamos un registro de tu aceptación de las condiciones de la suscripción durante al menos tres años, como exige la ley de California.</li>
+  </ul>
+
+  <h3>Información que se recopila automáticamente</h3>
+
+  <ul>
+    <li><strong>Información técnica y del dispositivo</strong>: incluidos los tokens de notificaciones push (el servicio de notificaciones push de Apple en dispositivos Apple, Firebase Cloud Messaging de Google en Android y las notificaciones push web en un navegador) y la información básica necesaria para operar y proteger los Servicios.</li>
+    <li><strong>Información de uso y diagnóstico</strong>: cuando usas la app, nosotros y nuestros proveedores de analítica y de informes de errores recopilamos automáticamente información limitada sobre cómo se usan los Servicios (por ejemplo, qué funciones se abren e información general del dispositivo y de la sesión) e información de diagnóstico (como informes de fallos y datos de rendimiento), para entender el uso y corregir problemas técnicos. Esta información se asocia a un identificador generado al azar, no a tu nombre ni a tu correo electrónico. Configuramos a estos proveedores para que la ubicación derivada de tu dirección IP se descarte y no se guarde, y para que el contenido de cuidado que guardas en Vardfolk —documentos, mensajes, medicamentos y entradas del diario— quede fuera de lo que recopilan. Un informe de error no lleva correo electrónico, ni los parámetros de la dirección web que falló (que pueden incluir un enlace de inicio de sesión o de calendario), ni detalles de un error de base de datos, y nuestros propios registros del servidor identifican a las personas y los círculos por identificador, no por nombre ni correo. En la sección 4 están los proveedores que usamos para esto.</li>
+  </ul>
+
+  <h3>Lo que no recopilamos</h3>
+
+  <p>No leemos datos de salud de las apps de salud de tu teléfono (ni Apple HealthKit ni Android Health Connect), no recopilamos tu ubicación precisa y no compramos información sobre ti. Si activas el bloqueo de la app, Face ID, Touch ID o el desbloqueo biométrico de Android lo comprueba el sistema operativo de tu teléfono; Vardfolk solo recibe un sí o un no, nunca una huella, un rostro ni otra plantilla biométrica. La cámara se usa solo mientras escaneas un documento o tomas una foto o un video para compartirlo con tu círculo, y el micrófono solo mientras grabas un video; ninguno de los dos se usa en segundo plano.</p>
+
+  <p><strong>Información sensible.</strong> La información de cuidado que introduces es información de salud y, en muchos estados, son “datos de salud del consumidor” o “información médica” con protecciones legales propias. La tratamos como información médica confidencial conforme a la Ley de Confidencialidad de la Información Médica de California, que considera a una app como Vardfolk un proveedor de atención médica solo a los efectos de esa ley. Vardfolk no es una entidad cubierta ni un asociado comercial según la HIPAA, los Servicios no están diseñados para cumplir la HIPAA y no deben usarlos proveedores de salud, agencias de atención domiciliaria, planes de salud ni nadie que actúe en su nombre para gestionar información de pacientes.</p>
+
+  <h2 id="use">2. Cómo usamos tu información</h2>
+
+  <p>Usamos tu información para:</p>
+
+  <ul>
+    <li>Crear y mantener tu cuenta y autenticarte.</li>
+    <li>Prestar los Servicios: guardar y mostrar las tareas, citas, medicamentos, documentos, mensajes y novedades de tu círculo de cuidado a los miembros de ese círculo.</li>
+    <li>Ofrecer las funciones asistidas por IA (ver la sección 3).</li>
+    <li>Enviar notificaciones y comunicaciones relacionadas con el servicio.</li>
+    <li>Procesar pagos y gestionar suscripciones.</li>
+    <li>Mantener la seguridad y la integridad de los Servicios y prevenir fraudes o abusos.</li>
+    <li>Cumplir con las obligaciones legales.</li>
+    <li>Entender cómo se usan los Servicios y detectar y corregir problemas técnicos, para que la app siga siendo fiable y mejore.</li>
+  </ul>
+
+  <p>Cada correo de notificación, incluidos el resumen diario y el resumen semanal, tiene una opción para darte de baja con un solo clic que desactiva para ti los correos de notificación de ese círculo. Un correo de invitación tiene un enlace “Dejar de recibirlas” que detiene las invitaciones a tu dirección; la página que abre también te permite volver a permitirlas.</p>
+
+  <p>No usamos tu información, ni la información de salud de tu círculo, para publicidad ni marketing, no la vendemos y no la usamos para entrenar modelos de inteligencia artificial ni grandes modelos de lenguaje, ni nuestros ni de nadie. Si alguna vez quisiéramos usar tu información para un fin nuevo, te pediríamos tu consentimiento primero.</p>
+
+  <h2 id="ai">3. Cómo usamos la inteligencia artificial</h2>
+
+  <p>Vardfolk usa inteligencia artificial para facilitar la coordinación del cuidado. Las funciones asistidas por IA incluyen escanear y leer documentos subidos para extraer medicamentos, citas y tareas; generar resúmenes y puestas al día; sugerir tareas a partir de las entradas del diario; sugerir etiquetas de documentos y contactos; y ayudar a redactar notas y mensajes. Todo lo que produce el asistente se marca como tal en la app, y lo que extrae de un documento se te muestra para que lo revises antes de añadirlo a los registros de tu círculo.</p>
+
+  <p><strong>Para ofrecer estas funciones, el contenido pertinente se envía a nuestro proveedor de IA, Anthropic (el creador de Claude).</strong> Según la función, este contenido puede incluir texto extraído de los documentos que subes (que puede contener información de salud), entradas del diario, mensajes, datos de citas y medicamentos y otra información de cuidado.</p>
+
+  <p><strong>Anthropic procesa este contenido únicamente para generar el resultado de la función. Según sus condiciones comerciales no puede usarlo para entrenar sus modelos de IA, y elimina lo que le enviamos en un plazo de 30 días,</strong> salvo cuando deba conservar algo más tiempo para hacer cumplir su política de uso o por exigencia legal.</p>
+
+  <p><strong>Tu permiso va primero.</strong> La primera vez que usas Vardfolk, la app te pregunta si el asistente puede leer lo que agregas, y eliges Permitir o Ahora no. Si eliges Ahora no, las novedades, los mensajes, los comentarios y los documentos que agregas nunca se envían a Anthropic. Los datos de cuidado compartidos que tu círculo mantiene en común, como los medicamentos y las citas, los usa el asistente cuando el administrador de tu círculo lo tiene activado. Esa es la decisión del círculo, tomada por su administrador con el permiso que la persona cuidada (o su representante) dio al crear el círculo, y el administrador puede desactivarlo cuando quiera. En la práctica, Ahora no significa: un documento que subes no se envía a Anthropic —si es un PDF o una imagen, su texto se lee en los propios servidores de Vardfolk, con un programa de reconocimiento de texto que funciona allí, solo para que el documento se pueda encontrar en la búsqueda, y no se extrae nada más de él—; las funciones propias del asistente —resúmenes, puestas al día, ayuda para redactar, el asistente de búsqueda y las sugerencias— no están disponibles para ti hasta que cambies tu elección; y las novedades, los mensajes, los comentarios y los documentos que agregaste quedan fuera de todo lo que el asistente prepara para otros miembros de tu círculo, como el texto del resumen diario o un contacto sugerido. No decimos a los demás miembros qué elegiste, y un resumen preparado para ellos nunca dice que se dejó algo fuera. Puedes cambiar tu elección cuando quieras en Configuración → Cuenta → Asistente.</p>
+
+  <p>El administrador de un círculo también puede desactivar el asistente para todo el círculo (Administrar el círculo → “Usar el asistente en este círculo”). Mientras está desactivado, no se envía ningún contenido del círculo a Anthropic, salvo que Anthropic sigue leyendo el texto de los documentos subidos para que los documentos se puedan buscar; es el único paso que el interruptor del círculo no detiene, porque la búsqueda depende de él. Un documento subido por un miembro que eligió Ahora no nunca se envía a Anthropic, diga lo que diga el interruptor del círculo: su texto se lee solo en los propios servidores de Vardfolk, para la búsqueda. Mientras un círculo espera el permiso de la persona cuidada, o ese permiso ha terminado, el asistente está desactivado para el círculo y no se envía nada de él a Anthropic, ni siquiera documentos; su texto se lee solo en los propios servidores de Vardfolk, para la búsqueda.</p>
+
+  <p>Qué hacemos con los resultados:</p>
+
+  <ul>
+    <li><strong>Escaneo y extracción de documentos.</strong> El texto leído de tu documento y la información estructurada extraída de él (como medicamentos, citas y tareas) se guardan en los registros de tu círculo de cuidado para que los revises y los uses. Se eliminan cuando eliminas el documento o el círculo de cuidado.</li>
+    <li><strong>Otras funciones de IA</strong> (resúmenes, puestas al día, sugerencias, ayuda para redactar) procesan tu información para generar una respuesta. Para no generar dos veces la misma respuesta, se guarda una copia de un resultado reciente en los registros de tu círculo de cuidado durante un máximo de 7 días, y luego se elimina; se elimina antes si eliminas el círculo de cuidado. Una nota redactada o una tarea sugerida solo pasa a formar parte de tus registros si decides conservarla.</li>
+    <li><strong>Parte del contenido generado por IA se guarda como parte del funcionamiento de la función,</strong> para que esté ahí cuando vuelvas. Un documento que escaneas puede recibir un nombre y una etiqueta tomados de su propio contenido, que se quedan con el documento hasta que los cambies o lo elimines. Un resumen de preparación generado para una cita se guarda en esa cita, para que puedas releerlo antes de la visita, y se elimina en el plazo de un día tras eliminar la cita, o con el círculo de cuidado. Los contactos sugeridos que se encuentran en las notas de tu círculo se guardan para que estén esperando a que los revises, los aceptes o los descartes; una sugerencia que aceptas se elimina 30 días después, una que está pendiente de revisión a los 90 días, y una que descartas conserva solo el nombre, para que no se vuelva a sugerir; todas se eliminan con el círculo de cuidado.</li>
+    <li><strong>No guardamos registros del contenido enviado al proveedor de IA.</strong> Los únicos resultados de IA que conservamos son los descritos arriba.</li>
+  </ul>
+
+  <p>Los resultados generados por IA pueden contener errores. Vardfolk no da consejo médico, y las funciones asistidas por IA son ayudas para la coordinación, no orientación clínica: el asistente nunca recomienda, cambia ni interpreta un medicamento, una dosis ni un resultado de prueba, y rechaza las preguntas que se lo piden. Verifica siempre los detalles importantes —sobre todo fechas, dosis e información médica— con tus documentos originales y tus profesionales de salud.</p>
+
+  <h2 id="sharing">4. Cómo se comparte tu información</h2>
+
+  <p><strong>Dentro de tu círculo de cuidado.</strong> La información que agregas a un círculo de cuidado es visible para los demás miembros de ese círculo, según el rol de cada uno (administrador, colaborador u observador). Así funciona Vardfolk: permite que tu familia y tu equipo de cuidado se coordinen. Ocurre con el permiso de la persona cuidada, o de su representante legal, registrado al crear el círculo, y cada miembro se compromete a no compartir fuera del círculo lo que ve en él. Si ese permiso se cancela o termina, o aún no se ha firmado, los miembros que no son administradores del círculo ni la persona que lo firmó quedan en pausa —no pueden ver el círculo— hasta que se firma un nuevo permiso. La información de tu círculo <strong>no es pública</strong> y no se comparte fuera de tu círculo salvo como se describe a continuación.</p>
+
+  <p><strong>Se comprueba antes de publicar, y no se envía a ningún sitio.</strong> Antes de publicar un mensaje, una novedad o un comentario, la app lo compara con una lista fija de palabras (ver la sección 4 de nuestros Términos del servicio). Esa comprobación se hace en tu dispositivo y en nuestra base de datos, no usa inteligencia artificial y no registra nada: no se guarda ni se envía a nadie una copia de lo que escribiste por causa de ella. Los reportes son distintos: un reporte lo lee una persona (ver Reportes más abajo).</p>
+
+  <p><strong>Ocultar a un miembro.</strong> Cuando ocultas a un miembro de tu círculo, guardamos un registro de esa elección para que la app pueda plegar sus mensajes, novedades y comentarios en tus dispositivos y deje de notificarte sobre ellos. No se lo decimos a la persona que ocultas, nada en la app se lo muestra y conserva todas las capacidades que tenía, salvo que la ley nos obligue a revelarlo. Puedes deshacerlo cuando quieras: tócala en Miembros y elige Dejar de ocultar.</p>
+
+  <p><strong>Reportes.</strong> Cuando un miembro reporta un mensaje, una novedad, un comentario, una foto o un archivo, o a otro miembro, desde la app, el contenido reportado (en el caso de una foto o un archivo, una referencia a él, no el archivo), quién lo escribió, quién lo reportó, lo que la persona que reporta añadió con sus propias palabras y el círculo del que proviene se nos envían por correo electrónico para que lo revisemos (ver la sección 4 de nuestros Términos del servicio). No le decimos a quien lo escribió quién lo reportó, salvo que la ley nos obligue. Conservamos los correos de reporte durante un máximo de un año.</p>
+
+  <p><strong>Con proveedores de servicios (subencargados).</strong> Compartimos información con los proveedores externos que hacen funcionar Vardfolk en nuestro nombre. Cada uno está obligado por un contrato que le permite usar la información solo para prestarnos su servicio, le exige protegerla al menos tan bien como esta política dice que lo hacemos nosotros y le prohíbe cualquier otra divulgación o uso propio:</p>
+
+  <table class="doc-table">
+    <thead><tr><th>Proveedor</th><th>Finalidad</th></tr></thead>
+    <tbody>
+      <tr><td>Supabase</td><td>Base de datos, autenticación y almacenamiento de archivos</td></tr>
+      <tr><td>Anthropic</td><td>Funciones asistidas por IA (ver la sección 3); elimina lo que le enviamos en un plazo de 30 días y no puede entrenar con ello</td></tr>
+      <tr><td>Stripe</td><td>Procesamiento de pagos de las suscripciones compradas en la web</td></tr>
+      <tr><td>RevenueCat</td><td>Gestión de suscripciones: recibe de Apple y Google el estado de las compras dentro de la app y le dice a Vardfolk qué plan tienes</td></tr>
+      <tr><td>Resend</td><td>Envío de correos electrónicos (como invitaciones y notificaciones)</td></tr>
+      <tr><td>Hostinger</td><td>Alojamiento del correo de nuestras direcciones de soporte y privacidad</td></tr>
+      <tr><td>Apple</td><td>Iniciar sesión con Apple; notificaciones push en dispositivos Apple; compras dentro de la app a través del App Store</td></tr>
+      <tr><td>Google</td><td>Iniciar sesión con Google; notificaciones push en Android (Firebase Cloud Messaging); compras dentro de la app a través de Google Play; sugerencias de direcciones y lugares mediante Google Maps Platform (Places) cuando escribes una dirección o un lugar —la ubicación de una cita, una farmacia o un hospital— (las pantallas de medicamentos lo cargan con antelación para que las sugerencias estén listas); y las fuentes que el sitio web <a href="https://vardfolk.com">vardfolk.com</a> carga desde Google Fonts al abrirse</td></tr>
+      <tr><td>Cloudflare</td><td>Alojamiento del sitio web y de la aplicación, entrega de red y copias de seguridad cifradas externas de los archivos subidos</td></tr>
+      <tr><td>Render</td><td>Alojamiento del backend / servidor (Oregón, EE. UU.)</td></tr>
+      <tr><td>Sentry</td><td>Informes de fallos y errores</td></tr>
+      <tr><td>PostHog</td><td>Analítica del producto</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Por motivos legales.</strong> Podemos divulgar información si la ley lo exige, para responder a solicitudes legales, o cuando la ley lo permite para proteger los derechos, la seguridad y la integridad de nuestros usuarios, del público o de Vardfolk. No divulgamos información de salud para el control migratorio salvo que un tribunal o la ley nos obligue.</p>
+
+  <p><strong>Transferencias de negocio.</strong> Si Vardfolk participa en una fusión, adquisición o venta de activos, tu información puede transferirse como parte de esa operación. Te avisaremos de cualquier cambio de ese tipo.</p>
+
+  <p><strong>No vendemos tu información personal</strong> ni la compartimos para publicidad conductual entre contextos. Ningún tercero recopila información sobre tu actividad a lo largo del tiempo y en otros sitios web o apps cuando usas Vardfolk, y no se lo permitimos a nadie.</p>
+
+  <h2 id="storage">5. Dónde se guarda tu información</h2>
+
+  <p>Vardfolk se opera en Estados Unidos, y tu información se guarda y se procesa en Estados Unidos. Los Servicios se ofrecen a personas en Estados Unidos; si los usas desde otro lugar, entiendes que tu información se transferirá a Estados Unidos y se procesará allí.</p>
+
+  <p><strong>Una copia sin conexión en tu teléfono.</strong> Para que puedas ver lo esencial sin conexión, las apps de Vardfolk para iPhone y Android guardan en tu dispositivo una copia cifrada de parte de la información de tu círculo: los datos de la Hoja de cuidado de la persona cuidada (incluidas las notas de cuidado), las alergias, los medicamentos activos y las dosis de hoy (con quién las registró), las citas de los próximos 14 días, los contactos importantes y los nombres de los miembros. La app guarda esta copia para hasta tres círculos y la actualiza mientras estás conectado. Una copia que no se ha actualizado en 7 días no se muestra nunca, y se elimina la próxima vez que la app arranca sin conexión. La copia queda fuera de las copias de seguridad del dispositivo y nunca se envía a ningún sitio. Se elimina cuando cierras sesión (incluido cuando eliminas tu cuenta) y cuando otra cuenta inicia sesión en el mismo dispositivo. La copia de un círculo se elimina cuando lo abandonas, lo eliminas o te quitan de él; como muy tarde, la próxima vez que la app actualiza sus copias con conexión, o cuando la copia caduca. Al cerrar sesión, la app también olvida el círculo que abriste por última vez y cualquier correo que recordara para restablecer la contraseña, cancela el recordatorio diario del registro de bienestar y deja de recibir en el teléfono las notificaciones de esta cuenta; un PDF del Recorrido de cuidado que compartes desde la app se borra del teléfono al cerrarse la hoja de compartir. La app web nunca guarda esta copia.</p>
+
+  <p><strong>Cambios en camino hacia nosotros.</strong> Cuando haces un cambio en la app para iPhone o Android, la app lo guarda, cifrado, en tu teléfono hasta que llega a nuestros servidores, normalmente en segundos. Si se cierra tu sesión sin que lo hayas elegido, un cambio que aún no nos había llegado se conserva, cifrado, durante un máximo de 7 días para poder enviarlo si vuelves a iniciar sesión, y después se elimina. Cerrar sesión tú mismo, eliminar tu cuenta o que otra cuenta inicie sesión en el teléfono lo elimina de inmediato.</p>
+
+  <h2 id="retention">6. Cuánto tiempo conservamos tu información</h2>
+
+  <p>Conservamos tu información mientras tu cuenta está activa o mientras sea necesaria para prestar los Servicios. Cuando se elimina información (ver la sección 7), se quita de nuestros sistemas activos de inmediato. Pueden quedar copias durante un tiempo limitado: en las copias de seguridad de nuestro proveedor de base de datos, que se renuevan en un plazo de 7 días; en nuestras copias de seguridad cifradas de archivos, durante un máximo de 90 días; y en nuestro proveedor de correo, que conserva un registro de cada correo que entrega durante un periodo limitado fijado por su plan. Nuestro proveedor de IA elimina lo que le enviamos en un plazo de 30 días (sección 3), y nuestro proveedor de autenticación conserva un registro de seguridad de los inicios de sesión durante un periodo limitado. Una notificación que otro miembro recibió sobre algo que hiciste, y la vista previa que lleva, se conserva como máximo 90 días. Conservamos los correos de reporte durante un máximo de un año, los registros de tus consentimientos y de tu aceptación de las condiciones de suscripción durante al menos tres años, el permiso firmado de la persona cuidada y su registro durante al menos tres años después de que termine, e información limitada cuando sea necesario para cumplir obligaciones legales, resolver disputas o hacer valer nuestros acuerdos, como se describe en la sección 7.</p>
+
+  <h2 id="deletion">7. Eliminar tu información y tu cuenta</h2>
+
+  <p>Puedes eliminar tu cuenta cuando quieras desde la app —Configuración → Cuenta → Zona de peligro o, si aún no te has unido a un círculo, la Zona de peligro bajo Cerrar sesión en la pantalla “Crea tu círculo de cuidado”— o escribiéndonos a <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Si lo pides por correo, primero confirmaremos que la solicitud es tuya enviando un código al correo de tu cuenta (en las cuentas con inicio de sesión con Apple, la dirección de reenvío que Apple nos dio sigue llegándote), luego eliminaremos la cuenta y te lo confirmaremos por correo; cuenta con hasta 7 días. Esto es lo que ocurre cuando eliminas tu cuenta:</p>
+
+  <ul>
+    <li><strong>Si eres el único miembro de un círculo de cuidado,</strong> ese círculo y todos sus datos se eliminan de forma permanente —incluidos tareas, citas, medicamentos, entradas del diario, mensajes, contactos y los <strong>archivos subidos guardados para ese círculo</strong>—, salvo los registros de permisos y consentimientos descritos en la sección 6.</li>
+    <li><strong>Si un círculo tiene otros miembros,</strong> el círculo y sus registros compartidos se conservan para que los demás miembros puedan seguir usándolos. Se elimina tu membresía y se quita tu vínculo personal con el contenido que creaste (se borra tu autoría). Los comentarios que publicaste en tareas, citas y entradas del diario siguen visibles para el círculo, pero ya no aparecen con tu nombre. Se eliminan tus registros de bienestar, tus notificaciones y tus ajustes de notificaciones. Las notificaciones sobre tu actividad se quitan de las listas de notificaciones de los demás miembros.</li>
+    <li><strong>Si eres el único administrador de un círculo que aún tiene otros miembros,</strong> se te pedirá que nombres administrador a otro miembro, o que quites a los demás miembros, antes de poder eliminar tu cuenta, para que el círculo no se quede sin responsable.</li>
+    <li>Se eliminan tu perfil, tu cuenta de autenticación y los tokens de tu dispositivo y de notificaciones push.</li>
+    <li>Algunos registros se conservan después de eliminar tu cuenta: un registro de las condiciones y los permisos que aceptaste, durante tres años; y los registros de facturación que nuestros procesadores de pago conservan por sus propias obligaciones legales. También pedimos a nuestro proveedor de suscripciones que elimine tu historial de compras.</li>
+    <li>Si iniciaste sesión con Apple, eliminar tu cuenta desde la app para iPhone también pone fin a la autorización de Vardfolk en Iniciar sesión con Apple, de modo que Vardfolk deja de aparecer entre las apps que usan tu cuenta de Apple; la app te pide que lo confirmes con Apple una vez más antes de eliminarla. Si cancelas ese paso, tu cuenta se elimina igualmente, y puedes quitar la autorización tú mismo en los ajustes de tu cuenta de Apple.</li>
+    <li>Si te suscribiste a Plus a través del App Store o de Google Play, eliminar tu cuenta no cancela esa suscripción; cancélala primero en la tienda (la pantalla de eliminación te lleva allí). Una suscripción facturada por Stripe se cancela al eliminar tu cuenta; si no se puede contactar con Stripe en ese momento, la eliminación espera y puedes volver a intentarlo.</li>
+  </ul>
+
+  <p>También puedes eliminar documentos, mensajes y otros elementos individuales en cualquier momento, y eliminar un círculo de cuidado entero que administres. Eliminar un mensaje, una novedad o un comentario también quita su vista previa de las listas de notificaciones de los miembros. Una notificación o un correo que ya llegó al dispositivo o a la bandeja de entrada de un miembro no se puede retirar. Los archivos adjuntos a una tarea o a una cita se quedan en la Bóveda cuando la tarea o la cita se elimina; puedes eliminarlos allí. Los proveedores que guardan una copia para nosotros la eliminan según su propio calendario, dentro de los plazos descritos en la sección 6, y cuando eliminas tu cuenta pedimos a nuestro procesador de pagos y a nuestro proveedor de suscripciones que eliminen lo que guardan de ti. <strong>La persona cuidada</strong> puede pedirnos que eliminemos la información que un círculo guarda sobre ella, sea miembro o no (sección 10).</p>
+
+  <h2 id="security">8. Cómo protegemos tu información</h2>
+
+  <p>Usamos medidas técnicas y organizativas diseñadas para proteger tu información, incluidos el cifrado en tránsito y en reposo, controles de acceso limitados a lo que cada persona y proveedor necesita, la autenticación en dos pasos y la autenticación de cada solicitud. Ningún método de transmisión o almacenamiento es completamente seguro, así que no podemos garantizar una seguridad absoluta. Eres responsable de mantener en secreto las credenciales de tu cuenta. <strong>Si un incidente de seguridad afecta a tu información, te lo diremos</strong> —por correo a la dirección de tu cuenta y con un aviso en la app— dentro del plazo que exige la ley, y te diremos qué pasó, qué información se vio afectada, qué estamos haciendo y qué puedes hacer tú.</p>
+
+  <h2 id="children">9. Privacidad de los menores</h2>
+
+  <p>Los Servicios están pensados para adultos (18 años o más) que coordinan cuidados. No recopilamos a sabiendas información personal de menores de 18 años. La información de una persona cuidada la introducen los miembros adultos de un círculo de cuidado. En iPhone, donde la ley lo exige, la app le pregunta a Apple si tienes 18 años o más; la respuesta nunca se guarda ni se nos envía. Si crees que un menor de 18 años nos ha proporcionado información personal, escríbenos a <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> y la eliminaremos. Si descubrimos que el titular de una cuenta tiene menos de 13 años, eliminamos la cuenta.</p>
+
+  <h2 id="rights">10. Tus derechos de privacidad</h2>
+
+  <p>Según dónde vivas, puedes tener derecho a:</p>
+
+  <ul>
+    <li>Confirmar si tenemos información personal sobre ti y acceder a ella, incluido lo que hayamos inferido de ella;</li>
+    <li>Corregir información inexacta;</li>
+    <li>Eliminar tu información;</li>
+    <li>Recibir una copia de tu información en un formato portátil;</li>
+    <li>Retirar tu consentimiento cuando el tratamiento se base en él, con la misma facilidad con que lo diste;</li>
+    <li>Oponerte a la venta o al intercambio de información personal (nota: no vendemos ni compartimos información personal con fines publicitarios); y</li>
+    <li>Apelar una decisión nuestra sobre una solicitud de privacidad.</li>
+  </ul>
+
+  <p>Para ejercer cualquiera de estos derechos, escribe a <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Puedes retirar tu consentimiento a que recopilemos o compartamos información de salud en cualquier momento en Configuración → Cuenta → Permisos. Confirmaremos que la solicitud es tuya (para los miembros, a través del correo de su cuenta; para los demás, a través del administrador del círculo u otros pasos razonables) y responderemos sin demora indebida y en un plazo de 45 días; si necesitamos más tiempo, podemos tomar otros 45 días y te diremos por qué. No te discriminaremos por ejercer tus derechos, y nunca necesitas crear una cuenta para hacerlo. Si rechazamos una solicitud, te diremos por qué y cómo apelar; envía la apelación a <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> con “Apelación” (o “Appeal”) en el asunto, y responderemos por escrito en un plazo de 45 días, incluyendo, si la denegamos, cómo contactar al fiscal general de tu estado. Un tutor o curador puede ejercer estos derechos en nombre de la persona a su cargo. Una solicitud de tu información nunca incluye las elecciones privadas de otros miembros sobre ti, como quién te ha ocultado.</p>
+
+  <p><strong>Si un círculo guarda información sobre ti y no eres miembro,</strong> todos los derechos de esta sección son tuyos: escribe a <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> y confirmaremos quién eres a través del administrador del círculo u otros pasos razonables. Según la ley de California, también puedes pedir una copia gratuita de la información de salud que un círculo guarda sobre ti. Si firmaste un permiso para que un círculo guarde y comparta tu información, puedes ponerle fin cuando quieras: desde la copia que te enviamos, en Configuración → Cuenta → Permisos si firmaste con tu cuenta de Vardfolk, o escribiéndonos; los miembros de ese círculo que no son sus administradores pierden entonces el acceso hasta que se firma un nuevo permiso.</p>
+
+  <p><strong>Estados Unidos: derechos de privacidad estatales.</strong> Los residentes de estados con leyes integrales de privacidad (incluidos California, Colorado, Connecticut, Virginia y otros) tienen los derechos descritos arriba. Los residentes de Washington, Nevada y Connecticut también tienen derechos específicos sobre los datos de salud; nuestra <a href="/health-data-privacy-es">Política de privacidad de datos de salud del consumidor</a> los describe y explica cómo ejercerlos. No vendemos información personal ni la compartimos para publicidad conductual entre contextos, no usamos ni divulgamos información personal sensible para fines distintos de prestar los Servicios, no elaboramos perfiles de nadie y no usamos datos personales para entrenar grandes modelos de lenguaje. Los residentes de California pueden designar a un agente autorizado para presentar solicitudes en su nombre.</p>
+
+  <p><strong>No rastrear (Do Not Track).</strong> No te rastreamos en otros sitios web ni apps, así que no hay nada que una señal de “Do Not Track” pueda cambiar; nuestros Servicios no responden a ella.</p>
+
+  <h2 id="changes">11. Cambios en esta política</h2>
+
+  <p>Podemos actualizar esta Política de privacidad de vez en cuando. Cuando lo hagamos, revisaremos la fecha de “Última actualización” de arriba y, para los cambios importantes, avisaremos además en la app, y por correo cuando tengamos tu dirección. Cuando un cambio suponga usar de una forma nueva información que ya nos diste, te pediremos tu consentimiento primero en lugar de basarnos en el aviso. Seguir usando los Servicios después de una actualización significa que aceptas la política revisada.</p>
+
+  <h2 id="contact">12. Contacto</h2>
+
+  <p>Si tienes preguntas o solicitudes sobre esta Política de privacidad o sobre tu información, escríbenos a <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> — Vardfolk, operado por Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, Estados Unidos; (619) 796-2567.</p>
+</main>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:3px;">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
+      <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.55"/>
+    </svg><span>Vard</span><span style="color:#C4956A;">folk</span>
+  </a>
+  <div class="footer-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>
+    <span class="footer-copy">© 2026 Vardfolk</span>
+  </div>
+</footer>
+
+<script>
+  if (location.hash && document.fonts) document.fonts.ready.then(function () { var t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); });
+</script>
+</body>
+</html>

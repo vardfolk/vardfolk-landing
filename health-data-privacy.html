@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consumer Health Data Privacy Policy — Vardfolk</title>
+<meta name="description" content="How Vardfolk handles consumer health data, and your rights under Washington, Nevada and Connecticut law.">
+<meta name="theme-color" content="#F5F0EB">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vardfolk.com/health-data-privacy">
+<link rel="alternate" hreflang="en" href="https://vardfolk.com/health-data-privacy">
+<link rel="alternate" hreflang="es" href="https://vardfolk.com/health-data-privacy-es">
+<link rel="alternate" hreflang="fil" href="https://vardfolk.com/health-data-privacy-fil">
+<link rel="alternate" hreflang="x-default" href="https://vardfolk.com/health-data-privacy">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ochre: #C4956A;
+    --ochre-light: rgba(196,149,106,0.12);
+    --ochre-text: #8E6039; /* ochre for TEXT on linen: 4.8:1 (plain --ochre is 2.4:1) */
+    --card: #FBF8F4;       /* the intro card: warmer than white */
+    --card-rule: #DDB892;  /* the card's top bar: a lighter ochre */
+    --ochre-border: rgba(196,149,106,0.25);
+    --terracotta: #D4785A;
+    --bark: #1E1916;
+    --linen: #F5F0EB;
+    --linen-deep: #EDE4D8;
+    --linen-deeper: #E4D9CC;
+    --sand: #E8BC92;
+    --text: #1E1916;
+    --text-secondary: #6B5A4E;
+    --text-muted: #A89278;
+    --white: #FFFFFF;
+  }
+
+  /* ── The canvas below the document's end ──────────────────────────────
+     Cream, because both ends of this page are cream — index.html carries the
+     same declaration for the same reason (42ae20d). It was UNSET here, which
+     happened to render right: with no background on <html> the body's
+     propagates to the canvas. Stating it removes the dependence on that.
+
+     No `overscroll-behavior-y` here, and none on index either: with linen at
+     both ends there is no colour for the rubber-band to reveal, so the bounce
+     is restored rather than suppressed. */
+  html { scroll-behavior: smooth; background-color: var(--linen); }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--linen);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+  }
+
+  /* NAV (matches landing) */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245,240,235,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ochre-border);
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo span { color: var(--ochre); }
+  .nav-logo svg { flex-shrink: 0; margin-right: 4px; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--bark); }
+  .btn-nav {
+    background: #B8865E;
+    color: #fff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-nav:hover { background: #A67550; transform: translateY(-1px); }
+
+  /* DOC */
+  .doc-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 130px 1.5rem 80px;
+  }
+  .doc-header { margin-bottom: 2.5rem; }
+  .doc-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ochre-text);
+    margin-bottom: 0.75rem;
+  }
+  .doc-wrap h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .doc-updated {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-wrap h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.01em;
+    margin: 2.75rem 0 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linen-deeper);
+  }
+  .doc-wrap h2:first-of-type { border-top: none; padding-top: 0; }
+  .doc-wrap h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bark);
+    margin: 1.75rem 0 0.6rem;
+  }
+  .doc-wrap p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .doc-wrap strong { color: var(--bark); font-weight: 500; }
+  .doc-wrap ul { margin: 0 0 1.25rem 1.25rem; }
+  .doc-wrap li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    padding-left: 0.35rem;
+  }
+  .doc-wrap li::marker { color: var(--ochre); }
+  .doc-wrap a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-wrap a:hover { color: var(--terracotta); }
+
+  /* Legal L6: a link to a section (#ai, #rights) lands below the fixed 64px nav. */
+  .doc-wrap h2[id] { scroll-margin-top: 88px; }
+  /* Legal L6 (L-11): the Privacy and health-data pages in three languages — a div,
+     never a <nav> (this page's global nav rule is the fixed header). Each
+     link is the language named in itself, 44px tall; the current page is not a
+     link. Colours are this page's own (--ochre-text links, --bark current). */
+  .doc-langs { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0 0 1.25rem; font-size: 0.9rem; }
+  .doc-langs a, .doc-langs span { display: inline-flex; align-items: center; min-height: 44px; }
+  .doc-langs a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-langs span { color: var(--bark); font-weight: 500; }
+
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .doc-table th, .doc-table td {
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--linen-deeper);
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-table th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: var(--bark);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .doc-table td:first-child { color: var(--bark); font-weight: 500; white-space: nowrap; }
+
+  .doc-intro {
+    background: var(--card);
+    border-radius: 14px;
+    border-top: 3px solid var(--card-rule);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 24px rgba(30,25,22,0.06);
+  }
+  .doc-intro p:last-child { margin-bottom: 0; }
+
+  /* FOOTER — the landing's, copied from index.html value for value.
+     The comment above has said "matches landing" since this page was written and
+     stopped being true when 42ae20d moved the footer to the light palette: this
+     page kept a BARK slab under cream prose, so the two legal pages and the page
+     that links to them ended differently.
+
+     This repo has no shared stylesheet — each page inlines its own <style> — so
+     "shared" here means copied verbatim, which is what index.html and this file
+     have always done with the nav.
+
+     The safe-area padding comes with it, and it is the half that is not
+     cosmetic: the footer is the last element in the document, so with
+     viewport-fit=cover its box is what paints the home-indicator strip — but
+     only if it pads into it. Without that, the strip is the canvas colour under
+     the footer, which is the empty band index.html's note describes. */
+  footer {
+    background: var(--linen);
+    padding-top: 1.5rem;
+    padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    padding-left: max(2rem, env(safe-area-inset-left, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .footer-logo span { color: var(--ochre); }
+  .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--bark); }
+  .footer-copy { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; white-space: nowrap; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links a:not(.btn-nav) { display: none; }
+    .doc-wrap { padding: 110px 1.25rem 60px; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .doc-table { font-size: 0.85rem; }
+    .doc-table th, .doc-table td { padding: 0.55rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+      <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+    </svg>
+    Vard<span>folk</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="https://app.vardfolk.com" class="btn-nav">Create your care circle</a>
+  </div>
+</nav>
+
+<main class="doc-wrap">
+  <div class="doc-langs" role="group" aria-label="Language of this page">
+    <span lang="en" aria-current="page">English</span>
+    <a href="/health-data-privacy-es" lang="es" hreflang="es">Español</a>
+    <a href="/health-data-privacy-fil" lang="fil" hreflang="fil">Filipino</a>
+  </div>
+  <div class="doc-header">
+    <div class="doc-eyebrow">Legal</div>
+    <h1>Consumer Health Data Privacy Policy</h1>
+    <p class="doc-updated">Last updated: October 22, 2026</p>
+  </div>
+
+  <div class="doc-intro">
+    <p>This policy is about <strong>consumer health data</strong>: information that identifies a person’s past, present or future physical or mental health. Vardfolk is a care coordination app, so most of what families put in it is consumer health data. Our full <a href="/privacy">Privacy Policy</a> describes everything else we collect and how we handle it; this page is the separate notice that Washington, Nevada and Connecticut law ask us to publish about health data in particular. Vardfolk is operated by Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, United States; (619) 796-2567; <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>.</p>
+  </div>
+
+  <h2 id="part-a">Part A — What we collect, where it comes from, what is shared, and your rights</h2>
+
+  <h3>The categories of consumer health data we collect, and why</h3>
+
+  <p>Everything in this list is entered or uploaded by the members of a care circle, and we collect it for one purpose: to store it and show it to the members of that circle so the people caring for someone can coordinate. We also use it to send the notifications a member turns on (such as a medication reminder or a daily digest), to let a member search their own circle’s records, and, where the circle’s administrator has the assistant on — and, for Updates, messages, comments and documents, the member who added them has allowed it — to have our AI provider read it so the app can extract, summarize or suggest (see the <a href="/privacy">Privacy Policy</a>, Section 3). The assistant reads nothing in a circle that is waiting for the care recipient’s permission or whose permission has ended. We do not use it for advertising, we do not sell it, and we do not use it to train AI models.</p>
+
+  <ul>
+    <li><strong>Medications</strong>: medication names, doses, forms, schedules and instructions; the pills remaining; and each dose logged as taken or skipped, with the time and the member who logged it.</li>
+    <li><strong>Allergies and reactions</strong>, or a record that there are no known allergies.</li>
+    <li><strong>Conditions and diagnoses</strong>, and the care notes a circle keeps about the person being cared for (the Care Sheet), which may describe their health, mobility, diet and daily needs.</li>
+    <li><strong>Appointments</strong> with health-care providers: the provider, the place, the date and time, notes and preparation briefs.</li>
+    <li><strong>Health insurance details and medical record numbers</strong> kept on the Care Sheet.</li>
+    <li><strong>Documents</strong> a member uploads to the Vault — discharge summaries, after-visit summaries, prescriptions, insurance cards, test results and similar — and the text we read out of them so they can be searched, plus the medications, appointments and tasks the assistant extracts from them for the member to review.</li>
+    <li><strong>Messages, Updates and comments</strong> that describe someone’s health, symptoms or care.</li>
+    <li><strong>Wellbeing check-ins</strong>: a member’s own answer to a daily question about how they are coping.</li>
+    <li><strong>Information the assistant derives</strong>: a suggested tag or name for a document, a suggested contact found in a note, a summary or briefing, and the medication, appointment and task details it proposes from a document (always shown to a member to accept or discard).</li>
+  </ul>
+
+  <h3>The categories of sources</h3>
+
+  <ul>
+    <li>The member who enters or uploads it.</li>
+    <li>The other members of the same care circle.</li>
+    <li>The documents a member uploads (which were written by health-care providers, pharmacies and insurers).</li>
+    <li>The person being cared for, when they are themselves a member of the circle.</li>
+  </ul>
+
+  <p>We do not buy health data, receive it from data brokers, read it from the device’s health apps (we do not use Apple HealthKit or Android Health Connect), or infer it from how you use the app.</p>
+
+  <h3>The categories of consumer health data we share</h3>
+
+  <p>The categories listed above are shared, in full, with the members of the care circle they belong to, according to each member’s role (administrator, contributor or viewer). Nothing is shared outside the circle except as the next paragraph says and as the <a href="/privacy">Privacy Policy</a> describes under “For legal reasons”.</p>
+
+  <h3>The third parties and affiliates we share it with</h3>
+
+  <ul>
+    <li><strong>The members of the care circle</strong> that the information belongs to — the people the circle’s members invited (or the person being cared for invited). They are the only third parties who receive consumer health data from us.</li>
+    <li><strong>We have no affiliates.</strong></li>
+  </ul>
+
+  <p>The companies that run Vardfolk’s servers, storage, backups, email delivery and AI features (listed in the <a href="/privacy">Privacy Policy</a>, Section 4) process consumer health data only on our behalf, under contracts that limit what they may do with it. They are our processors, not third parties, and they may not use it for their own purposes.</p>
+
+  <h3>Your consent</h3>
+
+  <p>Before you add health information, the app asks for your agreement to Vardfolk collecting it and sharing it with the members of your care circles, and records your answer. You can withdraw either agreement at any time in Settings → Account → Permissions or by writing to <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>; withdrawing stops future collection or sharing and does not remove what members have already seen. When a circle is created for someone who can make their own decisions, the app records their permission for the circle to hold and share their information, signed by them on a member’s phone or through a link we send them; a copy is sent to them, and they can end it at any time.</p>
+
+  <h3>How to exercise your rights</h3>
+
+  <p>If you are a Washington resident, or your consumer health data was collected in Washington, you have the right to:</p>
+
+  <ul>
+    <li><strong>confirm</strong> whether we collect, share or sell consumer health data about you, and to <strong>access</strong> it, including a list of all third parties and affiliates we have shared it with and a way to contact them;</li>
+    <li><strong>withdraw consent</strong> to our collecting or sharing your consumer health data;</li>
+    <li><strong>have it deleted</strong>, including from our backups.</li>
+  </ul>
+
+  <p>We do not sell consumer health data. Email <strong><a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a></strong> from the address on your account, or from any address if you are not a member (for example, if you are the person a circle cares for), and tell us which right you are using. We will confirm that the request comes from you — for a member, by a message to the account’s email; for someone who is not a member, by asking the circle’s administrator to confirm who you are, or by other reasonable steps — and we will act on it without undue delay and within 45 days. If we need longer, we may take one further 45 days and will tell you why before the first 45 days end. We will not charge for this and will not treat you differently for asking. You do not need to create an account to make a request.</p>
+
+  <p>When we delete consumer health data at your request, we remove it from our active systems and from every circle it appears in, ask the processors that hold a copy for us to delete theirs where they offer that, and let the rest expire on the schedules in Section 6 of the <a href="/privacy">Privacy Policy</a>; it is gone from our encrypted off-site backups within 90 days, and in every case within six months of confirming your request.</p>
+
+  <p><strong>Appeals.</strong> If we decline a request, we will tell you why in writing and how to appeal. Send the appeal to <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> with “Appeal” in the subject line; within 45 days we will tell you in writing what we did or did not do and why. If we deny your appeal, you can complain to the Washington Attorney General at <a href="https://www.atg.wa.gov/file-complaint" target="_blank" rel="noopener noreferrer">https://www.atg.wa.gov/file-complaint</a>.</p>
+
+  <h2 id="part-b">Part B — Additional information for residents of Nevada and Connecticut</h2>
+
+  <p><strong>Nevada residents.</strong> In addition to Part A:</p>
+
+  <ul>
+    <li><strong>How consumer health data is processed.</strong> It is stored in our database and file storage in the United States, encrypted in transit and at rest; shown to the members of its care circle in the app; included in the notifications and digest emails a member turns on; indexed so a member can search their own circle; backed up nightly, encrypted, to an off-site store; and, when the circle’s administrator has the assistant on — and, for Updates, messages, comments and documents, the member who added them has allowed it — sent to our AI provider to read and returned to the member for review. Our AI provider deletes what it receives within 30 days and may not train its models on it.</li>
+    <li><strong>Reviewing and correcting.</strong> A member can review and change their circle’s records directly in the app at any time; the person being cared for can ask us for a copy of what a circle keeps about them, and to have it corrected, at <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>.</li>
+    <li><strong>Material changes.</strong> If we change this policy in a way that matters, we will revise the date above and tell members in the app before the change takes effect; where the change would use health data in a new way, we will ask for consent first rather than rely on the notice.</li>
+    <li><strong>Cross-site tracking.</strong> No third party collects consumer health data about you over time and across other websites or apps when you use Vardfolk, and we do not allow anyone to.</li>
+    <li><strong>Your rights and the appeal process</strong> are as described in Part A; the deadlines in Nevada are the same (45 days, one 45-day extension), and we delete consumer health data from our active systems within 30 days of confirming a deletion request, with backups on the schedule in Part A. If we deny an appeal you can contact the Nevada Attorney General at <a href="https://ag.nv.gov" target="_blank" rel="noopener noreferrer">https://ag.nv.gov</a>.</li>
+    <li><strong>Effective date</strong>: the “Last updated” date above.</li>
+  </ul>
+
+  <p><strong>Connecticut residents.</strong> Vardfolk processes sensitive data, so Connecticut’s Data Privacy Act applies to us for Connecticut residents. In addition to Part A and our <a href="/privacy">Privacy Policy</a>:</p>
+
+  <ul>
+    <li>We process health data only with consent and only as needed for the purpose we asked you about. You can <strong>revoke</strong> that consent at any time by the same means you gave it — in the app, in Settings → Account → Permissions, or by email to <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> — and we will stop processing within 15 days.</li>
+    <li>We do not sell personal data, do not use it for targeted advertising, do not profile anyone, and <strong>do not use personal data to train large language models</strong>; our AI provider is contractually barred from training on what we send it.</li>
+    <li>You have the rights to confirm, access (including inferences), correct, delete, obtain a portable copy, and appeal, within 45 days (one 45-day extension). A guardian or conservator may exercise these rights for the person they are responsible for. If we deny an appeal you can contact the Connecticut Attorney General at <a href="https://portal.ct.gov/ag" target="_blank" rel="noopener noreferrer">https://portal.ct.gov/ag</a>.</li>
+  </ul>
+
+  <h2 id="cared-for">Who the person being cared for can talk to</h2>
+
+  <p>Much of the health data in Vardfolk is about someone who may not use the app themselves. If a circle keeps information about you, every right on this page is yours. Write to <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>; you do not need an account.</p>
+</main>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:3px;">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
+      <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.55"/>
+    </svg><span>Vard</span><span style="color:#C4956A;">folk</span>
+  </a>
+  <div class="footer-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/health-data-privacy" aria-current="page">Consumer Health Data Privacy Policy</a>
+    <span class="footer-copy">© 2026 Vardfolk</span>
+  </div>
+</footer>
+
+<script>
+  if (location.hash && document.fonts) document.fonts.ready.then(function () { var t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); });
+</script>
+</body>
+</html>

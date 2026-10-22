@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patakaran sa Privacy — Vardfolk</title>
+<meta name="description" content="Paano kinokolekta, ginagamit, ibinabahagi, at pinoprotektahan ng Vardfolk ang impormasyon mo.">
+<meta name="theme-color" content="#F5F0EB">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://vardfolk.com/privacy-fil">
+<link rel="alternate" hreflang="en" href="https://vardfolk.com/privacy">
+<link rel="alternate" hreflang="es" href="https://vardfolk.com/privacy-es">
+<link rel="alternate" hreflang="fil" href="https://vardfolk.com/privacy-fil">
+<link rel="alternate" hreflang="x-default" href="https://vardfolk.com/privacy">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --ochre: #C4956A;
+    --ochre-light: rgba(196,149,106,0.12);
+    --ochre-text: #8E6039; /* ochre for TEXT on linen: 4.8:1 (plain --ochre is 2.4:1) */
+    --card: #FBF8F4;       /* the intro card: warmer than white */
+    --card-rule: #DDB892;  /* the card's top bar: a lighter ochre */
+    --ochre-border: rgba(196,149,106,0.25);
+    --terracotta: #D4785A;
+    --bark: #1E1916;
+    --linen: #F5F0EB;
+    --linen-deep: #EDE4D8;
+    --linen-deeper: #E4D9CC;
+    --sand: #E8BC92;
+    --text: #1E1916;
+    --text-secondary: #6B5A4E;
+    --text-muted: #A89278;
+    --white: #FFFFFF;
+  }
+
+  /* ── The canvas below the document's end ──────────────────────────────
+     Cream, because both ends of this page are cream — index.html carries the
+     same declaration for the same reason (42ae20d). It was UNSET here, which
+     happened to render right: with no background on <html> the body's
+     propagates to the canvas. Stating it removes the dependence on that.
+
+     No `overscroll-behavior-y` here, and none on index either: with linen at
+     both ends there is no colour for the rubber-band to reveal, so the bounce
+     is restored rather than suppressed. */
+  html { scroll-behavior: smooth; background-color: var(--linen); }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--linen);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+  }
+
+  /* NAV (matches landing) */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245,240,235,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--ochre-border);
+  }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+  }
+  .nav-logo span { color: var(--ochre); }
+  .nav-logo svg { flex-shrink: 0; margin-right: 4px; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--bark); }
+  .btn-nav {
+    background: #B8865E;
+    color: #fff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-nav:hover { background: #A67550; transform: translateY(-1px); }
+
+  /* DOC */
+  .doc-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 130px 1.5rem 80px;
+  }
+  .doc-header { margin-bottom: 2.5rem; }
+  .doc-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ochre-text);
+    margin-bottom: 0.75rem;
+  }
+  .doc-wrap h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .doc-updated {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-wrap h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.01em;
+    margin: 2.75rem 0 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linen-deeper);
+  }
+  .doc-wrap h2:first-of-type { border-top: none; padding-top: 0; }
+  .doc-wrap h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bark);
+    margin: 1.75rem 0 0.6rem;
+  }
+  .doc-wrap p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .doc-wrap strong { color: var(--bark); font-weight: 500; }
+  .doc-wrap ul { margin: 0 0 1.25rem 1.25rem; }
+  .doc-wrap li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    padding-left: 0.35rem;
+  }
+  .doc-wrap li::marker { color: var(--ochre); }
+  .doc-wrap a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-wrap a:hover { color: var(--terracotta); }
+
+  /* Legal L6: a link to a section (#ai, #rights) lands below the fixed 64px nav. */
+  .doc-wrap h2[id] { scroll-margin-top: 88px; }
+  /* Legal L6 (L-11): the Privacy and health-data pages in three languages — a div,
+     never a <nav> (this page's global nav rule is the fixed header). Each
+     link is the language named in itself, 44px tall; the current page is not a
+     link. Colours are this page's own (--ochre-text links, --bark current). */
+  .doc-langs { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0 0 1.25rem; font-size: 0.9rem; }
+  .doc-langs a, .doc-langs span { display: inline-flex; align-items: center; min-height: 44px; }
+  .doc-langs a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-langs span { color: var(--bark); font-weight: 500; }
+
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .doc-table th, .doc-table td {
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--linen-deeper);
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-table th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: var(--bark);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .doc-table td:first-child { color: var(--bark); font-weight: 500; white-space: nowrap; }
+
+  .doc-intro {
+    background: var(--card);
+    border-radius: 14px;
+    border-top: 3px solid var(--card-rule);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 24px rgba(30,25,22,0.06);
+  }
+  .doc-intro p:last-child { margin-bottom: 0; }
+
+  /* FOOTER — the landing's, copied from index.html value for value.
+     The comment above has said "matches landing" since this page was written and
+     stopped being true when 42ae20d moved the footer to the light palette: this
+     page kept a BARK slab under cream prose, so the two legal pages and the page
+     that links to them ended differently.
+
+     This repo has no shared stylesheet — each page inlines its own <style> — so
+     "shared" here means copied verbatim, which is what index.html and this file
+     have always done with the nav.
+
+     The safe-area padding comes with it, and it is the half that is not
+     cosmetic: the footer is the last element in the document, so with
+     viewport-fit=cover its box is what paints the home-indicator strip — but
+     only if it pads into it. Without that, the strip is the canvas colour under
+     the footer, which is the empty band index.html's note describes. */
+  footer {
+    background: var(--linen);
+    padding-top: 1.5rem;
+    padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    padding-left: max(2rem, env(safe-area-inset-left, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  .footer-logo span { color: var(--ochre); }
+  .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--bark); }
+  .footer-copy { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; white-space: nowrap; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links a:not(.btn-nav) { display: none; }
+    .doc-wrap { padding: 110px 1.25rem 60px; }
+    footer { flex-direction: column; align-items: flex-start; }
+    .doc-table { font-size: 0.85rem; }
+    .doc-table th, .doc-table td { padding: 0.55rem 0.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">
+    <svg width="28" height="28" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#F5F0EB"/>
+      <circle cx="36" cy="36" r="5.5" fill="#E8BC92"/>
+    </svg>
+    Vard<span>folk</span>
+  </a>
+  <div class="nav-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="https://app.vardfolk.com" class="btn-nav">Create your care circle</a>
+  </div>
+</nav>
+
+<main class="doc-wrap">
+  <div class="doc-langs" role="group" aria-label="Wika ng pahinang ito">
+    <a href="/privacy" lang="en" hreflang="en">English</a>
+    <a href="/privacy-es" lang="es" hreflang="es">Español</a>
+    <span lang="fil" aria-current="page">Filipino</span>
+  </div>
+  <div class="doc-header">
+    <div class="doc-eyebrow">Legal</div>
+    <h1>Patakaran sa Privacy</h1>
+    <p class="doc-updated">Huling na-update: Oktubre 22, 2026</p>
+  </div>
+
+  <div class="doc-intro">
+    <p>Isang pagsasalin ito para sa kaginhawahan. Kung may pagkakaiba, ang bersyong Ingles ang mananaig.</p>
+    <p>Inilalarawan ng Patakaran sa Privacy na ito kung paano kinokolekta, ginagamit, ibinabahagi at pinoprotektahan ng Vardfolk (“Vardfolk”, “kami”, “namin” o “amin”) ang impormasyon mo kapag ginagamit mo ang aming website sa <a href="https://vardfolk.com">vardfolk.com</a>, ang aming mga application sa app.vardfolk.com at sa iOS at Android, at ang mga kaugnay na serbisyo (sama-samang tinatawag na “Mga Serbisyo”).</p>
+    <p>Ang Vardfolk ay isang <strong>platform para sa koordinasyon ng pag-aalaga</strong>. Ginagamit ito ng mga pamilya at care team para mag-organisa at magkausap tungkol sa pag-aalaga ng isang mahal sa buhay na matanda na o may sakit — sa pagsubaybay ng mga task, appointment, gamot, dokumento, mensahe at Update sa iisang “care circle”. Ang Vardfolk ay kasangkapan sa koordinasyon. <strong>Hindi ito medical provider, hindi kapalit ng propesyonal na payong medikal, at hindi para sa paggawa ng mga klinikal na desisyon.</strong></p>
+    <p>Ang Vardfolk ay pinapatakbo ni Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, Estados Unidos, na siyang taong responsable sa kung paano hinahawakan ng Vardfolk ang impormasyon mo. Kung may tanong ka tungkol sa patakarang ito o sa impormasyon mo, sumulat sa <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Dahil impormasyon sa kalusugan ang karamihan sa iniingatan ng Vardfolk, naglalathala rin kami ng hiwalay na <strong><a href="/health-data-privacy-fil">Patakaran sa Privacy ng Datos ng Kalusugan ng Consumer</a></strong>, na hinihingi ng ilang estado; naka-link ito sa ibaba ng bawat pahina ng <a href="https://vardfolk.com">vardfolk.com</a> at mula sa Mga Setting → Account sa app.</p>
+  </div>
+
+  <h2 id="summary">Buod ng mga pangunahing punto</h2>
+
+  <ul>
+    <li><strong>Ano ang kinokolekta namin.</strong> Impormasyon ng account at profile; ang impormasyon sa pag-aalaga na inilalagay mo at ng mga miyembro ng circle mo (mga detalye ng inaalagaan, gamot, allergy, appointment, task, entry sa journal, mensahe, contact, wellbeing check-in); mga dokumentong ina-upload mo (na maaaring may kaugnayan sa kalusugan); impormasyon sa pagbabayad; at impormasyong teknikal at ng device para sa mga notification at seguridad.</li>
+    <li><strong>Itinuturing na kumpidensyal ang impormasyon sa kalusugan.</strong> Dahil ginagamit ang Vardfolk sa koordinasyon ng pag-aalaga, kasama sa ibinibigay mong impormasyon ang impormasyon sa kalusugan ng isang inaalagaan, na maaaring hindi miyembro. Itinuturing namin itong kumpidensyal na impormasyong medikal: ipinapakita lang sa mga miyembro ng care circle nito, pinoproseso lang ng mga provider na nagpapatakbo ng Vardfolk sa ilalim ng mga kontratang nagbabawal ng anumang ibang gamit, hindi kailanman ibinebenta, hindi kailanman ginagamit sa advertising, at hindi kailanman ginagamit para sanayin ang mga AI model.</li>
+    <li><strong>Paano namin ginagamit ang AI.</strong> Gumagamit ang Vardfolk ng artificial intelligence para sa mga feature gaya ng pag-scan ng dokumento, mga buod at mga mungkahi. Para dito, ipinapadala ang kaugnay na nilalaman — na maaaring may impormasyon sa kalusugan — sa aming AI provider, ang Anthropic, para makabuo ng resulta. Hindi ginagamit ng Anthropic ang nilalamang ito para sanayin ang mga AI model nito, at binubura ito sa loob ng 30 araw. Humihingi muna ng pahintulot mo ang app bago ipadala ang mga Update, mensahe, komento at dokumentong idinadagdag mo, at mababago mo ang pinili mo anumang oras sa Mga Setting.</li>
+    <li><strong>Kanino namin ibinabahagi.</strong> Ibinabahagi namin ang impormasyon sa mga service provider na nagpapatakbo ng Vardfolk. Sa loob ng app, nakikita ng mga miyembro ng circle mo ang impormasyon ng care circle ayon sa kanilang role. Hindi namin ibinebenta ang personal na impormasyon mo.</li>
+    <li><strong>Ang mga pagpipilian mo.</strong> Maaari mong suriin, i-update, i-export o burahin ang impormasyon mo, at burahin ang account mo, anumang oras. Ikaw ang nagpapasya kung mababasa ng assistant ang mga Update, mensahe, komento at dokumentong idinadagdag mo, at ang administrator ng circle ang nagpapasya kung gagamitin ba ang assistant sa circle na iyon. Taglay ng inaalagaan ang bawat karapatan sa patakarang ito, gumagamit man siya ng app o hindi.</li>
+  </ul>
+
+  <h2 id="collect">1. Impormasyong kinokolekta namin</h2>
+
+  <h3>Impormasyong direktang ibinibigay mo</h3>
+
+  <ul>
+    <li><strong>Impormasyon ng account at profile</strong> — ang pangalan mo, email address at password, o pag-sign in sa pamamagitan ng Apple o Google. Opsyonal, isang profile photo at numero ng telepono, na nakikita ng mga miyembro ng mga care circle mo. Ginagamit namin ang email address mo para sa mga abiso tungkol sa account, seguridad at batas.</li>
+    <li><strong>Impormasyon ng care circle at ng inaalagaan</strong> — ang pangalan at mga detalye ng inaalagaan, at ang mga miyembrong iniimbitahan mo sa circle.</li>
+    <li><strong>Impormasyon sa pag-aalaga na may kaugnayan sa kalusugan</strong> — mga gamot, dosis at iskedyul, mga tala ng dosis, allergy, kondisyon, appointment, tala sa pag-aalaga, mga detalye ng health insurance at medical record number, at ang nilalaman ng mga dokumentong ina-upload mo (gaya ng discharge summary, after-visit summary, insurance card at iba pang file na may kaugnayan sa kalusugan). Karamihan dito ay tungkol sa inaalagaan at inilalagay ng mga miyembro ng circle niya; ang ilan ay tungkol sa iyo (halimbawa, ang sarili mong mga wellbeing check-in).</li>
+    <li><strong>Nilalaman para sa koordinasyon</strong> — mga task, entry sa journal at Update sa pag-aalaga, mga mensaheng ipinapadala mo sa loob ng circle, mahahalagang contact, at mga wellbeing check-in.</li>
+    <li><strong>Ang mga setting at pinili mo</strong> — ang mga setting mo sa notification, kasama kung lalabas ang pangalan ng gamot sa mga notification mo; ang pinili mo tungkol sa assistant (Payagan o Hindi muna); ang mga miyembrong pinili mong itago (tingnan ang Seksyon 4); ang mga pahintulot na ibinibigay mo sa amin para sa impormasyon sa kalusugan sa unang paggamit mo ng app; at, kapag pumirma ang inaalagaan o ang kinatawan niya, ang kanilang pahintulot na iingatan at ibabahagi ng circle ang impormasyon nila.</li>
+    <li><strong>Impormasyon sa pagbabayad</strong> — kapag nag-subscribe ka sa bayad na plan sa web, kinokolekta at pinoproseso ng Stripe ang mga detalye ng pagbabayad mo. Kapag nag-subscribe ka sa iPhone o Android app, ginagawa ang pagbili sa pamamagitan ng App Store ng Apple o ng Google Play, at sila ang humahawak ng mga detalye ng pagbabayad mo; tumatanggap ang Vardfolk mula sa kanila, sa pamamagitan ng RevenueCat, ng tala ng subscription (ang status, plan at petsa ng renewal nito), hindi kailanman ang numero ng card o billing address mo. Hindi iniimbak ng Vardfolk ang buong numero ng card mo. Nag-iingat kami ng tala ng pagsang-ayon mo sa mga tuntunin ng subscription nang hindi bababa sa tatlong taon, gaya ng hinihingi ng batas ng California.</li>
+  </ul>
+
+  <h3>Impormasyong awtomatikong kinokolekta</h3>
+
+  <ul>
+    <li><strong>Impormasyon ng device at teknikal</strong> — kasama ang mga push-notification token (Apple Push Notification service sa mga Apple device, Firebase Cloud Messaging ng Google sa Android, at web push sa browser), at ang pangunahing impormasyong kailangan para patakbuhin at protektahan ang Mga Serbisyo.</li>
+    <li><strong>Impormasyon sa paggamit at diagnostic</strong> — kapag ginagamit mo ang app, kami at ang aming mga provider ng analytics at crash reporting ay awtomatikong kumukolekta ng limitadong impormasyon tungkol sa kung paano ginagamit ang Mga Serbisyo (gaya ng kung aling mga feature ang binubuksan at pangkalahatang impormasyon ng device at session) at impormasyong diagnostic (gaya ng mga crash report at datos ng performance), para maunawaan ang paggamit at maayos ang mga teknikal na problema. Nakakabit ang impormasyong ito sa isang random na identifier, hindi sa pangalan o email address mo. Kino-configure namin ang mga provider na ito para itapon at hindi iimbak ang lokasyong nakukuha mula sa IP address mo, at para hindi kasama sa kinokolekta nila ang nilalaman sa pag-aalaga na iniimbak mo sa Vardfolk — mga dokumento, mensahe, gamot at entry sa journal. Walang email address sa isang error report, wala ang alinman sa mga parameter ng web address na nabigo (na maaaring may link sa pag-sign in o sa kalendaryo), at walang detalye ng isang error sa database, at ang sarili naming mga server log ay tumutukoy sa mga tao at circle sa pamamagitan ng identifier, hindi ng pangalan o email address. Nasa Seksyon 4 ang mga provider na ginagamit namin para dito.</li>
+  </ul>
+
+  <h3>Ang hindi namin kinokolekta</h3>
+
+  <p>Hindi namin binabasa ang datos ng kalusugan mula sa mga health app ng telepono mo (walang Apple HealthKit, walang Android Health Connect), hindi namin kinokolekta ang eksaktong lokasyon mo, at hindi kami bumibili ng impormasyon tungkol sa iyo. Kung bubuksan mo ang app lock, ang operating system ng telepono mo ang nagsusuri ng Face ID, Touch ID o biometric unlock ng Android; oo o hindi lang ang natatanggap ng Vardfolk, at hindi kailanman fingerprint, mukha o ibang biometric template. Ginagamit lang ang camera habang nag-i-scan ka ng dokumento o kumukuha ng larawan o video para ibahagi sa circle mo, at ang mikropono habang nagre-record ka lang ng video; hindi ginagamit ang alinman sa dalawa sa background.</p>
+
+  <p><strong>Sensitibong impormasyon.</strong> Ang impormasyon sa pag-aalaga na inilalagay mo ay impormasyon sa kalusugan, at sa maraming estado ito ay “consumer health data” o “medical information” na may sariling proteksyon sa batas. Itinuturing namin itong kumpidensyal na impormasyong medikal sa ilalim ng Confidentiality of Medical Information Act ng California, na itinuturing ang isang app na gaya ng Vardfolk bilang provider ng pangangalagang pangkalusugan para lang sa layunin ng batas na iyon. Ang Vardfolk ay hindi HIPAA-covered entity o business associate, hindi idinisenyo ang Mga Serbisyo para sumunod sa HIPAA, at hindi ito dapat gamitin ng mga health-care provider, home-care agency, health plan o sinumang kumikilos para sa kanila sa pamamahala ng impormasyon ng pasyente.</p>
+
+  <h2 id="use">2. Paano namin ginagamit ang impormasyon mo</h2>
+
+  <p>Ginagamit namin ang impormasyon mo para:</p>
+
+  <ul>
+    <li>Gumawa at mapanatili ang account mo at ma-authenticate ka.</li>
+    <li>Maibigay ang Mga Serbisyo — iimbak at ipakita ang mga task, appointment, gamot, dokumento, mensahe at Update ng care circle mo sa mga miyembro ng circle na iyon.</li>
+    <li>Maibigay ang mga feature na tinutulungan ng AI (tingnan ang Seksyon 3).</li>
+    <li>Magpadala ng mga notification at komunikasyong may kinalaman sa serbisyo.</li>
+    <li>Magproseso ng mga bayad at mamahala ng mga subscription.</li>
+    <li>Mapanatili ang seguridad at integridad ng Mga Serbisyo at maiwasan ang pandaraya o pang-aabuso.</li>
+    <li>Sumunod sa mga obligasyong legal.</li>
+    <li>Maunawaan kung paano ginagamit ang Mga Serbisyo, at matukoy at maayos ang mga teknikal na problema, para manatiling maaasahan at mapabuti ang app.</li>
+  </ul>
+
+  <p>Bawat email ng notification, kasama ang daily digest at ang lingguhang buod, ay may one-click na unsubscribe na nag-o-off ng mga email notification ng circle na iyon para sa iyo. May link na Mag-unsubscribe ang email ng imbitasyon na humihinto sa mga imbitasyon sa address mo; hinahayaan ka rin ng pahinang binubuksan nito na payagan muli ang mga ito.</p>
+
+  <p>Hindi namin ginagamit ang impormasyon mo, o ang impormasyon sa kalusugan ng circle mo, para sa advertising o marketing, hindi namin ito ibinebenta, at hindi namin ito ginagamit para sanayin ang mga artificial-intelligence o large language model — amin man o ng iba. Kung kailanman nais naming gamitin ang impormasyon mo para sa bagong layunin, hihingi muna kami ng pahintulot mo.</p>
+
+  <h2 id="ai">3. Paano namin ginagamit ang artificial intelligence</h2>
+
+  <p>Gumagamit ang Vardfolk ng artificial intelligence para mapadali ang koordinasyon ng pag-aalaga. Kasama sa mga feature na tinutulungan ng AI ang pag-scan at pagbabasa ng mga na-upload na dokumento para kunin ang mga gamot, appointment at task; pagbuo ng mga buod at brief; pagmumungkahi ng mga task mula sa mga entry sa journal; pagmumungkahi ng mga tag ng dokumento at contact; at pagtulong sa pagsulat ng mga tala at mensahe. Lahat ng ginagawa ng assistant ay minamarkahan bilang gayon sa app, at ipinapakita sa iyo ang kinukuha nito mula sa isang dokumento para suriin mo bago idagdag sa mga tala ng circle mo.</p>
+
+  <p><strong>Para maibigay ang mga feature na ito, ipinapadala ang kaugnay na nilalaman sa aming AI provider, ang Anthropic (ang gumawa ng Claude).</strong> Depende sa feature, maaaring kasama sa nilalamang ito ang tekstong kinuha mula sa mga dokumentong ina-upload mo (na maaaring may impormasyon sa kalusugan), mga entry sa journal, mensahe, detalye ng appointment at gamot, at iba pang impormasyon sa pag-aalaga.</p>
+
+  <p><strong>Pinoproseso ng Anthropic ang nilalamang ito para lang makabuo ng resulta ng feature. Sa ilalim ng mga komersyal na tuntunin nito, hindi nito ito magagamit para sanayin ang mga AI model nito, at binubura nito ang ipinapadala namin sa loob ng 30 araw,</strong> maliban kung kailangan nitong itago nang mas matagal para ipatupad ang usage policy nito o para sumunod sa batas.</p>
+
+  <p><strong>Nauuna ang pahintulot mo.</strong> Sa unang paggamit mo ng Vardfolk, itatanong ng app kung maaaring basahin ng assistant ang idinadagdag mo, at pipili ka ng Payagan o Hindi muna. Kung pipiliin mo ang Hindi muna, hindi kailanman ipinapadala sa Anthropic ang mga Update, mensahe, komento at dokumentong idinadagdag mo. Ang mga ibinabahaging detalye ng pag-aalaga na pinagsasaluhan ng circle mo, gaya ng mga gamot at appointment, ay ginagamit ng assistant kapag naka-on ito ng admin ng circle mo. Iyon ang desisyon ng circle, na ginawa ng administrator nito gamit ang pahintulot na ibinigay ng inaalagaan (o ng kinatawan niya) nang itinatag ang circle, at maaari itong i-off ng administrator anumang oras. Sa praktika, ang ibig sabihin ng Hindi muna: hindi ipinapadala sa Anthropic ang dokumentong ina-upload mo — kung PDF o larawan ito, binabasa ang teksto nito sa sariling mga server ng Vardfolk, ng isang text-recognition program na tumatakbo doon, para lang mahanap ang dokumento sa search, at wala nang ibang kinukuha mula rito; ang sariling mga feature ng assistant — mga buod, brief, tulong sa pagsulat, ang search assistant, at mga mungkahi — ay hindi mo magagamit hangga’t hindi mo binabago ang pinili mo; at ang mga Update, mensahe, komento at dokumentong idinagdag mo ay hindi kasama sa anumang inihahanda ng assistant para sa ibang miyembro ng circle mo, gaya ng buod ng daily digest o ng isang iminungkahing contact. Hindi namin sinasabi sa ibang miyembro kung ano ang pinili mo, at hindi kailanman sinasabi ng buod na inihanda para sa kanila na may iniwan. Mababago mo ang pinili mo anumang oras sa Mga Setting → Account → Assistant.</p>
+
+  <p>Maaari ring i-off ng administrator ng care circle ang assistant para sa buong circle (Pamahalaan ang circle → “Gamitin ang assistant sa circle na ito”). Habang naka-off ito, walang nilalaman mula sa circle ang ipinapadala sa Anthropic, maliban na binabasa pa rin ng Anthropic ang teksto ng mga na-upload na dokumento para manatiling mahahanap ang mga ito; iyon lang ang hakbang na hindi pinipigilan ng switch ng circle, dahil nakasalalay dito ang search. Ang dokumentong na-upload ng miyembrong pumili ng Hindi muna ay hindi kailanman ipinapadala sa Anthropic, anuman ang sabi ng switch ng circle: binabasa lang ang teksto nito sa sariling mga server ng Vardfolk, para sa search. Habang naghihintay ang circle ng pahintulot ng inaalagaan, o natapos na ang pahintulot na iyon, naka-off ang assistant para sa circle at walang ipinapadala mula rito sa Anthropic, kahit mga dokumento; binabasa lang ang teksto ng mga ito sa sariling mga server ng Vardfolk, para sa search.</p>
+
+  <p>Ano ang ginagawa namin sa mga resulta:</p>
+
+  <ul>
+    <li><strong>Pag-scan at pagkuha mula sa dokumento.</strong> Ang tekstong nabasa mula sa na-upload mong dokumento at ang nakaayos na impormasyong kinuha mula rito (gaya ng mga gamot, appointment at task) ay iniimbak sa mga tala ng care circle mo, para masuri at magamit mo. Binubura ang mga ito kapag binura mo ang dokumento o ang care circle.</li>
+    <li><strong>Iba pang feature ng AI</strong> (mga buod, brief, mungkahi, tulong sa pagsulat) ay nagpoproseso ng impormasyon mo para makabuo ng sagot. Para hindi mabuo nang dalawang beses ang parehong sagot, iniingatan ang kopya ng kamakailang resulta sa mga tala ng care circle mo nang hanggang 7 araw, at pagkatapos ay binubura; mas maaga itong binubura kung buburahin mo ang care circle. Ang isang isinulat na tala o iminungkahing task ay nagiging bahagi ng mga tala mo kung pipiliin mo lang itong itago.</li>
+    <li><strong>May nilalamang binuo ng AI na iniimbak bilang bahagi ng pagtakbo ng feature,</strong> para nandoon ito kapag bumalik ka. Ang dokumentong na-scan mo ay maaaring bigyan ng pangalan at tag mula sa sarili nitong nilalaman, at nananatili ang mga ito sa dokumento hanggang baguhin mo ang mga ito o burahin ang dokumento. Ang preparation brief na binuo para sa isang appointment ay iniingatan sa appointment na iyon, para mabasa mo itong muli bago ang pagbisita, at binubura sa loob ng isang araw matapos burahin ang appointment, o kasama ng care circle. Ang mga iminungkahing contact na natagpuan sa mga tala ng circle mo ay iniimbak para naghihintay silang suriin, tanggapin o i-dismiss mo; ang mungkahing tinanggap mo ay binubura pagkalipas ng 30 araw, ang naghihintay pa ng pagsusuri pagkalipas ng 90 araw, at ang in-dismiss mo ay pangalan lang ang iniiwan, para hindi na ito muling imungkahi; lahat ay binubura kasama ng care circle.</li>
+    <li><strong>Hindi kami nag-iingat ng mga log ng nilalamang ipinapadala sa AI provider.</strong> Ang mga resulta ng AI na iniingatan namin ay ang mga inilarawan sa itaas lang.</li>
+  </ul>
+
+  <p>Maaaring may pagkakamali ang output na binuo ng AI. Hindi nagbibigay ng payong medikal ang Vardfolk, at ang mga feature na tinutulungan ng AI ay tulong sa koordinasyon, hindi klinikal na gabay: hindi kailanman nagrerekomenda, nagbabago o nagpapakahulugan ang assistant ng gamot, dosis o resulta ng pagsusuri, at tinatanggihan nito ang mga tanong na humihingi nito. Laging i-verify ang mahahalagang detalye — lalo na ang mga petsa, dosis at impormasyong medikal — sa orihinal mong mga dokumento at sa mga healthcare provider mo.</p>
+
+  <h2 id="sharing">4. Paano ibinabahagi ang impormasyon mo</h2>
+
+  <p><strong>Sa loob ng care circle mo.</strong> Ang impormasyong idinadagdag mo sa care circle ay nakikita ng ibang miyembro ng circle na iyon, ayon sa role ng bawat miyembro (administrator, contributor o viewer). Ganito gumagana ang Vardfolk — nagbibigay-daan ito para magkaayos ang pamilya at care team mo. Nangyayari ito nang may pahintulot ng inaalagaan, o ng legal na kinatawan niya, na naitala nang likhain ang circle, at sumasang-ayon ang bawat miyembro na hindi ibabahagi sa labas ng circle ang nakikita nila. Kung kinansela o natapos ang pahintulot na iyon, o hindi pa ito napipirmahan, naka-pause ang mga miyembro maliban sa mga administrator ng circle at sa taong pumirma nito — hindi nila makikita ang circle — hanggang may mapirmahang bagong pahintulot. Ang impormasyon ng care circle mo ay <strong>hindi pampubliko</strong> at hindi ibinabahagi sa labas ng circle mo maliban sa inilalarawan sa ibaba.</p>
+
+  <p><strong>Sinusuri bago i-post, at hindi ipinapadala kahit saan.</strong> Bago i-post ang isang mensahe, Update o komento, sinusuri ito ng app laban sa isang nakapirming listahan ng mga salita (tingnan ang Seksyon 4 ng aming Mga Tuntunin ng Serbisyo). Tumatakbo ang pagsusuring iyon sa device mo at sa aming database, hindi gumagamit ng artificial intelligence, at walang itinatala: walang kopya ng tinipa mo ang iniingatan o ipinapadala kaninuman dahil dito. Iba ang mga report: binabasa ng isang tao ang report (tingnan ang Mga report sa ibaba).</p>
+
+  <p><strong>Pagtatago ng miyembro.</strong> Kapag itinago mo ang isang miyembro ng circle mo, nag-iingat kami ng tala ng pinili mo para maitupi ng app ang mga mensahe, Update at komento niya sa mga device mo at hindi ka na nito abisuhan tungkol sa kanila. Hindi namin sinasabi sa taong itinago mo, walang ipinapakita sa kanila sa app, at nananatili sa kanila ang bawat kakayahang mayroon sila, maliban kung hinihingi ng batas na isiwalat namin ito. Mababawi mo ito anumang oras: i-tap siya sa Mga Miyembro at piliin ang Huwag nang itago.</p>
+
+  <p><strong>Mga report.</strong> Kapag nag-report ang isang miyembro ng mensahe, Update, komento, larawan o file, o ng ibang miyembro, mula sa loob ng app, ang ni-report na nilalaman (para sa larawan o file, isang reperensya rito sa halip na ang file mismo), kung sino ang sumulat nito, kung sino ang nag-report, ang anumang idinagdag ng nag-report sa sarili niyang mga salita, at ang circle na pinanggalingan nito ay ipinapadala sa amin sa email para masuri namin (tingnan ang Seksyon 4 ng aming Mga Tuntunin ng Serbisyo). Hindi namin sinasabi sa sumulat nito kung sino ang nag-report, maliban kung hinihingi ng batas. Iniingatan namin ang mga email ng report nang hanggang isang taon.</p>
+
+  <p><strong>Sa mga service provider (subprocessor).</strong> Ibinabahagi namin ang impormasyon sa mga third-party provider na nagpapatakbo ng Vardfolk para sa amin. Bawat isa ay nakatali sa kontratang nagpapahintulot na gamitin nila ang impormasyon para lang maibigay ang serbisyo nila sa amin, nag-aatas na protektahan ito nang hindi bababa sa sinasabi ng patakarang ito na ginagawa namin, at nagbabawal ng anumang karagdagang pagsisiwalat o sariling gamit:</p>
+
+  <table class="doc-table">
+    <thead><tr><th>Provider</th><th>Layunin</th></tr></thead>
+    <tbody>
+      <tr><td>Supabase</td><td>Database, authentication at file storage</td></tr>
+      <tr><td>Anthropic</td><td>Mga feature na tinutulungan ng AI (tingnan ang Seksyon 3); binubura ang ipinapadala namin sa loob ng 30 araw at hindi maaaring magsanay dito</td></tr>
+      <tr><td>Stripe</td><td>Pagproseso ng bayad para sa mga subscription na binili sa web</td></tr>
+      <tr><td>RevenueCat</td><td>Pamamahala ng subscription: tumatanggap ng status ng mga in-app purchase mula sa Apple at Google at nagsasabi sa Vardfolk kung aling plan ang sa iyo</td></tr>
+      <tr><td>Resend</td><td>Pagpapadala ng email (gaya ng mga imbitasyon at notification)</td></tr>
+      <tr><td>Hostinger</td><td>Email hosting para sa aming mga address para sa suporta at privacy</td></tr>
+      <tr><td>Apple</td><td>Sign in with Apple; mga push notification sa mga Apple device; mga in-app purchase sa pamamagitan ng App Store</td></tr>
+      <tr><td>Google</td><td>Sign in with Google; mga push notification sa Android (Firebase Cloud Messaging); mga in-app purchase sa pamamagitan ng Google Play; mga mungkahi ng address at lugar sa pamamagitan ng Google Maps Platform (Places) kapag nagta-type ka ng address o lugar — ang lokasyon ng appointment, isang parmasya o ospital (nilo-load ito nang maaga ng mga screen ng gamot para handa ang mga mungkahi); at ang mga font na nilo-load ng website sa <a href="https://vardfolk.com">vardfolk.com</a> mula sa Google Fonts kapag binuksan ito</td></tr>
+      <tr><td>Cloudflare</td><td>Hosting ng website at application, network delivery, at naka-encrypt na off-site na backup ng mga na-upload na file</td></tr>
+      <tr><td>Render</td><td>Hosting ng backend / server (Oregon, USA)</td></tr>
+      <tr><td>Sentry</td><td>Crash at error reporting</td></tr>
+      <tr><td>PostHog</td><td>Product analytics</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>Para sa mga dahilang legal.</strong> Maaari naming isiwalat ang impormasyon kung hinihingi ng batas, para tumugon sa mga legal na kahilingan, o kung pinapayagan ng batas para protektahan ang mga karapatan, kaligtasan at seguridad ng aming mga user, ng publiko o ng Vardfolk. Hindi namin isinisiwalat ang impormasyon sa kalusugan para sa pagpapatupad ng batas sa imigrasyon maliban kung pinipilit kami ng hukuman o ng batas.</p>
+
+  <p><strong>Mga paglilipat ng negosyo.</strong> Kung masasangkot ang Vardfolk sa isang merger, acquisition o pagbebenta ng mga asset, maaaring mailipat ang impormasyon mo bilang bahagi ng transaksyong iyon. Aabisuhan ka namin sa anumang ganitong pagbabago.</p>
+
+  <p><strong>Hindi namin ibinebenta ang personal na impormasyon mo,</strong> at hindi namin ito ibinabahagi para sa cross-context behavioral advertising. Walang third party na kumokolekta ng impormasyon tungkol sa aktibidad mo sa paglipas ng panahon at sa ibang mga website o app kapag ginagamit mo ang Vardfolk, at hindi namin pinapayagan ang sinuman na gawin iyon.</p>
+
+  <h2 id="storage">5. Saan iniimbak ang impormasyon mo</h2>
+
+  <p>Pinapatakbo ang Vardfolk sa Estados Unidos, at iniimbak at pinoproseso ang impormasyon mo sa Estados Unidos. Inaalok ang Mga Serbisyo sa mga tao sa Estados Unidos; kung gagamitin mo ang mga ito mula sa ibang lugar, nauunawaan mong ililipat at ipoproseso ang impormasyon mo sa Estados Unidos.</p>
+
+  <p><strong>Isang offline na kopya sa telepono mo.</strong> Para makita mo pa rin ang mahahalaga kahit walang koneksyon, nag-iingat ang Vardfolk iPhone at Android app ng naka-encrypt na kopya ng ilang impormasyon ng circle mo sa device mo: ang mga detalye ng Care Sheet ng inaalagaan (kasama ang mga tala sa pag-aalaga), mga allergy, mga aktibong gamot at mga dosis ngayong araw (kasama kung sino ang nag-log), ang mga appointment sa susunod na 14 na araw, mahahalagang contact, at mga pangalan ng miyembro. Iniingatan ng app ang kopyang ito para sa hanggang tatlong circle at nire-refresh ito habang online ka. Ang kopyang hindi na-update nang 7 araw ay hindi kailanman ipinapakita, at binubura sa susunod na pagbukas ng app nang walang koneksyon. Hindi kasama ang kopya sa mga backup ng device at hindi kailanman ipinapadala kahit saan. Binubura ito kapag nag-sign out ka (kasama kapag binura mo ang account mo) at kapag ibang account ang nag-sign in sa parehong device. Binubura ang kopya ng isang circle kapag umalis ka rito, binura mo ito, o inalis ka rito — pinakahuli sa susunod na pag-refresh ng app ng mga kopya nito online, o kapag nag-expire ang kopya. Kapag nag-sign out ka, kinakalimutan din ng app ang circle na huli mong binuksan at anumang email address na naalala nito para sa pag-reset ng password, kinakansela ang pang-araw-araw na paalala sa check-in, at tumitigil ang telepono sa pagtanggap ng mga notification ng account na ito; ang Care Journey PDF na ibinabahagi mo mula sa app ay inaalis sa telepono kapag nagsara ang share sheet. Hindi kailanman iniimbak ng web app ang kopyang ito.</p>
+
+  <p><strong>Mga pagbabagong papunta sa amin.</strong> Kapag gumawa ka ng pagbabago sa iPhone o Android app, iniingatan ito ng app, naka-encrypt, sa telepono mo hanggang makarating ito sa aming mga server, kadalasan sa loob ng ilang segundo. Kung na-sign out ka nang hindi mo pinili, ang pagbabagong hindi pa nakakarating sa amin ay iniingatan, naka-encrypt, nang hanggang 7 araw para maipadala kung mag-sign in kang muli, at pagkatapos ay binubura. Ang pag-sign out mo mismo, ang pagbura ng account mo, o ang pag-sign in ng ibang account sa telepono ay agad na nagbubura nito.</p>
+
+  <h2 id="retention">6. Gaano katagal namin iniingatan ang impormasyon mo</h2>
+
+  <p>Iniingatan namin ang impormasyon mo habang aktibo ang account mo o habang kailangan para maibigay ang Mga Serbisyo. Kapag binura ang impormasyon (tingnan ang Seksyon 7), agad itong inaalis sa aming mga aktibong system. Maaaring manatili ang mga kopya nang limitadong panahon pagkatapos: sa mga backup ng aming database provider, na napapalitan sa loob ng 7 araw; sa aming naka-encrypt na mga file backup, nang hanggang 90 araw; at sa aming email provider, na nag-iingat ng tala ng bawat email na inihahatid nito nang limitadong panahon na itinakda ng plan nito. Binubura ng aming AI provider ang ipinapadala namin sa loob ng 30 araw (Seksyon 3), at nag-iingat ang aming authentication provider ng security log ng mga pag-sign in nang limitadong panahon. Ang notification na natanggap ng ibang miyembro tungkol sa ginawa mo, at ang preview na dala nito, ay iniingatan nang hindi hihigit sa 90 araw. Iniingatan namin ang mga email ng report nang hanggang isang taon, ang mga tala ng mga pahintulot mo at ng pagsang-ayon mo sa mga tuntunin ng subscription nang hindi bababa sa tatlong taon, ang pinirmahang pahintulot ng inaalagaan at ang tala nito nang hindi bababa sa tatlong taon matapos itong magwakas, at limitadong impormasyon kung kailangan para sumunod sa mga obligasyong legal, lutasin ang mga hidwaan o ipatupad ang aming mga kasunduan, gaya ng inilalarawan sa Seksyon 7.</p>
+
+  <h2 id="deletion">7. Pagbura ng impormasyon at account mo</h2>
+
+  <p>Maaari mong burahin ang account mo anumang oras mula sa app — Mga Setting → Account → Danger Zone, o, kung hindi ka pa sumasali sa isang circle, ang Danger Zone sa ilalim ng Mag-sign out sa screen na “Gumawa ng iyong care circle” — o sa pagsulat sa amin sa <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Kung hihilingin mo ito sa email, kukumpirmahin muna namin na galing sa iyo ang kahilingan sa pamamagitan ng pagpapadala ng code sa email address ng account mo (para sa mga account na Sign in with Apple, nakakarating pa rin sa iyo ang relay address na ibinigay sa amin ng Apple), pagkatapos ay buburahin ang account at kukumpirmahin pabalik sa email; maglaan ng hanggang 7 araw. Ito ang nangyayari kapag binura mo ang account mo:</p>
+
+  <ul>
+    <li><strong>Kung ikaw lang ang miyembro ng isang care circle,</strong> permanenteng binubura ang circle na iyon at lahat ng datos nito — kasama ang mga task, appointment, gamot, entry sa journal, mensahe, contact, at ang <strong>mga na-upload na file na iniimbak para sa circle na iyon</strong> — maliban sa mga tala ng pahintulot at pagsang-ayon na inilarawan sa Seksyon 6.</li>
+    <li><strong>Kung may ibang miyembro ang care circle,</strong> nananatili ang circle at ang mga ibinabahaging tala nito para magamit pa rin ng ibang miyembro. Inaalis ang membership mo, at inaalis ang personal mong kaugnayan sa nilalamang ginawa mo (binubura ang pagiging may-akda mo). Ang mga komentong ipinost mo sa mga task, appointment at entry sa journal ay nakikita pa rin ng circle, pero hindi na nakapangalan sa iyo. Binubura ang mga wellbeing check-in mo, ang mga notification mo, at ang mga setting mo sa notification. Inaalis sa mga listahan ng notification ng ibang miyembro ang mga notification tungkol sa aktibidad mo.</li>
+    <li><strong>Kung ikaw lang ang administrator ng circle na may ibang miyembro pa,</strong> hihilingin sa iyong gawing administrator ang ibang miyembro, o alisin ang ibang miyembro, bago mo maburahin ang account mo — para hindi mawalan ng may-ari ang circle.</li>
+    <li>Binubura ang profile mo, ang authentication account mo, at ang mga device/push token mo.</li>
+    <li>May ilang talang iniingatan matapos burahin ang account mo: isang tala ng mga tuntunin at pahintulot na sinang-ayunan mo, na iniingatan nang tatlong taon; at ang mga tala ng pagsingil na iniingatan ng aming mga payment processor sa ilalim ng sarili nilang mga obligasyong legal. Hinihiling din namin sa aming subscription provider na burahin ang kasaysayan ng mga pagbili mo.</li>
+    <li>Kung nag-sign in ka gamit ang Apple, tinatapos din ng pagbura ng account mo mula sa iPhone app ang pahintulot ng Vardfolk sa Sign in with Apple, kaya hindi na lalabas ang Vardfolk sa mga app na gumagamit ng Apple Account mo; hihilingin ng app na kumpirmahin mo ito sa Apple nang isa pang beses bago burahin. Kung kakanselahin mo ang hakbang na iyon, buburahin pa rin ang account mo, at maaalis mo mismo ang pahintulot sa mga setting ng Apple Account mo.</li>
+    <li>Kung nag-subscribe ka sa Plus sa pamamagitan ng App Store o Google Play, hindi kinakansela ng pagbura ng account mo ang subscription na iyon; kanselahin muna ito sa store (dadalhin ka roon ng screen ng pagbura). Ang subscription na sinisingil ng Stripe ay kinakansela kapag binura ang account mo; kung hindi maabot ang Stripe sa sandaling iyon, naghihintay ang pagbura at maaari mong subukang muli.</li>
+  </ul>
+
+  <p>Maaari mo ring burahin ang mga indibidwal na dokumento, mensahe at iba pang item anumang oras, at burahin ang buong care circle na pinamamahalaan mo. Ang pagbura ng mensahe, Update o komento ay nag-aalis din ng preview nito sa mga listahan ng notification ng mga miyembro. Ang notification o email na nakarating na sa device o inbox ng isang miyembro ay hindi na mababawi. Ang mga file na nakakabit sa task o appointment ay nananatili sa Vault kapag binura ang task o appointment; maaari mo silang burahin doon. Ang mga provider na nag-iingat ng kopya para sa amin ay binubura ito ayon sa sarili nilang iskedyul, sa loob ng mga panahong inilarawan sa Seksyon 6, at kapag binura mo ang account mo, hinihiling namin sa aming payment processor at sa aming subscription provider na burahin ang iniingatan nila tungkol sa iyo. Maaaring hilingin sa amin ng <strong>inaalagaan</strong> na burahin ang impormasyong iniingatan ng isang circle tungkol sa kanya, miyembro man siya o hindi (Seksyon 10).</p>
+
+  <h2 id="security">8. Paano namin pinoprotektahan ang impormasyon mo</h2>
+
+  <p>Gumagamit kami ng mga hakbang na teknikal at pang-organisasyon na idinisenyo para protektahan ang impormasyon mo, kasama ang encryption habang ipinapadala at habang nakaimbak, mga kontrol sa access na limitado sa kailangan ng bawat tao at provider, two-factor authentication, at authentication sa bawat request. Walang paraan ng pagpapadala o pag-iimbak na ganap na ligtas, kaya hindi namin magagarantiya ang lubos na seguridad. Responsibilidad mong panatilihing kumpidensyal ang mga kredensyal ng account mo. <strong>Kung may insidente sa seguridad na makakaapekto sa impormasyon mo, sasabihin namin sa iyo</strong> — sa email sa address ng account mo at sa isang abiso sa app — sa loob ng panahong hinihingi ng batas, at sasabihin namin kung ano ang nangyari, anong impormasyon ang kasama, ano ang ginagawa namin at ano ang maaari mong gawin.</p>
+
+  <h2 id="children">9. Privacy ng mga bata</h2>
+
+  <p>Para sa mga nasa hustong gulang (18 pataas) na nag-uugnay ng pag-aalaga ang Mga Serbisyo. Hindi kami sadyang kumokolekta ng personal na impormasyon mula sa mga batang wala pang 18. Ang impormasyon ng inaalagaan ay inilalagay ng mga nasa hustong gulang na miyembro ng care circle. Sa iPhone, kung saan hinihingi ng batas, itinatanong ng app sa Apple kung 18 taong gulang ka na o higit pa; hindi kailanman iniimbak o ipinapadala sa amin ang sagot. Kung naniniwala kang may batang wala pang 18 na nagbigay sa amin ng personal na impormasyon, sumulat sa <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> at buburahin namin ito. Kung malalaman naming wala pang 13 ang may-ari ng account, binubura namin ang account.</p>
+
+  <h2 id="rights">10. Ang mga karapatan mo sa privacy</h2>
+
+  <p>Depende sa kung saan ka nakatira, maaaring may karapatan kang:</p>
+
+  <ul>
+    <li>Kumpirmahin kung may hawak kaming personal na impormasyon tungkol sa iyo, at ma-access ito, kasama ang anumang na-infer namin mula rito;</li>
+    <li>Itama ang maling impormasyon;</li>
+    <li>Burahin ang impormasyon mo;</li>
+    <li>Makatanggap ng kopya ng impormasyon mo sa portable na format;</li>
+    <li>Bawiin ang pahintulot kung nakabatay sa pahintulot ang pagproseso, nang kasindali ng pagbibigay mo nito;</li>
+    <li>Tumanggi sa pagbebenta o pagbabahagi ng personal na impormasyon (tandaan: hindi kami nagbebenta o nagbabahagi ng personal na impormasyon para sa advertising); at</li>
+    <li>Umapela sa desisyon namin tungkol sa isang kahilingan sa privacy.</li>
+  </ul>
+
+  <p>Para gamitin ang alinman sa mga karapatang ito, mag-email sa <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a>. Maaari mong bawiin ang pahintulot mo sa pagkolekta o pagbabahagi namin ng impormasyon sa kalusugan anumang oras sa Mga Setting → Account → Mga Pahintulot. Kukumpirmahin namin na galing sa iyo ang kahilingan (para sa mga miyembro, sa pamamagitan ng email ng account mo; para sa iba, sa pamamagitan ng administrator ng circle o iba pang makatwirang hakbang), at tutugon nang walang labis na pagkaantala at sa loob ng 45 araw; kung kailangan namin ng mas matagal, maaari kaming kumuha ng isa pang 45 araw at sasabihin namin kung bakit. Hindi ka namin itatrato nang iba dahil sa paggamit ng mga karapatan mo, at hindi mo kailanman kailangang gumawa ng account para gawin ito. Kung tatanggihan namin ang kahilingan, sasabihin namin kung bakit at kung paano umapela; ipadala ang apela sa <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> na may “Appeal” sa subject, at sasagot kami nang nakasulat sa loob ng 45 araw, kasama, kung tatanggihan namin ito, kung paano makikipag-ugnayan sa Attorney General ng estado mo. Maaaring gamitin ng isang guardian o conservator ang mga karapatang ito para sa taong responsibilidad nila. Ang kahilingan para sa impormasyon mo ay hindi kailanman kasama ang mga pribadong pinili ng ibang miyembro tungkol sa iyo, gaya ng kung sino ang nagtago sa iyo.</p>
+
+  <p><strong>Kung nag-iingat ang isang circle ng impormasyon tungkol sa iyo at hindi ka miyembro,</strong> sa iyo ang bawat karapatan sa seksyong ito: sumulat sa <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> at kukumpirmahin namin kung sino ka sa pamamagitan ng administrator ng circle o iba pang makatwirang hakbang. Sa ilalim ng batas ng California, maaari mo ring hilingin ang libreng kopya ng impormasyon sa kalusugan na iniingatan ng circle tungkol sa iyo. Kung pumirma ka ng pahintulot para iingatan at ibahagi ng isang circle ang impormasyon mo, maaari mo itong tapusin anumang oras — mula sa kopyang ipinadala namin sa iyo, sa Mga Setting → Account → Mga Pahintulot kung pumirma ka gamit ang Vardfolk account mo, o sa pagsulat sa amin; pagkatapos ay mawawalan ng access ang mga miyembro ng circle na iyon maliban sa mga administrator nito hanggang may mapirmahang bagong pahintulot.</p>
+
+  <p><strong>Estados Unidos — mga karapatan sa privacy ayon sa estado.</strong> Ang mga residente ng mga estadong may komprehensibong batas sa privacy (kasama ang California, Colorado, Connecticut, Virginia at iba pa) ay may mga karapatang inilarawan sa itaas. Ang mga residente ng Washington, Nevada at Connecticut ay may mga partikular na karapatan din sa datos ng kalusugan; inilalarawan ng aming <a href="/health-data-privacy-fil">Patakaran sa Privacy ng Datos ng Kalusugan ng Consumer</a> ang mga ito at kung paano gamitin. Hindi kami nagbebenta ng personal na impormasyon o nagbabahagi nito para sa cross-context behavioral advertising, hindi namin ginagamit o isinisiwalat ang sensitibong personal na impormasyon para sa mga layuning iba sa pagbibigay ng Mga Serbisyo, hindi kami gumagawa ng profile ng sinuman, at hindi namin ginagamit ang personal na datos para sanayin ang mga large language model. Maaaring magtalaga ang mga residente ng California ng awtorisadong ahente para gumawa ng mga kahilingan para sa kanila.</p>
+
+  <p><strong>Do Not Track.</strong> Hindi ka namin sinusubaybayan sa ibang mga website o app, kaya walang mababago ang signal na “Do Not Track”; hindi tumutugon dito ang aming Mga Serbisyo.</p>
+
+  <h2 id="changes">11. Mga pagbabago sa patakarang ito</h2>
+
+  <p>Maaari naming i-update ang Patakaran sa Privacy na ito paminsan-minsan. Kapag ginawa namin ito, babaguhin namin ang petsa ng “Huling na-update” sa itaas, at para sa mahahalagang pagbabago ay magbibigay kami ng karagdagang abiso sa app, at sa email kung may address ka sa amin. Kapag ang isang pagbabago ay gagamit sa bagong paraan ng impormasyong ibinigay mo na, hihingi muna kami ng pahintulot mo sa halip na umasa sa abiso. Ang patuloy mong paggamit ng Mga Serbisyo matapos ang update ay nangangahulugang tinatanggap mo ang binagong patakaran.</p>
+
+  <h2 id="contact">12. Makipag-ugnayan sa amin</h2>
+
+  <p>Kung may tanong o kahilingan ka tungkol sa Patakaran sa Privacy na ito o sa impormasyon mo, sumulat sa <a href="mailto:privacy@vardfolk.com">privacy@vardfolk.com</a> — Vardfolk, pinapatakbo ni Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, Estados Unidos; (619) 796-2567.</p>
+</main>
+
+<footer>
+  <a href="/" class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:3px;">
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(60 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(120 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.95" transform="rotate(180 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#D4785A" opacity="0.78" transform="rotate(240 36 36)"/>
+      <ellipse cx="36" cy="18" rx="5.5" ry="10.5" fill="#C4956A" opacity="0.82" transform="rotate(300 36 36)"/>
+      <circle cx="36" cy="36" r="9.5" fill="#1E1916"/>
+      <circle cx="36" cy="36" r="5.5" fill="#C4956A" opacity="0.55"/>
+    </svg><span>Vard</span><span style="color:#C4956A;">folk</span>
+  </a>
+  <div class="footer-links">
+    <a href="/#features">Features</a>
+    <a href="/#pricing">Pricing</a>
+    <a href="https://app.vardfolk.com">Sign in</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Service</a>
+    <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>
+    <span class="footer-copy">© 2026 Vardfolk</span>
+  </div>
+</footer>
+
+<script>
+  if (location.hash && document.fonts) document.fonts.ready.then(function () { var t = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (t) t.scrollIntoView(); });
+</script>
+</body>
+</html>

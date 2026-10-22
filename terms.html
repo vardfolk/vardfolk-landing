@@ -10,73 +10,248 @@
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-  :root {
-    --ochre: #C4956A; --ochre-light: rgba(196,149,106,0.12); --ochre-border: rgba(196,149,106,0.25);
-    --terracotta: #D4785A; --bark: #1E1916; --linen: #F5F0EB; --linen-deep: #EDE4D8; --linen-deeper: #E4D9CC;
-    --sand: #E8BC92; --text: #1E1916; --text-secondary: #6B5A4E; --text-muted: #A89278; --white: #FFFFFF;
-  }
-  /* The canvas below the document's end is cream, because both ends of this page
-     are cream — index.html and privacy.html carry the same declaration for the
-     same reason (42ae20d). It was UNSET here and happened to render right, via
-     the body background propagating to the canvas; stating it removes the
-     dependence on that. No overscroll-behavior rule on any of the three: with
-     linen at both ends there is nothing for the rubber-band to reveal. */
-  html { scroll-behavior: smooth; background-color: var(--linen); }
-  body { font-family: 'DM Sans', sans-serif; background: var(--linen); color: var(--text); -webkit-font-smoothing: antialiased; line-height: 1.65; }
 
+  :root {
+    --ochre: #C4956A;
+    --ochre-light: rgba(196,149,106,0.12);
+    --ochre-text: #8E6039; /* ochre for TEXT on linen: 4.8:1 (plain --ochre is 2.4:1) */
+    --card: #FBF8F4;       /* the intro card: warmer than white */
+    --card-rule: #DDB892;  /* the card's top bar: a lighter ochre */
+    --ochre-border: rgba(196,149,106,0.25);
+    --terracotta: #D4785A;
+    --bark: #1E1916;
+    --linen: #F5F0EB;
+    --linen-deep: #EDE4D8;
+    --linen-deeper: #E4D9CC;
+    --sand: #E8BC92;
+    --text: #1E1916;
+    --text-secondary: #6B5A4E;
+    --text-muted: #A89278;
+    --white: #FFFFFF;
+  }
+
+  /* ── The canvas below the document's end ──────────────────────────────
+     Cream, because both ends of this page are cream — index.html carries the
+     same declaration for the same reason (42ae20d). It was UNSET here, which
+     happened to render right: with no background on <html> the body's
+     propagates to the canvas. Stating it removes the dependence on that.
+
+     No `overscroll-behavior-y` here, and none on index either: with linen at
+     both ends there is no colour for the rubber-band to reveal, so the bounce
+     is restored rather than suppressed. */
+  html { scroll-behavior: smooth; background-color: var(--linen); }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--linen);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+  }
+
+  /* NAV (matches landing) */
   nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 2rem; height: 64px;
-    display: flex; align-items: center; justify-content: space-between;
-    background: rgba(245,240,235,0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(245,240,235,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--ochre-border);
   }
-  .nav-logo { font-family: 'Outfit', sans-serif; font-size: 1.25rem; font-weight: 500; color: var(--bark); text-decoration: none; letter-spacing: 0.01em; display: flex; align-items: center; }
+  .nav-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    display: flex;
+    align-items: center;
+  }
   .nav-logo span { color: var(--ochre); }
   .nav-logo svg { flex-shrink: 0; margin-right: 4px; }
   .nav-links { display: flex; align-items: center; gap: 2rem; }
-  .nav-links a { font-size: 0.875rem; color: var(--text-secondary); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+  .nav-links a {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
   .nav-links a:hover { color: var(--bark); }
-  .btn-nav { background: #B8865E; color: #fff !important; border: none; border-radius: 8px; padding: 0.5rem 1.1rem; font-size: 0.875rem; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+  .btn-nav {
+    background: #B8865E;
+    color: #fff !important;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
   .btn-nav:hover { background: #A67550; transform: translateY(-1px); }
 
-  .doc-wrap { max-width: 760px; margin: 0 auto; padding: 130px 1.5rem 80px; }
+  /* DOC */
+  .doc-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 130px 1.5rem 80px;
+  }
   .doc-header { margin-bottom: 2.5rem; }
-  .doc-eyebrow { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ochre); margin-bottom: 0.75rem; }
-  .doc-wrap h1 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 600; color: var(--bark); letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 0.5rem; }
-  .doc-updated { font-size: 0.9rem; color: var(--text-muted); font-weight: 300; }
-  .doc-wrap h2 { font-family: 'Outfit', sans-serif; font-size: 1.4rem; font-weight: 600; color: var(--bark); letter-spacing: -0.01em; margin: 2.75rem 0 0.85rem; padding-top: 1.5rem; border-top: 1px solid var(--linen-deeper); }
+  .doc-eyebrow {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ochre-text);
+    margin-bottom: 0.75rem;
+  }
+  .doc-wrap h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+  .doc-updated {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-wrap h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--bark);
+    letter-spacing: -0.01em;
+    margin: 2.75rem 0 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linen-deeper);
+  }
   .doc-wrap h2:first-of-type { border-top: none; padding-top: 0; }
-  .doc-wrap p { font-size: 1rem; color: var(--text-secondary); margin-bottom: 1rem; font-weight: 300; }
+  .doc-wrap h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--bark);
+    margin: 1.75rem 0 0.6rem;
+  }
+  .doc-wrap p {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
   .doc-wrap strong { color: var(--bark); font-weight: 500; }
   .doc-wrap ul { margin: 0 0 1.25rem 1.25rem; }
-  .doc-wrap li { font-size: 1rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 300; padding-left: 0.35rem; }
+  .doc-wrap li {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    padding-left: 0.35rem;
+  }
   .doc-wrap li::marker { color: var(--ochre); }
-  .doc-wrap a { color: var(--ochre); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-wrap a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
   .doc-wrap a:hover { color: var(--terracotta); }
-  .doc-intro { background: var(--white); border-radius: 14px; border-top: 3px solid var(--ochre); padding: 1.5rem 1.75rem; margin-bottom: 2rem; box-shadow: 0 2px 24px rgba(30,25,22,0.06); }
+
+  /* Legal L6: a link to a section (#ai, #rights) lands below the fixed 64px nav. */
+  .doc-wrap h2[id] { scroll-margin-top: 88px; }
+  /* Legal L6 (L-11): the Privacy and health-data pages in three languages — a div,
+     never a <nav> (this page's global nav rule is the fixed header). Each
+     link is the language named in itself, 44px tall; the current page is not a
+     link. Colours are this page's own (--ochre-text links, --bark current). */
+  .doc-langs { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; margin: 0 0 1.25rem; font-size: 0.9rem; }
+  .doc-langs a, .doc-langs span { display: inline-flex; align-items: center; min-height: 44px; }
+  .doc-langs a { color: var(--ochre-text); text-decoration: underline; text-underline-offset: 2px; }
+  .doc-langs span { color: var(--bark); font-weight: 500; }
+
+  .doc-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 0.95rem;
+  }
+  .doc-table th, .doc-table td {
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    border-bottom: 1px solid var(--linen-deeper);
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .doc-table th {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: var(--bark);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .doc-table td:first-child { color: var(--bark); font-weight: 500; white-space: nowrap; }
+
+  .doc-intro {
+    background: var(--card);
+    border-radius: 14px;
+    border-top: 3px solid var(--card-rule);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 24px rgba(30,25,22,0.06);
+  }
   .doc-intro p:last-child { margin-bottom: 0; }
 
-  /* FOOTER — the landing's, copied from index.html value for value. This page
-     kept a BARK slab under cream prose after 42ae20d moved the landing's footer
-     to the light palette, so the two legal pages and the page linking to them
-     ended differently. This repo has no shared stylesheet — each page inlines
-     its own <style> — so "shared" here means copied verbatim, as the nav
-     already is.
+  /* FOOTER — the landing's, copied from index.html value for value.
+     The comment above has said "matches landing" since this page was written and
+     stopped being true when 42ae20d moved the footer to the light palette: this
+     page kept a BARK slab under cream prose, so the two legal pages and the page
+     that links to them ended differently.
 
-     The safe-area padding comes with it and is the half that is not cosmetic:
-     the footer is the last element in the document, so with viewport-fit=cover
-     its box is what paints the home-indicator strip — but only if it pads into
-     it. index.html's note carries the full reasoning.
+     This repo has no shared stylesheet — each page inlines its own <style> — so
+     "shared" here means copied verbatim, which is what index.html and this file
+     have always done with the nav.
 
-     `.footer-logo span` is NEW here and is not new styling: index.html and
-     privacy.html both carry it, and without it this page's wordmark read "Vard"
-     in the logo colour and "folk" in ochre from its inline style, which on a
-     light footer would have left "Vard" in bark against two ochre siblings. */
-  footer { background: var(--linen); padding-top: 1.5rem; padding-right: max(2rem, env(safe-area-inset-right, 0px)); padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); padding-left: max(2rem, env(safe-area-inset-left, 0px)); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem; }
-  .footer-logo { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 500; color: var(--bark); text-decoration: none; display: flex; align-items: center; }
+     The safe-area padding comes with it, and it is the half that is not
+     cosmetic: the footer is the last element in the document, so with
+     viewport-fit=cover its box is what paints the home-indicator strip — but
+     only if it pads into it. Without that, the strip is the canvas colour under
+     the footer, which is the empty band index.html's note describes. */
+  footer {
+    background: var(--linen);
+    padding-top: 1.5rem;
+    padding-right: max(2rem, env(safe-area-inset-right, 0px));
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    padding-left: max(2rem, env(safe-area-inset-left, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .footer-logo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--bark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
   .footer-logo span { color: var(--ochre); }
   .footer-links { display: flex; gap: 1.75rem; flex-wrap: wrap; align-items: center; }
-  .footer-links a { font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; transition: color 0.2s; }
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
   .footer-links a:hover { color: var(--bark); }
   .footer-copy { font-size: 0.8rem; color: var(--text-secondary); font-weight: 300; white-space: nowrap; }
 
@@ -85,6 +260,8 @@
     .nav-links a:not(.btn-nav) { display: none; }
     .doc-wrap { padding: 110px 1.25rem 60px; }
     footer { flex-direction: column; align-items: flex-start; }
+    .doc-table { font-size: 0.85rem; }
+    .doc-table th, .doc-table td { padding: 0.55rem 0.6rem; }
   }
 </style>
 </head>
@@ -116,76 +293,159 @@
   <div class="doc-header">
     <div class="doc-eyebrow">Legal</div>
     <h1>Terms of Service</h1>
-    <p class="doc-updated">Last updated: June 18, 2026</p>
+    <p class="doc-updated">Last updated: October 22, 2026</p>
   </div>
 
   <div class="doc-intro">
-    <p>These Terms of Service (“Terms”) are a binding agreement between you and <strong>Vardfolk</strong> — operated by Vardfolk, a sole proprietorship, located in California, United States (“Vardfolk,” “we,” “us,” or “our”). They govern your use of our website at <a href="https://vardfolk.com">vardfolk.com</a>, our applications at app.vardfolk.com and on iOS and Android, and related services (together, the “Services”).</p>
-    <p>By creating an account or using the Services, you agree to these Terms and to our <a href="/privacy">Privacy Policy</a>. <strong>If you do not agree, do not use the Services.</strong> The Services are intended for users who are at least 18 years old. For questions, contact us at <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>.</p>
+    <p>These Terms of Service (“Terms”) are a binding agreement between you and <strong>Vardfolk, operated by Greg Dunn</strong>, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, United States (“Vardfolk,” “we,” “us,” or “our”). They govern your use of our website at <a href="https://vardfolk.com">vardfolk.com</a>, our applications at app.vardfolk.com and on iOS and Android, and related services (together, the “Services”).</p>
+    <p>By creating an account or using the Services, you agree to these Terms and to our <a href="/privacy">Privacy Policy</a>. <strong>If you do not agree, do not use the Services.</strong> The Services are intended for users who are at least 18 years old. The Services are offered to people in the United States; we do not currently offer them elsewhere. For questions, contact us at <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>.</p>
+    <p>These Terms are written in English. Where we provide a translation, it is for convenience, and the English version governs if the two differ.</p>
   </div>
 
   <h2>1. What Vardfolk is — and what it is not</h2>
+
   <p>Vardfolk is a <strong>care coordination platform</strong> that helps families and care teams organize and communicate around the care of an aging or ill loved one — tasks, appointments, medications, documents, messages, and updates, shared within a “care circle.”</p>
+
   <p><strong>Vardfolk is a coordination and organization tool only. It is not a medical provider, does not provide medical, clinical, pharmacological, or professional advice, and is not a substitute for the judgment of qualified healthcare professionals.</strong> Medications, allergies, appointments, and other health-related information are stored for coordination purposes only. Vardfolk does not provide drug-interaction checking, dosing guidance, or clinical decision support. Always rely on your healthcare providers and original documents for medical decisions.</p>
-  <p>Some Vardfolk features use artificial intelligence (described in our Privacy Policy). <strong>AI-assisted output can be inaccurate or incomplete and must not be relied upon for medical decisions.</strong> Always verify important information — especially dates, dosages, and medical details — against your original documents.</p>
-  <p>The Services are not tailored to comply with industry-specific regulations such as HIPAA or GLBA. If your use would be subject to such laws, you may not use the Services for that purpose.</p>
+
+  <p><strong>Medication reminders are a convenience.</strong> They depend on your phone’s settings and connection, stop when you sign out, and can be late or missed; they are never a substitute for the schedule your doctor or pharmacist gave you. “Due now,” “overdue” and “missed” mean only that no dose was logged against the schedule your circle entered.</p>
+
+  <p>Some Vardfolk features use artificial intelligence (described in our <a href="/privacy">Privacy Policy</a>). <strong>AI-assisted output can be inaccurate or incomplete and must not be relied upon for medical decisions.</strong> Always verify important information — especially dates, dosages, and medical details — against your original documents.</p>
+
+  <p>Vardfolk is made for families and the people who help them. It is <strong>not for use by health-care providers, home-care agencies, health plans, or anyone acting on their behalf</strong> to manage patient information, and it is not designed to comply with HIPAA, GLBA or other industry-specific laws. If your use would be subject to such laws, you may not use the Services for that purpose.</p>
 
   <h2>2. Your account</h2>
-  <p>You must provide accurate information when you register and keep it up to date. You are responsible for maintaining the confidentiality of your account credentials and for all activity under your account. Notify us promptly of any unauthorized use. We may reclaim usernames or remove accounts in appropriate circumstances.</p>
+
+  <p>You must provide accurate information when you register and keep it up to date. You are responsible for maintaining the confidentiality of your account credentials and for all activity under your account. Notify us promptly of any unauthorized use. We may reclaim usernames or remove accounts in appropriate circumstances. The email address on your account is how we send you account, security and legal notices, including any notice the law requires us to give you about your information.</p>
 
   <h2>3. Care circles, members, and your content</h2>
+
   <p>Vardfolk lets you create care circles and invite others to join with a role (administrator, contributor, or viewer). You control whom you invite.</p>
-  <p><strong>Your content.</strong> You retain ownership of the information and files you add to Vardfolk (“Your Content”). You grant Vardfolk a limited license to host, store, process, display, and transmit Your Content <strong>solely to operate and provide the Services to you and the members of your care circle</strong> — including processing through the service providers described in our Privacy Policy.</p>
-  <p><strong>Visibility.</strong> Your Content is shared with the members of your care circle according to their roles. It is <strong>not made public</strong> by Vardfolk and is not posted to any public area or third-party site. You are responsible for whom you invite into a circle and what you choose to share there.</p>
-  <p><strong>Responsibility for content.</strong> You represent that you have the right to add Your Content, including any information about a care recipient or third parties, and that doing so does not violate the law or the rights of others. Do not upload content that is unlawful, infringing, or that you do not have permission to share.</p>
+
+  <p><strong>Your content.</strong> You retain ownership of the information and files you add to Vardfolk (“Your Content”). You grant Vardfolk a limited license to host, store, process, display, and transmit Your Content <strong>solely to operate and provide the Services to you and the members of your care circle</strong> — including processing through the service providers described in our <a href="/privacy">Privacy Policy</a>.</p>
+
+  <p><strong>Visibility.</strong> Your Content is shared with the members of your care circle according to their roles. It is <strong>not made public</strong> by Vardfolk and is not posted to any public area or third-party site. You are responsible for whom you invite into a circle and what you choose to share there. Any member can report a message, update, comment, photo or file to us from within the app, and can hide another member’s messages, updates, and comments from their own view (see Section 4).</p>
+
+  <p><strong>The person being cared for.</strong> Most of what a circle keeps is health information about someone who may not use the app. You represent that you are 18 or older and that you have the right to add Your Content. For information about the person being cared for, that means one of the following is true: they are you; they can make their own decisions and have given their permission, which the app asks you to record when you create the circle; or you are their legal representative (a parent of a minor, an agent under a health-care power of attorney, a conservator or guardian). If that permission is cancelled or expires, the circle pauses for everyone but its administrators and the person who signed it until a new one is signed. You and every member agree not to share what you see in a circle outside it, except as the person being cared for permits or the law requires. Do not upload content that is unlawful, infringing, or that you do not have permission to share.</p>
 
   <h2>4. Acceptable use</h2>
+
   <p>You agree not to:</p>
+
   <ul>
     <li>Use the Services for any unlawful purpose or in violation of these Terms;</li>
     <li>Access or attempt to access another user’s account or a care circle you have not been invited to;</li>
     <li>Interfere with, disrupt, or compromise the security or integrity of the Services;</li>
     <li>Scrape, data-mine, reverse engineer, or copy the Services except as permitted by law;</li>
     <li>Impersonate another person or misrepresent your affiliation;</li>
-    <li>Upload malicious code or use the Services to harass, abuse, or harm others.</li>
+    <li>Upload malicious code or use the Services to harass, abuse, or harm others;</li>
+    <li>Post or share objectionable content.</li>
   </ul>
-  <p>We may suspend or terminate access for violations.</p>
+
+  <p><strong>Objectionable content is not tolerated.</strong> By objectionable content we mean content that is abusive, threatening, harassing, hateful, sexually explicit, or violent; that urges someone to harm themselves; that exposes another person’s private information without permission; or that is an intimate image of anyone shared without their consent, including an image altered or generated by software — whether it is aimed at a member of your circle, the person you care for, or anyone else. Care circles are private and invite-only, and a circle’s administrators can remove any member at any time; anyone can leave a circle at any time.</p>
+
+  <p><strong>Checked before it is posted.</strong> Before a message, update, or comment is posted, the app checks it against a fixed list of slurs, sexually explicit harassment, and language urging someone to harm themselves. The check runs on your device and in our database; it uses no artificial intelligence, and nothing about it is recorded or sent to anyone. A post that fails the check is not sent: your text stays where you typed it, and you can edit it and try again. The list is short on purpose — ordinary swearing and medical and anatomical words are not on it, and what you say about your own feelings is never treated as urging harm. Vardfolk does not read or monitor what members post; the only things a person at Vardfolk reads are reports.</p>
+
+  <p><strong>Hiding a person.</strong> Any member can hide another member of a circle they share. Hiding is private and one-way: we do not tell the person, nothing changes for them or for anyone else in the circle, and you can undo it at any time by tapping them in Members and choosing Unhide. While someone is hidden, their messages, updates, and comments fold into a line that shows nothing of what they wrote, and you are not notified about them. What they log about the care itself — medicines and doses, tasks, appointments, and documents they add to the Vault, a task or an appointment — still shows, so that nobody misses a skipped dose or a moved appointment.</p>
+
+  <p><strong>Reporting.</strong> Any member, whatever their role, can report a message, update, comment, photo or file, or another member, from within the app. We look at every report within 24 hours of receiving it. Where we find a violation of these Terms, we may remove the content, remove the person from the circle, suspend or terminate their account, and, where the law requires or allows it, notify the authorities. We will not tell them who reported them unless the law requires us to.</p>
+
+  <p><strong>Removal.</strong> We may remove content, remove a member from a circle, or suspend or terminate an account that violates these Terms, whether or not anyone has reported it.</p>
 
   <h2>5. Subscriptions and payments</h2>
-  <p>Vardfolk offers a free tier and paid “Plus” subscriptions. Paid subscriptions are billed in advance on a recurring basis (monthly or annually) through our payment processor, Stripe, and <strong>renew automatically</strong> until canceled. Prices are in U.S. dollars and may change with notice.</p>
-  <p>You can cancel at any time from your account settings or by contacting us; cancellation takes effect at the end of your current paid period. Except where required by law, payments are non-refundable. Paid plans may include a free trial as described at sign-up; if you do not cancel before the trial ends, the subscription begins and you will be charged.</p>
+
+  <p>Vardfolk offers a free tier and a paid “Plus” subscription, billed monthly or annually. Where you subscribe decides who bills you, how you cancel, and how refunds work:</p>
+
+  <ul>
+    <li><strong>In the app from the App Store</strong>, Plus is sold as an in-app purchase. Payment is charged to your Apple Account through the App Store at the price shown in the app, which may vary by country.</li>
+    <li><strong>On the web</strong> (app.vardfolk.com), Plus is billed through our payment processor, Stripe, in U.S. dollars.</li>
+  </ul>
+
+  <p><strong>No free trial.</strong> Plus does not include a free trial. If the App Store or Google Play ever shows an introductory offer for Plus, its price, its length and the price after it are stated on the subscription screen before you subscribe.</p>
+
+  <p><strong>Renewal.</strong> Every Plus subscription <strong>renews automatically</strong> at the end of each monthly or annual period, at the price then in effect for your plan, until it is cancelled. On the App Store and Google Play, you will be charged for the next period unless you cancel at least 24 hours before the current period ends. On the web, cancel any time before your renewal date and you will not be charged again. We may change prices; we will tell you at least 7 days before a change takes effect, and it applies from your next renewal — the App Store and Google Play will ask you to agree to it where their rules require. For an annual subscription we will remind you before it renews.</p>
+
+  <p><strong>Cancelling.</strong> Cancellation always takes effect at the end of the period you have already paid for; you keep Plus until then.</p>
+
+  <ul>
+    <li>App Store: in your device’s Settings → Apple Account → Subscriptions, or from Settings → Billing → Manage subscription in the app.</li>
+    <li>Google Play: in the Play Store → Subscriptions, or from Settings → Billing → Manage subscription in the app.</li>
+    <li>Web: Cancel subscription in Settings → Billing, then confirm; or by email to <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>.</li>
+  </ul>
+
+  <p><strong>Restore purchases.</strong> A subscription bought through the App Store or Google Play belongs to your Apple Account or Google account, not to the phone. If you reinstall the app or move to a new device, tap Restore purchases on the Billing screen and Plus is restored.</p>
+
+  <p>Deleting your Vardfolk account does not cancel a subscription bought through the App Store or Google Play. Cancel it with the store first, or billing will continue; the deletion screen in the app takes you to the store’s subscription settings.</p>
+
+  <p><strong>Refunds.</strong> Purchases made through the App Store or Google Play are refunded by Apple or Google under their policies — ask them, not us; Vardfolk cannot issue those refunds, except where the law requires otherwise. For subscriptions billed by Stripe, payments are non-refundable except where the law requires otherwise; when you cancel, you keep Plus until the end of the period you have paid for. If you are charged twice for the same period, we refund the duplicate.</p>
+
+  <p>Plus is tied to your account, not to a circle: the circles where you are an administrator get its limits while your subscription is active. The free tier has no charge. Plus costs the price shown on the subscription screen before you subscribe.</p>
 
   <h2>6. Intellectual property</h2>
+
   <p>The Services — including the Vardfolk name, logo, software, design, and content we provide — are owned by Vardfolk and protected by intellectual property laws. We grant you a limited, non-exclusive, non-transferable, revocable license to use the Services for their intended purpose. This license does not include any right to copy, modify, distribute, or create derivative works from the Services except as permitted by law. If you send us feedback or suggestions, you grant us the right to use them without obligation to you.</p>
 
   <h2>7. Privacy</h2>
-  <p>Your use of the Services is also governed by our <a href="/privacy">Privacy Policy</a>, which is incorporated into these Terms. It describes how we collect, use, and share information, including our use of AI providers and other subprocessors.</p>
+
+  <p>Your use of the Services is also governed by our <a href="/privacy">Privacy Policy</a> and, for health information, our <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>, both of which are incorporated into these Terms. They describe how we collect, use, and share information, including our use of AI providers and other service providers.</p>
 
   <h2>8. Termination</h2>
-  <p>You may stop using the Services and delete your account at any time. We may suspend or terminate your access if you violate these Terms, if required by law, or to protect the Services or other users. What happens to care-circle data when you delete your account is described in our Privacy Policy. Provisions that by their nature should survive termination (including ownership, disclaimers, limitation of liability, and dispute resolution) will survive.</p>
+
+  <p>You may stop using the Services and delete your account at any time. We may suspend or terminate your access if you violate these Terms, if required by law, or to protect the Services or other users. What happens to care-circle data when you delete your account is described in our <a href="/privacy">Privacy Policy</a>. Provisions that by their nature should survive termination (including ownership, disclaimers, limitation of liability, and dispute resolution) will survive.</p>
 
   <h2>9. Disclaimers</h2>
-  <p>THE SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, OR THAT ANY INFORMATION (INCLUDING AI-ASSISTED OUTPUT) WILL BE ACCURATE OR COMPLETE. YOU USE THE SERVICES AT YOUR OWN RISK. <strong>Vardfolk does not provide medical advice and is not responsible for medical decisions made using the Services.</strong></p>
+
+  <p>THE SERVICES ARE PROVIDED “AS IS” AND “AS AVAILABLE,” WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. WE DO NOT WARRANT THAT THE SERVICES WILL BE UNINTERRUPTED, ERROR-FREE, OR SECURE, OR THAT ANY INFORMATION (INCLUDING AI-ASSISTED OUTPUT) WILL BE ACCURATE OR COMPLETE. YOU USE THE SERVICES AT YOUR OWN RISK. <strong>Vardfolk does not provide medical advice and is not responsible for medical decisions made using the Services.</strong> Some laws do not allow these disclaimers; where that is so, they apply only to the extent the law permits.</p>
 
   <h2>10. Limitation of liability</h2>
-  <p>TO THE FULLEST EXTENT PERMITTED BY LAW, VARDFOLK WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, ARISING FROM OR RELATED TO YOUR USE OF THE SERVICES. OUR TOTAL LIABILITY FOR ANY CLAIM RELATED TO THE SERVICES WILL NOT EXCEED THE GREATER OF THE AMOUNT YOU PAID US IN THE SIX (6) MONTHS BEFORE THE CLAIM, OR USD $100. Some jurisdictions do not allow certain limitations, so some of these may not apply to you.</p>
+
+  <p>TO THE FULLEST EXTENT PERMITTED BY LAW, NEITHER VARDFOLK NOR YOU WILL BE LIABLE TO THE OTHER FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY LOSS OF DATA, ARISING FROM OR RELATED TO THE SERVICES. VARDFOLK’S TOTAL LIABILITY FOR ALL CLAIMS RELATED TO THE SERVICES WILL NOT EXCEED THE GREATER OF THE AMOUNT YOU PAID US IN THE TWELVE (12) MONTHS BEFORE THE CLAIM, OR USD $100. These limits do not apply to death or personal injury caused by our negligence, to our fraud or willful misconduct, or to any liability that the law does not allow us to limit. Some jurisdictions do not allow certain limitations, so some of these may not apply to you.</p>
 
   <h2>11. Indemnification</h2>
+
   <p>You agree to indemnify and hold Vardfolk harmless from claims, damages, and expenses (including reasonable legal fees) arising from your misuse of the Services, your violation of these Terms, or your violation of the rights of others, including in connection with content you add to a care circle.</p>
 
   <h2>12. Governing law and dispute resolution</h2>
+
   <p>These Terms are governed by the laws of the State of California, without regard to its conflict-of-law principles.</p>
+
   <p><strong>Informal resolution first.</strong> If you have a dispute, contact us at <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a> and we will try in good faith to resolve it informally within 30 days.</p>
-  <p><strong>Arbitration.</strong> If we cannot resolve a dispute informally, it will be resolved by binding arbitration administered by the American Arbitration Association under its Commercial Arbitration Rules, on an individual basis, in San Diego, California. <strong>You and Vardfolk waive the right to a jury trial and to participate in a class action.</strong> Either party may bring an individual claim in small-claims court, and either party may seek injunctive relief for intellectual-property or unauthorized-access matters. Any claim must be brought within one (1) year.</p>
+
+  <p><strong>Arbitration.</strong> If we cannot resolve a dispute informally, it will be resolved by binding arbitration administered by the American Arbitration Association under its Consumer Arbitration Rules, on an individual basis. The arbitration will be held in San Diego County, California, by video or telephone, or by documents only, as those rules allow, and the arbitrator may award the same individual relief a court could. We will pay the filing, administrative and arbitrator fees the Consumer Arbitration Rules assign to a business, and we will pay each fee within 30 days of the date it is due. <strong>You and Vardfolk waive the right to a jury trial and to participate in a class action.</strong> Either party may bring an individual claim in small-claims court, and either party may seek injunctive relief in court for intellectual-property or unauthorized-access matters. Nothing in this section waives any right to seek public injunctive relief under California law; a claim for public injunctive relief will be heard in court after the arbitration of your individual claims. If the class-action waiver is found unenforceable as to a claim, that claim will be heard in court and the rest of this section still applies.</p>
+
+  <p><strong>Your right to opt out.</strong> You can opt out of this arbitration agreement by emailing <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a> within 30 days after you first accept these Terms, with your account email address and a statement that you opt out of arbitration. Opting out does not affect any other part of these Terms.</p>
+
+  <p><strong>Time to bring a claim.</strong> Any claim must be brought within one (1) year of the date you knew or reasonably should have known of the facts giving rise to it, except where the law does not allow that period to be shortened.</p>
 
   <h2>13. Changes to the Services and these Terms</h2>
+
   <p>We may modify, suspend, or discontinue any part of the Services at any time. We may also update these Terms; when we do, we will revise the “Last updated” date and, for material changes, provide notice (such as by email to the address associated with your account, or in the app). Your continued use after an update means you accept the revised Terms.</p>
 
-  <h2>14. Miscellaneous</h2>
-  <p>These Terms, together with the Privacy Policy, are the entire agreement between you and Vardfolk regarding the Services. If any provision is found unenforceable, the rest remains in effect. Our failure to enforce a provision is not a waiver. You may not assign these Terms without our consent; we may assign them in connection with a merger, acquisition, or sale of assets.</p>
+  <h2>14. Additional terms for the App Store app</h2>
 
-  <h2>15. Contact</h2>
-  <p>Vardfolk — <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a> — California, United States.</p>
+  <p>These terms apply when you use Vardfolk on an Apple device, in addition to the rest of this agreement.</p>
+
+  <ul>
+    <li><strong>Apple is not a party.</strong> This agreement is between you and Vardfolk only, not Apple. Apple is not responsible for the Vardfolk app or its content, and has no obligation to provide maintenance or support for it; Vardfolk alone does. Nothing in this agreement gives you usage rights that conflict with the Apple Media Services Terms and Conditions.</li>
+    <li><strong>Your license.</strong> Your license to the app is limited to a non-transferable license to use it on Apple-branded devices that you own or control, as permitted by the usage rules in the Apple Media Services Terms and Conditions, except that the app may be accessed and used by other accounts associated with the purchaser through Family Sharing or volume purchasing.</li>
+    <li><strong>Warranty.</strong> If the app fails to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price of the app to you. To the maximum extent permitted by law, Apple has no other warranty obligation for the app; any other claim, loss, liability, damage, cost or expense attributable to a failure to conform to a warranty is Vardfolk’s responsibility.</li>
+    <li><strong>Claims.</strong> Vardfolk, not Apple, is responsible for addressing any claim by you or a third party relating to the app or your possession or use of it, including product liability claims, any claim that the app fails to conform to a legal or regulatory requirement, and claims under consumer protection, privacy or similar laws. Nothing in this agreement limits Vardfolk’s liability to you beyond what applicable law permits.</li>
+    <li><strong>Intellectual property.</strong> If a third party claims that the app or your possession and use of it infringes that third party’s intellectual property rights, Vardfolk, not Apple, is solely responsible for investigating, defending, settling and discharging that claim.</li>
+    <li><strong>Legal compliance.</strong> You represent that you are not located in a country subject to a U.S. Government embargo or designated by the U.S. Government as a “terrorist supporting” country, and that you are not on any U.S. Government list of prohibited or restricted parties.</li>
+    <li><strong>Third-party terms.</strong> You must comply with any applicable third-party terms when using the app, such as your wireless data service agreement.</li>
+    <li><strong>Apple as third-party beneficiary.</strong> Apple and Apple’s subsidiaries are third-party beneficiaries of this agreement, and on your acceptance of it Apple has the right, and is deemed to have accepted the right, to enforce it against you as a third-party beneficiary.</li>
+    <li><strong>Who to contact.</strong> Questions, complaints or claims about the app go to Vardfolk, operated by Greg Dunn, 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, United States; (619) 796-2567; <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>.</li>
+  </ul>
+
+  <h2>15. Miscellaneous</h2>
+
+  <p>These Terms, together with the <a href="/privacy">Privacy Policy</a> and the <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>, are the entire agreement between you and Vardfolk regarding the Services. If any provision is found unenforceable, the rest remains in effect. Our failure to enforce a provision is not a waiver. You may not assign these Terms without our consent; we may assign them in connection with a merger, acquisition, or sale of assets. Nothing in these Terms limits your right to say what you think about Vardfolk.</p>
+
+  <h2>16. Contact, and a notice for California residents</h2>
+
+  <p>Vardfolk, operated by Greg Dunn — 970 Seacoast Dr, Ste 3, Imperial Beach, CA 91932, United States — (619) 796-2567 — <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>.</p>
+
+  <p>The free tier has no charge; Plus is charged at the price shown on the subscription screen before you subscribe (Section 5). To resolve a complaint about the Services or to receive more information about using them, contact us at <a href="mailto:hello@vardfolk.com">hello@vardfolk.com</a>. California residents may also reach the Complaint Assistance Unit of the Division of Consumer Services of the California Department of Consumer Affairs in writing at 1625 North Market Blvd., Suite N 112, Sacramento, CA 95834, or by telephone at (800) 952-5210.</p>
 </main>
 
 <footer>
@@ -206,7 +466,8 @@
     <a href="/#pricing">Pricing</a>
     <a href="https://app.vardfolk.com">Sign in</a>
     <a href="/privacy">Privacy Policy</a>
-    <a href="/terms">Terms of Service</a>
+    <a href="/terms" aria-current="page">Terms of Service</a>
+    <a href="/health-data-privacy">Consumer Health Data Privacy Policy</a>
     <span class="footer-copy">© 2026 Vardfolk</span>
   </div>
 </footer>
