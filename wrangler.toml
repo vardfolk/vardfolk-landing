@@ -5,7 +5,8 @@
 # and .assetsignore does the work of keeping non-content files out of the
 # upload.
 #
-# Replaces vercel.json, whose entire content was { "cleanUrls": true }.
+# Replaced vercel.json, whose entire content was { "cleanUrls": true } (removed
+# 2026-11-23, fix-1123v: Vercel serves nothing).
 
 name = "vardfolk-landing"
 compatibility_date = "2026-08-27"

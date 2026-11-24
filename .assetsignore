@@ -9,7 +9,6 @@
 .git
 .gitignore
 wrangler.toml
-vercel.json
 
 # Wrangler's local state/cache directory. Created by `wrangler dev`, and NOT
 # excluded automatically — before this line it was being uploaded, and
